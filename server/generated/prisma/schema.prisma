@@ -57,9 +57,9 @@ model Image {
 }
 
 model Category {
-  id         Int         @id @default(autoincrement())
-  name       String
-  products   Product[]
+  id        Int         @id @default(autoincrement())
+  name      String
+  products  Product[]
   promotions Promotion[]
 }
 
@@ -82,7 +82,6 @@ model Review {
   reported    Boolean  @default(false)
 }
 
-//PRODUCTO QUE SE PUEDE CUSTOMIZAR
 model CustomProduct {
   id             Int                      @id @default(autoincrement())
   baseProduct    Product                  @relation(fields: [baseProductId], references: [id])
@@ -100,13 +99,12 @@ model CustomOption {
 }
 
 //valores asociados a los criterios
-//ROJO, AZUL
 model CustomOptionValue {
   id         Int                      @id @default(autoincrement())
   value      String
   option     CustomOption             @relation(fields: [optionId], references: [id])
   optionId   Int
-  price      Float                    @default(0)
+  price  Float               @default(0)
   selections CustomProductSelection[]
 }
 
