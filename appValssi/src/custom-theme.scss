@@ -1,0 +1,88 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+@use "./app/styles/theme-colors" as theme;
+@use 'sass:map';
+
+
+html {
+  color-scheme: light;
+  //small
+  --mat-sys-body-small: 200 0.3rem / 1rem Roboto, sans-serif;
+  --mat-sys-body-small-font: Roboto, sans-serif;
+  --mat-sys-body-small-line-height: 1rem;
+  --mat-sys-body-small-size: 0.3rem;
+  --mat-sys-body-small-tracking: 0.016rem;
+  --mat-sys-body-small-weight: 200;
+  //medium
+  --mat-sys-body-medium: 400 0.875rem / 1.25rem Roboto, sans-serif;
+  --mat-sys-body-medium-font: Roboto, sans-serif;
+  --mat-sys-body-medium-line-height: 1.25rem;
+  --mat-sys-body-medium-size: 0.875rem;
+  --mat-sys-body-medium-tracking: 0.016rem;
+  --mat-sys-body-medium-weight: 400;
+  //large
+  --mat-sys-body-large: 600 1rem / 1.5rem Roboto, sans-serif;
+  --mat-sys-body-large-font: Roboto, sans-serif;
+  --mat-sys-body-large-line-height: 1.5rem;
+  --mat-sys-body-large-size: 1rem;
+  --mat-sys-body-large-tracking: 0.025rem;
+  --mat-sys-body-large-weight: 600;
+  /*https://v19.material.angular.dev/components/toolbar/styling*/
+  @include mat.toolbar-overrides((container-background-color: map.get(theme.$primary-palette, 40),
+    container-text-color: #f5f5f5
+
+    ));
+
+   
+  //Menu desplegable
+  @include mat.menu-overrides((container-color: map.get(theme.$primary-palette, 50),
+    ));
+
+  .footer {
+    @include mat.toolbar-overrides((container-background-color: map.get(theme.$tertiary-palette, 40),
+      ));
+  }
+
+  //desplegable select
+  @include mat.select-overrides((panel-background-color: rgba(0, 0, 0, 0.7)));
+
+  .bg-primary {
+    background-color: #{map.get(theme.$primary-palette, 50)};
+  }
+
+  .bg-secondary {
+    background-color: #{map.get(theme.$secondary-palette, 50)};
+  }
+
+  .bg-tertiary {
+    background-color: #{map.get(theme.$tertiary-palette, 50)};
+  }
+
+  .active-link {
+    background-color: #{map.get(theme.$primary-palette, 10)};
+    color: #{map.get(theme.$secondary-palette, 90)};
+  }
+
+  .card-header-secondary {
+    background-color: #{map.get(theme.$secondary-palette, 60)};
+    color: white;
+    padding-bottom: 0.5em;
+  }
+
+  .primary-title {
+    background-color: #{map.get(theme.$primary-palette, 60)};
+    font-weight: bold;
+  }
+
+  .secondary-title {
+    background-color: #{map.get(theme.$secondary-palette, 60)};
+    font-weight: bold;
+  }
+
+  .tertiary-title {
+    background-color: #{map.get(theme.$tertiary-palette, 60)};
+    font-weight: bold;
+  }
+
+}
