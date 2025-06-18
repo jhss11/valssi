@@ -1,13 +1,66 @@
-<mat-toolbar class="header">
-  <button matIconButton class="example-icon" aria-label="Example icon-button with menu icon">
+
+<mat-toolbar color="primary" class="header">
+  <!-- <button matIconButton class="example-header-image" matTooltip="AppVideojuegos"></button> -->
+  <button [matMenuTriggerFor]="menu1" matIconButton class="example-icon" matTooltip="Menu">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>Valssi</span>
-  <span class="example-spacer"></span>
-  <button matIconButton class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button matIconButton class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
+   
+  
+  <img class="logo" src="/images/valssi_logo_copia.png" alt="Logo Valssi" />
+
+  <span class="example-spacer2"></span>
+
+  <!-- MANTENIMIENTO -->
+<span class="menu-text" [matMenuTriggerFor]="menu2" matTooltip="Mantenimientos">Mantenimiento</span>
+<mat-menu #menu2="matMenu">
+  <button mat-menu-item>Opción de mantenimiento 1</button>
+  <button mat-menu-item>Opción de mantenimiento 2</button>
+</mat-menu>
+
+<!-- REPORTES -->
+  <span class="menu-text" [matMenuTriggerFor]="menu4" matTooltip="Reportes">Reportes</span>
+<mat-menu #menu4="matMenu">
+  <button mat-menu-item>Opción de reporte 1</button>
+  <button mat-menu-item>Opción de reporte 2</button>
+</mat-menu>
+
+<!-- AQUÍ VA LO DEL USUARIO Y CARRITO -->
+  <div class="example-spacer"></div>
+
+
+  <mat-menu #menu1="matMenu">
+    <button mat-menu-item [routerLink]="['/inicio']" routerLinkActive="active-link">Inicio</button>
+    <button mat-menu-item [routerLink]="['/aboutus']" routerLinkActive="active-link">Acerca de</button>
+    <button mat-menu-item>Productos</button>
+    <button mat-menu-item>Productos Personalizados</button>
+  </mat-menu>
 </mat-toolbar>
+
+
+
+
+
+  <!-- <div class="example-spacer"></div>
+  <div class="example-spacer">
+    <button matIconButton matBadgeColor="accent" [matBadge]="qtyItems.toString()" class="small-text">
+      <mat-icon [ngClass]="isAutenticated ? 'cart': ''">shopping_cart</mat-icon>
+    </button> -->
+    <!-- Menu de Usuario-->
+    <!-- <span class="small-text">{{ currentUser?.email}}</span> -->
+    <!-- <button matIconButton [matMenuTriggerFor]="menu3">
+      <mat-icon [ngStyle]="{'color':isAutenticated ? '#79f4ff':'#5bbc9d'}">person</mat-icon>
+    </button> -->
+    <!-- <mat-menu #menu3="matMenu">
+      @if(!isAutenticated){
+        <button mat-menu-item>
+          <mat-icon>person_add</mat-icon>
+          <span>Login</span>
+        </button>
+      }@else {
+        <button mat-menu-item>
+          <mat-icon>person_remove</mat-icon>
+          <span>Logout</span>
+        </button>
+      }
+    </mat-menu> -->
+  <!-- </div> -->
