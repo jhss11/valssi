@@ -134,6 +134,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   name: 'name',
   description: 'description',
   price: 'price',
+  createdAt: 'createdAt',
   stock: 'stock',
   averageRating: 'averageRating',
   categoryId: 'categoryId',
@@ -154,6 +155,13 @@ exports.Prisma.CategoryScalarFieldEnum = {
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
   name: 'name'
+};
+
+exports.Prisma.ReviewModerationRequestScalarFieldEnum = {
+  id: 'id',
+  reviewId: 'reviewId',
+  userId: 'userId',
+  reason: 'reason'
 };
 
 exports.Prisma.ReviewScalarFieldEnum = {
@@ -262,6 +270,10 @@ exports.Prisma.TagOrderByRelevanceFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.ReviewModerationRequestOrderByRelevanceFieldEnum = {
+  reason: 'reason'
+};
+
 exports.Prisma.ReviewOrderByRelevanceFieldEnum = {
   description: 'description'
 };
@@ -306,6 +318,7 @@ exports.Prisma.ModelName = {
   Image: 'Image',
   Category: 'Category',
   Tag: 'Tag',
+  ReviewModerationRequest: 'ReviewModerationRequest',
   Review: 'Review',
   CustomProduct: 'CustomProduct',
   CustomOption: 'CustomOption',
