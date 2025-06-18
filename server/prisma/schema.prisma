@@ -24,7 +24,9 @@ model User {
   reviews       Review[]
   orders        Order[]
   statusChanges OrderStatusLog[] @relation("AdminChanges")
+  moderationRequests ReviewModerationRequest[]
 }
+
 
 enum Role {
   ADMIN
@@ -36,6 +38,7 @@ model Product {
   name           String
   description    String
   price          Float
+  createdAt      DateTime               @default(now()) 
   stock          Int
   averageRating  Float           @default(0)
   images         Image[]
@@ -69,6 +72,15 @@ model Tag {
   products Product[]
 }
 
+model ReviewModerationRequest {
+  id         Int      @id @default(autoincrement())
+  review     Review   @relation(fields: [reviewId], references: [id])
+  reviewId   Int
+  user       User     @relation(fields: [userId], references: [id]) // Usuario que reporta
+  userId     Int
+  reason     String
+}
+
 model Review {
   id          Int      @id @default(autoincrement())
   user        User     @relation(fields: [userId], references: [id])
@@ -80,6 +92,7 @@ model Review {
   date        DateTime @default(now())
   isHidden    Boolean  @default(false)
   reported    Boolean  @default(false)
+  moderationRequests ReviewModerationRequest[]
 }
 
 model CustomProduct {

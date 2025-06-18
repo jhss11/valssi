@@ -15,15 +15,16 @@ datasource db {
 }
 
 model User {
-  id            Int              @id @default(autoincrement())
-  username      String           @unique
-  email         String           @unique
-  password      String
-  role          Role             @default(USER)
-  lastLogin     DateTime?
-  reviews       Review[]
-  orders        Order[]
-  statusChanges OrderStatusLog[] @relation("AdminChanges")
+  id                 Int                       @id @default(autoincrement())
+  username           String                    @unique
+  email              String                    @unique
+  password           String
+  role               Role                      @default(USER)
+  lastLogin          DateTime?
+  reviews            Review[]
+  orders             Order[]
+  statusChanges      OrderStatusLog[]          @relation("AdminChanges")
+  moderationRequests ReviewModerationRequest[]
 }
 
 enum Role {
@@ -36,6 +37,7 @@ model Product {
   name           String
   description    String
   price          Float
+  createdAt      DateTime        @default(now())
   stock          Int
   averageRating  Float           @default(0)
   images         Image[]
@@ -57,9 +59,9 @@ model Image {
 }
 
 model Category {
-  id        Int         @id @default(autoincrement())
-  name      String
-  products  Product[]
+  id         Int         @id @default(autoincrement())
+  name       String
+  products   Product[]
   promotions Promotion[]
 }
 
@@ -69,17 +71,27 @@ model Tag {
   products Product[]
 }
 
+model ReviewModerationRequest {
+  id       Int    @id @default(autoincrement())
+  review   Review @relation(fields: [reviewId], references: [id])
+  reviewId Int
+  user     User   @relation(fields: [userId], references: [id]) // Usuario que reporta
+  userId   Int
+  reason   String
+}
+
 model Review {
-  id          Int      @id @default(autoincrement())
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int
-  product     Product  @relation(fields: [productId], references: [id])
-  productId   Int
-  rating      Int
-  description String
-  date        DateTime @default(now())
-  isHidden    Boolean  @default(false)
-  reported    Boolean  @default(false)
+  id                 Int                       @id @default(autoincrement())
+  user               User                      @relation(fields: [userId], references: [id])
+  userId             Int
+  product            Product                   @relation(fields: [productId], references: [id])
+  productId          Int
+  rating             Int
+  description        String
+  date               DateTime                  @default(now())
+  isHidden           Boolean                   @default(false)
+  reported           Boolean                   @default(false)
+  moderationRequests ReviewModerationRequest[]
 }
 
 model CustomProduct {
@@ -104,7 +116,7 @@ model CustomOptionValue {
   value      String
   option     CustomOption             @relation(fields: [optionId], references: [id])
   optionId   Int
-  price  Float               @default(0)
+  price      Float                    @default(0)
   selections CustomProductSelection[]
 }
 
