@@ -1,0 +1,7 @@
+export enum OrderStatusModel {
+  CART = "CART",
+  PENDING_PAYMENT = "PENDING_PAYMENT",
+  PAID = "PAID",
+  IN_PREPARATION = "IN_PREPARATION",
+  DELIVERED = "DELIVERED"
+}
