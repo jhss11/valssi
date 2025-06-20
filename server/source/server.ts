@@ -28,13 +28,14 @@ app.use(
 );
 
 //---- Registro de rutas ----
-
 app.use(AppRoutes.routes)
 
 //Gestión de errores middleware
 app.use(ErrorMiddleware.handleError);
 
 //Acceso a las imágenes
+app.use("/images",express.static(
+  path.join(path.resolve(),"assets/uploads")))
 
 
 app.listen(port, () => {

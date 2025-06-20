@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   standalone: false,
   styleUrl: './app.css'
 })
+
+// ver si se puede poner solo Valssi
 export class App {
   protected title = 'appValssi';
 }
