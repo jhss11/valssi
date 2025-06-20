@@ -11,11 +11,14 @@ export class ProductController {
           createdAt: "desc",
         },
         select: {
-            id: true,
+          id: true,
           name: true,
           price: true,
-          category: {
-            select: { name: true },
+          averageRating: true,
+          images: {
+            select: { url: true },
+            take: 1,
+            orderBy: { id: "asc" }, // o "desc" para la última
           },
         },
       });
@@ -34,42 +37,42 @@ export class ProductController {
     try {
       let idProduct = parseInt(request.params.id);
       const product = await this.prisma.product.findUnique({
-  where: { id: idProduct },
-  select: {
-    id: true,
-    name: true,
-    description: true,
-    price: true,
-    averageRating: true, 
-    category: {
-      select: {
-        name: true,
-      },
-    },
-    tags: {
-      select: {
-        name: true,
-      },
-    },
-    images: {
-      select: {
-        url: true,
-      },
-    },
-    reviews: {
-      select: {
-        rating: true,
-        description: true,
-        date: true,
-        user: {
-          select: {
-            username: true,
+        where: { id: idProduct },
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          price: true,
+          averageRating: true,
+          category: {
+            select: {
+              name: true,
+            },
+          },
+          tags: {
+            select: {
+              name: true,
+            },
+          },
+          images: {
+            select: {
+              url: true,
+            },
+          },
+          reviews: {
+            select: {
+              rating: true,
+              description: true,
+              date: true,
+              user: {
+                select: {
+                  username: true,
+                },
+              },
+            },
           },
         },
-      },
-    },
-  },
-});
+      });
 
       response.json(product);
     } catch (error: any) {

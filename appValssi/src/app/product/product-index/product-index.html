@@ -1,0 +1,35 @@
+<h2 class="titulo">Productos</h2>
+<div class="productos-container">
+  @if (datos) {
+    @for (item of datos; track item.id) {
+      <div class="producto-card">
+        <mat-card >
+          <img
+            mat-card-image
+            [src]="'http://localhost:3000/images/'+ item.images?.[0]?.url || 'images/image-not-found'"
+            [alt]="item.name"
+          />
+
+          <div class="producto-info">
+            <h3 class="nombre">{{ item.name }}</h3>
+            <div class="precio">₡{{ item.price | number }}</div>
+
+            <div class="estrellas">
+              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                <mat-icon color="warn">
+                  {{ i < item.averageRating ? 'star' : 'star_border' }}
+                </mat-icon>
+              </ng-container>
+            </div>
+
+            <div class="rating">({{ item.averageRating }}.0)</div>
+
+            <div class="btn-contenedor">
+              <button mat-flat-button color="primary" (click)="verDetalle(item.id)">Ver detalle</button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    }
+  }
+</div>

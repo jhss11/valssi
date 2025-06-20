@@ -2,3 +2,33 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.success {
+  background-color: #4CAF50 !important; 
+  color: white !important;
+}
+
+.info {
+  background-color: #2196F3 !important;
+  color: white !important;
+}
+
+.warning {
+  background-color: #FFC107 !important;
+  color: black !important; 
+}
+
+.error {
+  background-color: #F44336 !important; 
+  color: white !important;
+}
+
+
+.mat-mdc-snack-bar-container.success .mat-mdc-button-base,
+.mat-mdc-snack-bar-container.info .mat-mdc-button-base,
+.mat-mdc-snack-bar-container.error .mat-mdc-button-base {
+  color: white !important;
+}
+
+.mat-mdc-snack-bar-container.warning .mat-mdc-button-base {
+  color: black !important;
+}
