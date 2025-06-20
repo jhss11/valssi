@@ -1,0 +1,144 @@
+.detalle-container {
+  display: flex;
+  max-width: 1000px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: white;
+  padding: 2rem;
+  gap: 10rem;
+}
+
+.producto-principal {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.imagenes-secundarias {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.imagenes-secundarias img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.producto-info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.etiquetas {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.etiqueta {
+  background-color: #e5e5e5;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #333;
+}
+
+.nombre {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+.categoria {
+  font-size: 1rem;
+  color: #666;
+}
+
+.categoria-tag {
+  background-color: #dcdcdc;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  margin-left: 4px;
+}
+
+.precio {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #111;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.estrellas mat-icon,
+.review-rating mat-icon {
+  color:#97890b;
+  font-size: 20px;
+}
+
+.rating-num {
+  font-size: 1rem;
+  color: #555;
+}
+
+.descripcion {
+  color: #444;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+hr {
+  margin: 1rem 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.review {
+  margin-bottom: 1rem;
+}
+
+.review strong {
+  font-weight: bold;
+  color: #333;
+}
+
+.fecha {
+  float: right;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.review-rating {
+  margin: 0.3rem 0;
+}
+
+.review p {
+  color: #444;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.imagenes-secundarias img {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.imagenes-secundarias img:hover {
+  transform: scale(1.05);
+}
+
+.imagenes-secundarias img.seleccionada {
+  border-color: #333;
+}
+

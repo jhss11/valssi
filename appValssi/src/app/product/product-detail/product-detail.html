@@ -1,0 +1,67 @@
+<div class="detalle-container">
+  @if (datos) {
+    <div class="producto-header">
+  <img
+    class="producto-principal"
+    [src]="imagenSeleccionada"
+    alt="Imagen principal"
+  />
+
+  <div class="imagenes-secundarias">
+    @for (img of datos.images; track img.url) {
+      <img
+        [src]="'http://localhost:3000/images/' + img.url"
+        alt="Imagen secundaria"
+        (click)="cambiarImagen(img.url)"
+        [class.seleccionada]="('http://localhost:3000/images/' + img.url) === imagenSeleccionada"
+      />
+    }
+  </div>
+</div>
+
+    <div class="producto-info">
+      <div class="etiquetas">
+        @for (tag of datos.tags; track tag.name) {
+          <span class="etiqueta">{{ tag.name }}</span>
+        }
+      </div>
+
+      <h2 class="nombre">{{ datos.name }}</h2>
+
+      <div class="categoria">
+        Categoría: <span class="categoria-tag">{{ datos.category.name }}</span>
+      </div>
+
+      <div class="precio">
+        ₡{{ datos.price | number }}
+        <span class="estrellas">
+          @for (i of [].constructor(5); track $index) {
+            <mat-icon color="warn">
+              {{ $index < datos.averageRating ? 'star' : 'star_border' }}
+            </mat-icon>
+          }
+        </span>
+        <span class="rating-num">({{ datos.averageRating.toFixed(1) }})</span>
+      </div>
+
+      <p class="descripcion">{{ datos.description }}</p>
+
+      <hr />
+
+      <h4>Opiniones de clientes</h4>
+      @for (review of datos.reviews; track review.date) {
+        <div class="review">
+          <strong>{{ review.user.username }}</strong>
+          <span class="fecha">{{ formatDate(review.date) }}</span>
+          <div class="review-rating">
+            @for (star of [].constructor(review.rating); track $index) {
+              <mat-icon color="warn">star</mat-icon>
+            }
+          </div>
+          <p>{{ review.description }}</p>
+          <hr />
+        </div>
+      }
+    </div>
+  }
+</div>
