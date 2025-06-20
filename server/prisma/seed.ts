@@ -11,31 +11,31 @@ const main = async () => {
     //Categories - no tiene relaciones
     await prisma.category.createMany({
       data: categories,
-      skipDuplicates: true 
+      skipDuplicates: true,
     });
 
     //Usuarios - no tiene relaciones
     await prisma.user.createMany({
       data: users,
-      skipDuplicates: true 
+      skipDuplicates: true,
     });
 
     //Etiquetas - no tiene relaciones
     await prisma.tag.createMany({
       data: tags,
-      skipDuplicates: true 
+      skipDuplicates: true,
     });
 
     //Etiquetas - no tiene relaciones
     await prisma.customOption.createMany({
       data: options,
-      skipDuplicates: true 
+      skipDuplicates: true,
     });
 
     //Etiquetas - no tiene relaciones
     await prisma.customOptionValue.createMany({
       data: customOptionValues,
-      skipDuplicates: true 
+      skipDuplicates: true,
     });
 
     // Instancias de productos Sala (categoríaId = 1)
@@ -228,6 +228,23 @@ const main = async () => {
         productId: 1,
         rating: 5,
         description: "Excelente calidad y muy cómodo.",
+      },
+    });
+    await prisma.review.create({
+      data: {
+        userId: 4,
+        productId: 2,
+        rating: 5,
+        description: "Muy funcional y fácil de ajustar. Lo recomiendo.",
+      },
+    });
+    await prisma.review.create({
+      data: {
+        userId: 5,
+        productId: 1,
+        rating: 3,
+        description:
+          "No es lo que esperaba, los colores son diferentes a la imagen.",
       },
     });
     await prisma.review.create({
