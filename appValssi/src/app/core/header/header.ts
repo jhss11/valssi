@@ -7,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrl: './header.css'
 })
 export class Header {
-
+qtyItems:Number=0
+  isAutenticated:boolean=false
+  currentUser:any
+  constructor() {
+    this.currentUser={
+      email:'jhasimarias@gmail.com'
+    }
+    
+  }
 }

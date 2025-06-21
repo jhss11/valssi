@@ -10,6 +10,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { ProductModule } from './product/product-module';
 //import { provideAnimations } from '@angular/platform-browser/animations';
 import { HttpErrorInterceptorService } from './share/http-error-interceptor.service';
+import { UserModule } from './user/user-module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import { HttpErrorInterceptorService } from './share/http-error-interceptor.serv
     ShareModule,
     HomeModule,
     ProductModule,
+    UserModule,
     AppRoutingModule,
+
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

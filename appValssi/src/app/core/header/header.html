@@ -24,8 +24,7 @@
   <button mat-menu-item>Opción de reporte 2</button>
 </mat-menu>
 
-<!-- AQUÍ VA LO DEL USUARIO Y CARRITO -->
-  <div class="example-spacer"></div>
+  <div class="example-spacer2"></div>
 
 
   <mat-menu #menu1="matMenu">
@@ -34,10 +33,33 @@
     <button mat-menu-item [routerLink]="['/product']" routerLinkActive="active-link">Productos</button>
     <button mat-menu-item>Productos Personalizados</button>
   </mat-menu>
+
+
+    <button matIconButton matBadgeColor="accent" [matBadge]="qtyItems.toString()" class="small-text">
+      <mat-icon [ngClass]="isAutenticated ? 'cart': ''">shopping_cart</mat-icon>
+    </button>
+    <!-- Menu de Usuario-->
+    <span class="small-text">{{ currentUser?.email}}</span>
+    <button matIconButton [matMenuTriggerFor]="menu3">
+      <mat-icon [ngStyle]="{'color':isAutenticated ? '#ffffff':'#9ab0aa'}">person</mat-icon>
+    </button>
+    <mat-menu #menu3="matMenu">
+      @if(!isAutenticated){
+        <button mat-menu-item>
+          <mat-icon>person_add</mat-icon>
+          <span>Login</span>
+        </button>
+      }@else {
+        <button mat-menu-item>
+          <mat-icon>person_remove</mat-icon>
+          <span>Logout</span>
+        </button>
+      }
+    </mat-menu>
 </mat-toolbar>
 
 
-
+<!-- AQUÍ VA LO DEL USUARIO Y CARRITO -->
 
 
   <!-- <div class="example-spacer"></div>

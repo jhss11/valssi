@@ -30,8 +30,21 @@
   color: white;
 }
 
+.active-link{
+  /* color: ; */
+  font-weight: bold;
+}
+
+
 .menu-text:hover {
   text-decoration: underline;
 
   
+}
+.cart{
+  color: #ffff;
+}
+
+.small-text{
+  font-size: var(--mat-sys-body-small);
 }

@@ -1,0 +1,48 @@
+2025-06-20 22:49:50.210 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.product.findUnique()` invocation in
+C:\Angular\valssi\server\source\controllers\productController.ts:39:49
+
+  36 ) => {
+  37   try {
+  38     let idProduct = parseInt(request.params.id);
+→ 39     const product = await this.prisma.product.findUnique({
+           where: {
+         +   id: Int
+           },
+           select: {
+             id: true,
+             name: true,
+             description: true,
+             price: true,
+             averageRating: true,
+             category: {
+               select: {
+                 name: true
+               }
+             },
+             tags: {
+               select: {
+                 name: true
+               }
+             },
+             images: {
+               select: {
+                 url: true
+               }
+             },
+             reviews: {
+               select: {
+                 rating: true,
+                 description: true,
+                 date: true,
+                 user: {
+                   select: {
+                     username: true
+                   }
+                 }
+               }
+             }
+           }
+         })
+
+Argument `id` is missing.
