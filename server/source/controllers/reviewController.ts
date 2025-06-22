@@ -11,6 +11,7 @@ export class ReviewController {
           date: "desc",
         },
         select: {
+          id: true,
           date: true,
           rating: true,
           user: {

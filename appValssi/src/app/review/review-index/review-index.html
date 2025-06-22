@@ -1,0 +1,27 @@
+<h2 class="titulo">Reseñas</h2>
+<div class="reviews-container">
+  <div class="tarjetas-grid">
+    @if(datos){ @for(data of datos; track data.id){
+    <mat-card class="tarjeta-review"> 
+        <div class="fecha">{{ data.date | date:'dd/MM/yyyy'}}</div>
+
+      <div class="contenido">
+        <p class="usuario" >Usuario: {{ data.user.username }}</p>
+
+        <div class="estrellas">
+          <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+            <mat-icon color="primary">
+              {{ i <= data.rating ? 'star' : 'star_border' }}
+            </mat-icon>
+          </ng-container>
+          <span class="promedio">({{ data.rating.toFixed(1) }})</span>
+        </div>
+
+       <div class="btn-contenedor">
+              <button mat-flat-button color="primary" (click)="verDetalle(data.id)">Ver detalle</button>
+            </div>
+      </div>
+    </mat-card>
+    } }
+  </div>
+</div>

@@ -47,6 +47,7 @@ const main = async () => {
           "Cómodo sofá reclinable, color beige, eléctrico. Con cojines incorporados en espaldar y asiento.",
         price: 89000,
         stock: 10,
+        averageRating: 4,
         category: { connect: { id: 1 } },
         images: {
           create: [
@@ -67,6 +68,7 @@ const main = async () => {
           "Conjunto de mesas auxiliares de vidrio, redondas y hermosas para decorar.",
         price: 31000,
         stock: 15,
+        averageRating: 5,
         category: { connect: { id: 1 } },
         images: {
           create: [{ url: "set-mesas-1.jpg" }, { url: "set-mesas-2.jpg" }],
@@ -83,6 +85,7 @@ const main = async () => {
           'Mueble soporte para TV de 59" con estantes, de madera, color blanco.',
         price: 98000,
         stock: 8,
+        averageRating: 4,
         category: { connect: { id: 1 } },
         images: {
           create: [{ url: "soporte-tv-1.jpg" }, { url: "soporte-tv-2.jpg" }],
@@ -106,6 +109,7 @@ const main = async () => {
             { url: "edredon-1.jpg" },
             { url: "edredon-2.jpg" },
             { url: "edredon-3.jpg" },
+            { url: "edredon-4.jpg" },
           ],
         },
         tags: { connect: [{ id: 1 }, { id: 2 }] },
@@ -193,6 +197,7 @@ const main = async () => {
           "Reloj minimalista de pared. Acabado en metal plateado envejecido. Números Romanos. Soporte de ojo de cerradura para colgar",
         price: 12000,
         stock: 30,
+        averageRating: 1,
         category: { connect: { id: 4 } },
         images: {
           create: [
@@ -228,6 +233,7 @@ const main = async () => {
         productId: 1,
         rating: 5,
         description: "Excelente calidad y muy cómodo.",
+        date: new Date("2025-01-10"),
       },
     });
     await prisma.review.create({
@@ -236,6 +242,7 @@ const main = async () => {
         productId: 2,
         rating: 5,
         description: "Muy funcional y fácil de ajustar. Lo recomiendo.",
+        date: new Date("2025-02-15"),
       },
     });
     await prisma.review.create({
@@ -245,6 +252,7 @@ const main = async () => {
         rating: 3,
         description:
           "No es lo que esperaba, los colores son diferentes a la imagen.",
+        date: new Date("2025-03-05"),
       },
     });
     await prisma.review.create({
@@ -253,6 +261,7 @@ const main = async () => {
         productId: 9,
         rating: 1,
         description: "Se rompió fácilmente el soporte para pegarlo a la pared.",
+        date: new Date("2025-04-01"),
       },
     });
     await prisma.review.create({
@@ -261,6 +270,7 @@ const main = async () => {
         productId: 3,
         rating: 4,
         description: "Buen soporte pero algo caro.",
+        date: new Date("2025-05-20"),
       },
     });
 
