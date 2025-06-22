@@ -1,0 +1,75 @@
+.titulo {
+  color: #355753;
+  margin-top: 3rem;
+  margin-left: 0, 5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.usuario{
+  font-size: 20px;
+  color: #000000;
+}
+
+.tarjetas-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px;
+  justify-items: center;
+}
+
+.tarjeta-review {
+  background-color:  #e8e4cf;
+  position: relative; 
+  width: 240px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  min-height: 220px;
+}
+
+mat-card:hover {
+  transform: translateY(-3px);
+}
+
+.fecha {
+  font-size: 14px;
+  color: #666;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+
+.contenido {
+  padding: 20px 10px 10px 10px;
+}
+
+.estrellas {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 5px 0;
+}
+
+mat-icon {
+  font-size: 24px;
+  color:#97890b;
+}
+
+.promedio {
+  font-size: 14px;
+  margin-left: 5px;
+  color: #97890b;
+}
+
+button[mat-flat-button] {
+  background-color: #355753;
+  color: white;
+  font-weight: 500;
+}
+
+.btn-contenedor {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+

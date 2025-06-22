@@ -1,0 +1,72 @@
+.review-detail {
+  max-width: 850px;
+  margin: 3rem auto;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 2.5rem;
+  font-size: 1.3rem;
+  line-height: 2.4rem; /* Aumenta espacio entre líneas */
+  background-color: white;
+}
+
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.usuario {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+  color: #2c2c2c;
+  
+}
+
+.fecha {
+  font-size: 1.1rem;
+  color: #777;
+}
+
+.producto {
+  margin-top: 18px;
+  font-size: 1.4rem;
+}
+
+.etiqueta {
+  background-color: #e0e0e0;
+  font-style: italic;
+  border-radius: 12px;
+  padding: 6px 14px;
+  margin-left: 10px;
+  font-size: 1.2rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.estrellas mat-icon {
+  color:#97890b;
+  font-size: 25px;
+}
+
+.valor {
+  margin-left: 16px;
+  font-size: 1.1rem;
+  color:#97890b;
+  font-weight: 500;
+}
+
+.comentario {
+  margin-top: 14px;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.divisor {
+  margin-top: 26px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}

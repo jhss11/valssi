@@ -32,6 +32,7 @@ export class ProductDetail {
       .subscribe((data: any) => {
         console.log(data);
         this.datos = data;
+        
         if (this.datos?.images?.length > 0) {
         this.imagenSeleccionada = 'http://localhost:3000/images/' + this.datos.images[0].url;
       } else {
@@ -46,11 +47,6 @@ export class ProductDetail {
   ngOnDestroy() {
     this.destroy$.next(true); // Emite un valor para notificar a 'takeUntil'
     this.destroy$.unsubscribe(); // Completa el Subject 'destroy$' para liberar recursos
-  }
-
-  formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('es-CR');
   }
 
   cambiarImagen(url: string): void {

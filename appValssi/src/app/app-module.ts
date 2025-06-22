@@ -11,6 +11,8 @@ import { ProductModule } from './product/product-module';
 //import { provideAnimations } from '@angular/platform-browser/animations';
 import { HttpErrorInterceptorService } from './share/http-error-interceptor.service';
 import { UserModule } from './user/user-module';
+import { ReviewModule } from './review/review-module';
+import { OrderModule } from './order/order-module';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,9 @@ import { UserModule } from './user/user-module';
     HomeModule,
     ProductModule,
     UserModule,
+    ReviewModule,
+    OrderModule,
     AppRoutingModule,
-
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

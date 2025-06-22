@@ -52,7 +52,7 @@
       @for (review of datos.reviews; track review.date) {
         <div class="review">
           <strong>{{ review.user.username }}</strong>
-          <span class="fecha">{{ formatDate(review.date) }}</span>
+          <span class="fecha">{{ review.date | date:'dd/MM/yyyy' }}</span>
           <div class="review-rating">
             @for (star of [].constructor(review.rating); track $index) {
               <mat-icon color="warn">star</mat-icon>

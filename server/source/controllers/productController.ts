@@ -22,7 +22,9 @@ export class ProductController {
           },
         },
       });
+
       response.json(products);
+      
     } catch (error) {
       next(error);
     }

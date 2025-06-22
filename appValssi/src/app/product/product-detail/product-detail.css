@@ -2,7 +2,7 @@
   display: flex;
   max-width: 1000px;
   margin: 2rem auto;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background-color: white;
   padding: 2rem;
   gap: 10rem;
@@ -67,7 +67,7 @@
   background-color: #dcdcdc;
   padding: 2px 8px;
   border-radius: 10px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin-left: 4px;
 }
 
@@ -82,13 +82,13 @@
 
 .estrellas mat-icon,
 .review-rating mat-icon {
-  color:#97890b;
-  font-size: 20px;
+  color: #97890b;
+  font-size: 25px;
 }
 
 .rating-num {
   font-size: 1rem;
-  color: #555;
+  color: #97890b;
 }
 
 .descripcion {
@@ -141,4 +141,3 @@ hr {
 .imagenes-secundarias img.seleccionada {
   border-color: #333;
 }
-

@@ -1,0 +1,95 @@
+.inicio-container {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e8e4cf;
+  padding: 5rem;
+  border-radius: 8px;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-texto {
+  max-width: 500px;
+}
+
+.hero-texto h1 {
+  color: #355753;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.hero-texto p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.hero-img {
+  width: 300px;
+  height: auto;
+  object-fit: contain;
+}
+
+.seccion-titulo {
+  color: #355753;
+  margin: 2rem 0 1rem 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.tarjetas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.tarjeta-producto {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+}
+
+.tarjeta-producto:hover {
+  transform: translateY(-3px);
+}
+
+.tarjeta-producto img {
+  height: 200px;
+  object-fit: contain;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.producto-info {
+  background-color: #e8e4cf;
+  padding: 1rem;
+}
+
+.nombre {
+  font-size: 1rem;
+  color: #2c3e50;
+  margin-bottom: 0.2rem;
+}
+
+.precio {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.btn-contenedor {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button[mat-flat-button] {
+  background-color: #355753;
+  color: white;
+  font-weight: 500;
+}

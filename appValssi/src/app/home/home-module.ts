@@ -5,6 +5,8 @@ import { HomeRoutingModule } from './home-routing-module';
 import { Inicio } from './inicio/inicio';
 import { AboutUs } from './about-us/about-us';
 
+import { MatButtonModule } from '@angular/material/button';
+
 
 @NgModule({
   declarations: [
@@ -13,6 +15,7 @@ import { AboutUs } from './about-us/about-us';
   ],
   imports: [
     CommonModule,
+    MatButtonModule,
     HomeRoutingModule
   ]
 })
