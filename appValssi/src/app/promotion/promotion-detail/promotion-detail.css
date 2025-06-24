@@ -1,0 +1,99 @@
+.promo-detalle-grid {
+  max-width: 900px;
+  margin: 5rem auto;
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+  padding: 2rem;
+  background-color: #fdfcf8;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.3s ease;
+}
+
+.promo-detalle-grid:hover {
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.promo-nombre {
+  color: #355753;
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.promo-chip {
+  display: inline-block;
+  padding: 0.6em 1.6em;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 0.6rem;
+}
+
+.divisor {
+  border: none;
+  height: 1px;
+  background-color: #ccc;
+  margin: 2rem 0;
+}
+
+.divisor2 {
+  border: none;
+  height: 0.5px;
+  background-color: #ccc;
+  margin: 0.2rem;
+}
+.promo-datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: space-between;
+}
+
+.col {
+  flex: 1 1 45%;
+}
+
+.dato {
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+strong {
+  color: #4e635e;
+}
+
+.volver-link {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.volver-link a {
+  color: #355753;
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+}
+
+.volver-link a::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: #355753;
+  width: 100%;
+  transition: width 0.3s ease;
+}
+
+.volver-link a:hover::after {
+  width: 0%;
+}
+

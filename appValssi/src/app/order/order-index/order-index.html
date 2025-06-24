@@ -1,29 +1,40 @@
-<h2 class="titulo">Pedidos</h2>
-
+<h2 class="titulo">Listado de Pedidos</h2>
+<h3 class="subtitulo">Historial de pedidos</h3>
 <div class="reviews-container">
   <div class="tarjetas-grid">
-    @if(datos) {
-      @for (pedido of datos; track pedido.id) {
-        <mat-card class="tarjeta-review">
-          <div class="fecha">{{ pedido.createdAt | date: 'dd/MM/yyyy' }}</div>
+    @if(datos) { @for (pedido of datos; track pedido.id) {
+    <mat-card class="tarjeta-review">
+      <div class="fecha">{{ pedido.createdAt | date: 'dd/MM/yyyy' }}</div>
 
-          <div class="contenido">
-            <p class="usuario">Usuario: {{ pedido.user.username }}</p>
-            <p class="estado">
-              {{ pedido.status === 'PENDING_PAYMENT' ? 'Pendiente' : pedido.status }}
-            </p>
-            <p class="total">Total: ₡{{ pedido.total | number: '1.0-0' }}</p>
+      <div class="contenido">
+        <p class="usuario">Usuario: {{ pedido.user.username }}</p>
 
-            <div class="btn-contenedor">
-              <button mat-flat-button color="primary" (click)="verDetalle(pedido.id)">
-                Ver detalle
-              </button>
-            </div>
-          </div>
-        </mat-card>
-      }
-    } @else {
-      <p>No hay pedidos para mostrar.</p>
+        <p class="total">Total: ₡{{ pedido.total | number: '1.0-0' }}</p>
+        <mat-chip
+          class="estado-chip"
+          [ngClass]="{
+    'chip-pendiente': pedido.status === 'PENDING_PAYMENT',
+    'chip-pagado': pedido.status === 'PAID',
+    'chip-cancelado': pedido.status === 'CANCELLED'
+  }"
+          selected
+        >
+          {{ pedido.status === 'PENDING_PAYMENT' ? 'Pendiente' : pedido.status
+          === 'PAID' ? 'Pagado' : 'Cancelado' }}
+        </mat-chip>
+        <div class="btn-contenedor">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="verDetalle(pedido.id)"
+          >
+            Ver detalle
+          </button>
+        </div>
+      </div>
+    </mat-card>
+    } } @else {
+    <p>No hay pedidos para mostrar.</p>
     }
   </div>
 </div>

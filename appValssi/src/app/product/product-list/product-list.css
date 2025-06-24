@@ -1,0 +1,93 @@
+.titulo {
+  color: #355753;
+  margin-top: 3rem;
+  margin-left: 9.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.productos-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  margin-bottom: 4%;
+}
+
+.producto-card {
+  width: 240px;
+}
+
+mat-card {
+  box-shadow: 0 -2px 9px rgba(0, 0, 0, 0.2), 0 4px 9px rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease;
+  margin-bottom: 3%;
+}
+
+mat-card:hover {
+  transform: translateY(-3px);
+}
+
+mat-card img {
+  height: 200px;
+  object-fit: contain;
+  background-color: #fff;
+}
+
+.producto-info {
+  background-color: #e8e4cf;
+  padding: 1rem;
+}
+
+.nombre {
+  font-size: 1.03rem;
+  margin: 0 0 0.3rem 0;
+  color: #2c3e50;
+}
+
+.precio {
+  font-weight: 580;
+  margin-bottom: 0.5rem;
+}
+
+.estrellas {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  margin-bottom: 0.2rem;
+  color: #97890b;
+}
+
+.rating {
+  font-size: 0.9rem;
+  color: #97890b;
+  margin-bottom: 0.5rem;
+}
+
+.btn-contenedor {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button[mat-flat-button] {
+  background-color: #355753;
+  color: white;
+  font-weight: 500;
+}
+.promo-chip {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.precio-original {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 0.5rem;
+}
+
+.precio-descuento {
+  color: #d32f2f;
+  font-weight: 580;
+}

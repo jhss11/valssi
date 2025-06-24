@@ -13,4 +13,5 @@ export interface PromotionModel {
   categoryId?: number | null;
   startDate: Date;
   endDate: Date;
+  status?: string;
 }
