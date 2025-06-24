@@ -18,7 +18,7 @@ export class ProductController {
           images: {
             select: { url: true },
             take: 1,
-            orderBy: { id: "asc" }, // o "desc" para la última
+            orderBy: { id: "asc" }, 
           },
         },
       });
@@ -109,7 +109,7 @@ export class ProductController {
           images: {
             select: { url: true },
             take: 1,
-            orderBy: { id: "asc" }, // o "desc" para la última
+            orderBy: { id: "asc" }, 
           },
           promotions: {
             where: {

@@ -6,6 +6,8 @@
   background-color: white;
   padding: 2rem;
   gap: 10rem;
+  padding: 2rem;
+  margin-bottom: 4%;
 }
 
 .producto-principal {
@@ -140,4 +142,27 @@ hr {
 
 .imagenes-secundarias img.seleccionada {
   border-color: #333;
+}
+
+button[mat-flat-button] {
+  display: inline-block;
+  margin: 0.5rem 0 3rem 0; 
+  padding: 0.6rem 1.2rem;
+  background-color:  #355753;
+  color: #e8e4cf;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+
+button[mat-flat-button]:hover {
+  background-color: #e8e4cf;
+  color: #355753;
+}
+
+.boton-centro {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
 }

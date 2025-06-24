@@ -4,8 +4,10 @@
     <span class="fecha">{{ datos.date | date:'dd/MM/yyyy' }}</span>
   </div>
 
+  
+
   <div class="producto">
-    <strong>Producto:</strong>
+    <span>Producto:</span>
     <span class="etiqueta">{{ datos.product.name }}</span>
   </div>
 
@@ -23,4 +25,7 @@
   <p class="comentario">{{ datos.description }}</p>
 
   <hr class="divisor" />
+</div>
+<div class="boton-centro">
+  <button mat-flat-button (click)="goBack()">Volver al listado de reseñas</button>
 </div>

@@ -1,9 +1,24 @@
 .titulo {
   color: #355753;
-  margin-top: 3rem;
-  margin-left: 0, 5rem;
-  font-size: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
   font-weight: 500;
+  margin-top: 3rem;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #555;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.reviews-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 1rem;
 }
 
 .usuario{
@@ -19,12 +34,17 @@
 }
 
 .tarjeta-review {
-  background-color:  #e8e4cf;
   position: relative; 
   width: 240px;
   padding: 1.5rem;
   box-sizing: border-box;
   min-height: 220px;
+  border-radius: 12px;
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.1),
+  0 -1px 4px rgba(0, 0, 0, 0.06);
 }
 
 mat-card:hover {
@@ -65,6 +85,7 @@ button[mat-flat-button] {
   background-color: #355753;
   color: white;
   font-weight: 500;
+  border-radius: 8px;
 }
 
 .btn-contenedor {
