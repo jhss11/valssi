@@ -2,10 +2,13 @@
   max-width: 850px;
   margin: 3rem auto;
   font-family: 'Segoe UI', sans-serif;
+  color: #333;
   padding: 2.5rem;
   font-size: 1.3rem;
-  line-height: 2.4rem; /* Aumenta espacio entre líneas */
+  line-height: 2.4rem;
   background-color: white;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
 }
 
 .cabecera {
@@ -69,4 +72,27 @@
   margin-top: 26px;
   border: none;
   border-bottom: 1px solid #ddd;
+}
+
+button[mat-flat-button] {
+  display: inline-block;
+  margin: 0.5rem 0 3rem 0; /* margen inferior más grande */
+  padding: 0.6rem 1.2rem;
+  background-color:  #355753;
+  color: #e8e4cf;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+
+button[mat-flat-button]:hover {
+  background-color: #e8e4cf;
+  color: #355753;
+}
+
+.boton-centro {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
 }

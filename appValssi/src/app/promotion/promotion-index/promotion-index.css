@@ -97,6 +97,7 @@ button[mat-flat-button] {
   background-color: #355753;
   color: white;
   font-weight: 500;
+  border-radius: 8px;
 }
 
 .no-promos {

@@ -41,7 +41,7 @@ export class ProductDetail {
       });
   }
   goBack(): void {
-    this.router.navigate(['/products/']);
+    this.router.navigate(['/product/']);
   }
   //Hook del ciclo de vida de Angular: se ejecuta cuando el componente va a ser destruido
   ngOnDestroy() {

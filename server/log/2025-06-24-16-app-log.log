@@ -1,0 +1,48 @@
+2025-06-24 16:31:56.318 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.product.findUnique()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\productController.ts:40:49
+
+  37 ) => {
+  38   try {
+  39     let idProduct = parseInt(request.params.id);
+→ 40     const product = await this.prisma.product.findUnique({
+           where: {
+         +   id: Int
+           },
+           select: {
+             id: true,
+             name: true,
+             description: true,
+             price: true,
+             averageRating: true,
+             category: {
+               select: {
+                 name: true
+               }
+             },
+             tags: {
+               select: {
+                 name: true
+               }
+             },
+             images: {
+               select: {
+                 url: true
+               }
+             },
+             reviews: {
+               select: {
+                 rating: true,
+                 description: true,
+                 date: true,
+                 user: {
+                   select: {
+                     username: true
+                   }
+                 }
+               }
+             }
+           }
+         })
+
+Argument `id` is missing.

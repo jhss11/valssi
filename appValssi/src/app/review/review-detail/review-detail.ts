@@ -33,7 +33,7 @@ export class ReviewDetail {
         });
     }
     goBack(): void {
-      this.router.navigate(['/reviews/']);
+      this.router.navigate(['/review/']);
     }
     //Hook del ciclo de vida de Angular: se ejecuta cuando el componente va a ser destruido
     ngOnDestroy() {

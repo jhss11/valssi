@@ -1,9 +1,16 @@
 .titulo {
   color: #355753;
-  margin-top: 3rem;
-  margin-left: 9.5rem;
-  font-size: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
   font-weight: 500;
+  margin-top: 3rem;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #555;
+  font-weight: 400;
+  margin-bottom: 1rem;
 }
 
 .productos-container {
@@ -74,6 +81,7 @@ button[mat-flat-button] {
   background-color: #355753;
   color: white;
   font-weight: 500;
+  border-radius: 8px;
 }
 .promo-chip {
   margin-left: 0.5rem;
