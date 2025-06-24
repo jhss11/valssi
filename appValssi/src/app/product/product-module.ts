@@ -17,11 +17,13 @@ import { ProductDetail } from './product-detail/product-detail';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ProductList } from './product-list/product-list';
 
 @NgModule({
   declarations: [
     ProductIndex,
-    ProductDetail
+    ProductDetail,
+    ProductList
   ],
   imports: [
     CommonModule,

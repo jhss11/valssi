@@ -1,9 +1,38 @@
 .titulo {
   color: #355753;
-  margin-top: 3rem;
-  margin-left: 0.5rem;
-  font-size: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
   font-weight: 500;
+  margin-top: 3rem;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #555;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.estado-chip {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.chip-pendiente {
+  background-color: #fbc02d;
+}
+
+.chip-pagado {
+  background-color: #4caf50;
+}
+
+.chip-cancelado {
+  background-color: #f44336;
 }
 
 .tarjetas-grid {
@@ -15,7 +44,12 @@
 }
 
 .tarjeta-review {
-  background-color: #e8e4cf;
+box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  background-color: #fdfcf8;
+
   position: relative;
   width: 240px;
   padding: 1.5rem;
@@ -50,6 +84,7 @@ mat-card:hover {
 .total {
   font-size: 16px;
   margin: 3px 0;
+  margin-bottom: 8%;
 }
 
 .btn-contenedor {
@@ -62,4 +97,6 @@ button[mat-flat-button] {
   background-color: #355753;
   color: white;
   font-weight: 500;
+  border-radius: 8px;
+  
 }

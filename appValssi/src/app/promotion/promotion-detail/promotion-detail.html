@@ -1,0 +1,58 @@
+<div class="promo-detalle-grid" *ngIf="promo">
+  <div class="header">
+    <h1 class="promo-nombre">{{ promo.name }}</h1>
+    <mat-chip
+      selected
+      class="estado-chip"
+      [ngStyle]="{ 'background-color': getStatusColor(promo.startDate, promo.endDate), 'color': '#fff' }"
+    >
+      {{ getPromotionStatus(promo.startDate, promo.endDate) }}
+    </mat-chip>
+  </div>
+  <hr class="divisor" />
+
+  <div class="promo-datos">
+    <div class="col">
+      <div class="dato">
+        <strong>Tipo de promoción:</strong>
+        {{ promo.product ? 'Producto' : promo.category ? 'Categoría' : 'General'
+        }}
+        <hr class="divisor2" />
+      </div>
+
+      <div class="dato" *ngIf="promo.product">
+        <strong>Aplica:</strong> {{ promo.product.name }}
+        <hr class="divisor2" />
+      </div>
+
+      <div class="dato" *ngIf="promo.category">
+        <strong>Aplica:</strong> {{ promo.category.name }}
+        <hr class="divisor2" />
+      </div>
+      <div class="dato">
+        <strong>Descuento:</strong>
+        {{ promo.type === 'PERCENTAGE' ? promo.amount + '%' : '₡' + promo.amount
+        }}
+        <hr class="divisor2" />
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="dato">
+        <strong>Fecha de inicio:</strong>
+        {{ promo.startDate | date: 'd MMM y' }}
+        <hr class="divisor2" />
+      </div>
+
+      <div class="dato">
+        <strong>Fecha de finalización:</strong>
+        {{ promo.endDate | date: 'd MMM y' }}
+        <hr class="divisor2" />
+      </div>
+    </div>
+  </div>
+
+  <div class="volver-link">
+    <a (click)="goBack()">← Volver al listado</a>
+  </div>
+</div>

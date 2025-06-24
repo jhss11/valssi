@@ -13,10 +13,11 @@ import { HttpErrorInterceptorService } from './share/http-error-interceptor.serv
 import { UserModule } from './user/user-module';
 import { ReviewModule } from './review/review-module';
 import { OrderModule } from './order/order-module';
+import { PromotionModule } from './promotion/promotion-module';
 
 @NgModule({
   declarations: [
-    App
+    App,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +28,9 @@ import { OrderModule } from './order/order-module';
     UserModule,
     ReviewModule,
     OrderModule,
+    PromotionModule,
     AppRoutingModule,
+
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

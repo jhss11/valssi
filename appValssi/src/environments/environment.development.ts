@@ -3,5 +3,7 @@ export const environment = {
     endPointProduct: 'products',
     endPointReview: 'reviews',
     endPointOrder: 'orders',
+    endPointPromotion: 'promotion',
+
 };
 

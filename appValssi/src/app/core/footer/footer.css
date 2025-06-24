@@ -1,5 +1,9 @@
 .footer {
   margin-top: auto;
+ position: fixed;
+  z-index: 5;
+  bottom: 0;
+  width: 100%;
   padding: 1em;
   color: white;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);

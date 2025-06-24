@@ -24,7 +24,6 @@ export class ProductController {
       });
 
       response.json(products);
-      
     } catch (error) {
       next(error);
     }
@@ -90,101 +89,51 @@ export class ProductController {
   //     }
   // };
 
-//   getWithPromotion = async (request: Request, response: Response, next: NextFunction) => {
-//   try {
-//     const now = new Date();
-
-//     const products = await this.prisma.product.findMany({
-//       orderBy: {
-//         createdAt: "desc",
-//       },
-//       include: {
-//         images: {
-//           select: { url: true },
-//           take: 1,
-//           orderBy: { id: "asc" }
-//         },
-//         promotions: {
-//           where: {
-//             startDate: { lte: now },
-//             endDate: { gte: now },
-//           },
-//         },
-//         category: {
-//           include: {
-//             promotions: {
-//               where: {
-//                 startDate: { lte: now },
-//                 endDate: { gte: now },
-//               },
-//             },
-//           },
-//         },
-//       },
-//     });
-//    response.json(products);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
-getWithPromotion = async (request: Request, response: Response, next: NextFunction) => {
-  try {
-    const now = new Date();
-const products = await this.prisma.product.findMany({
-  where: {
-    OR: [
-      {
-        promotions: {
-          some: {
-            startDate: { lte: now },
-            endDate: { gte: now }
-          }
-        }
-      },
-      {
-        category: {
+  getWithPromotion = async (
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const now = new Date();
+      const products = await this.prisma.product.findMany({
+       
+        orderBy: {
+          createdAt: "desc",
+        },
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          averageRating: true,
+          images: {
+            select: { url: true },
+            take: 1,
+            orderBy: { id: "asc" }, // o "desc" para la última
+          },
           promotions: {
-            some: {
+            where: {
               startDate: { lte: now },
-              endDate: { gte: now }
-            }
-          }
-        }
-      }
-    ]
-  },
-  orderBy: {
-    createdAt: "desc",
-  },
-  include: {
-    images: {
-      select: { url: true },
-      take: 1,
-      orderBy: { id: "asc" }
-    },
-    promotions: {
-      where: {
-        startDate: { lte: now },
-        endDate: { gte: now },
-      },
-    },
-    category: {
-      include: {
-        promotions: {
-          where: {
-            startDate: { lte: now },
-            endDate: { gte: now },
+              endDate: { gte: now },
+            },
+                
+
+          },
+          category: {
+            include: {
+              promotions: {
+                where: {
+                  startDate: { lte: now },
+                  endDate: { gte: now },
+                },
+              },
+            },
           },
         },
-      },
-    },
-  },
-});
-response.json(products);
-  } catch (error) {
-    next(error);
-  }
-};
-
+      });
+      response.json(products);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

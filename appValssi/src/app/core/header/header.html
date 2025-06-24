@@ -24,6 +24,14 @@
   <button mat-menu-item>Opción de reporte 2</button>
 </mat-menu>
 
+<span class="menu-text" [matMenuTriggerFor]="menu5" matTooltip="Listados">Listados</span>
+<mat-menu #menu5="matMenu">
+  <button mat-menu-item [routerLink]="['/review']" routerLinkActive="active-link">Reseñas</button>
+    <button mat-menu-item [routerLink]="['/promotion']" routerLinkActive="active-link">Promociones</button>
+    <button mat-menu-item [routerLink]="['/product/list']" routerLinkActive="active-link">Productos</button>
+    <button mat-menu-item [routerLink]="['/order']" routerLinkActive="active-link">Pedidos</button>
+</mat-menu>
+
   <div class="example-spacer2"></div>
 
 
@@ -31,8 +39,7 @@
     <button mat-menu-item [routerLink]="['/inicio']" routerLinkActive="active-link">Inicio</button>
     <button mat-menu-item [routerLink]="['/aboutus']" routerLinkActive="active-link">Acerca de</button>
     <button mat-menu-item [routerLink]="['/product']" routerLinkActive="active-link">Productos</button>
-    <button mat-menu-item [routerLink]="['/review']" routerLinkActive="active-link">Reseñas</button>
-    <button mat-menu-item [routerLink]="['/order']" routerLinkActive="active-link">Pedidos</button>
+    
   </mat-menu>
 
 
