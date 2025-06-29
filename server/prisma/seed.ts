@@ -290,7 +290,7 @@ const main = async () => {
         name: "Descuento set de macetas",
         type: PromoType.FIXED,
         amount: 2900,
-        productId: 5,
+        productId: 8,
         startDate: new Date("2025-06-10"),
         endDate: new Date("2025-07-10"),
       },
@@ -305,6 +305,16 @@ const main = async () => {
         endDate: new Date("2025-07-10"),
       },
     });
+    await prisma.promotion.create({
+      data: {
+        name: "Descuento por lanzamiento",
+        type: PromoType.FIXED,
+        amount: 5000,
+        productId: 7,
+        startDate: new Date("2025-05-14"),
+        endDate: new Date("2025-05-22"),
+      },
+    });
 
     // Orden 1 - Usuario 3
     const order1 = await prisma.order.create({
@@ -312,18 +322,22 @@ const main = async () => {
         userId: 3,
         address: "Alajuela centro, la corte",
         paymentMethod: "Efectivo",
-        subtotal: 11100,
-        total: 11500,
+        subtotal: 173300,
+        total: 195829,
         items: {
           create: [
-            { productId: 1, quantity: 2 },
-            { productId: 4, quantity: 1 },
+            { productId: 1, quantity: 2, price: 151300 },
+            { productId: 4, quantity: 1, price: 22000 },
           ],
         },
       },
     });
     await prisma.orderStatusLog.create({
-      data: { orderId: order1.id, status: "DELIVERED", adminId: 1 },
+      data: { orderId: order1.id, status: "PENDING_PAYMENT", adminId: 1, changedAt: new Date("2025-06-01")},
+    });
+    await prisma.orderStatusLog.create({
+      data: { orderId: order1.id, status: "DELIVERED", adminId: 1, changedAt: new Date("2025-06-01") },
+      
     });
 
     // Orden 2 - Usuario 4
@@ -333,14 +347,17 @@ const main = async () => {
         address: "San José, Avenida Central",
         paymentMethod: "Tarjeta",
         subtotal: 12000,
-        total: 14900,
+        total: 13560,
         items: {
-          create: [{ productId: 9, quantity: 1 }],
+          create: [{ productId: 9, quantity: 1, price:12000 }],
         },
       },
     });
     await prisma.orderStatusLog.create({
-      data: { orderId: order2.id, status: "PAID", adminId: 2 },
+      data: { orderId: order2.id, status: "PENDING_PAYMENT", adminId: 1, changedAt:new Date("2025-06-12") },
+    });
+    await prisma.orderStatusLog.create({
+      data: { orderId: order2.id, status: "PAID", adminId: 2, changedAt: new Date("2025-06-13")},
     });
 
     // Orden 3 - Usuario 5
@@ -349,18 +366,21 @@ const main = async () => {
         userId: 5,
         address: "San Ramón, Alajuela",
         paymentMethod: "Efectivo",
-        subtotal: 37800,
-        total: 38000,
+        subtotal: 155900,
+        total: 176167,
         items: {
           create: [
-            { productId: 3, quantity: 1 },
-            { productId: 5, quantity: 1 },
+            { productId: 3, quantity: 1, price:98000 },
+            { productId: 5, quantity: 1, price: 280000 },
           ],
         },
       },
     });
     await prisma.orderStatusLog.create({
-      data: { orderId: order3.id, status: "IN_PREPARATION", adminId: 2 },
+      data: { orderId: order3.id, status: "PENDING_PAYMENT", adminId: 1, changedAt: new Date("2025-07-03") },
+    });
+    await prisma.orderStatusLog.create({
+      data: { orderId: order3.id, status: "IN_PREPARATION", adminId: 2, changedAt: new Date("2025-07-03") },
     });
 
     const baseProduct = await prisma.product.findFirst({
@@ -403,6 +423,7 @@ const main = async () => {
             orderId: order3.id, // Id de la orden ya creada
             customProductId: customProduct.id, // Id del producto personalizado creado
             quantity: 1, // Cantidad que quieras agregar
+            price: customProduct.totalPrice,
           },
         });
       }
