@@ -169,6 +169,7 @@ model OrderItem {
   productId       Int?
   customProduct   CustomProduct? @relation(fields: [customProductId], references: [id])
   customProductId Int?
+  price           Float
   quantity        Int
 }
 
