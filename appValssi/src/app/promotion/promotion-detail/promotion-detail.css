@@ -1,6 +1,6 @@
 .promo-detalle-grid {
   max-width: 900px;
-  margin: 5rem auto;
+   margin: 1rem auto;;
   font-family: "Segoe UI", sans-serif;
   color: #333;
   padding: 2rem;
@@ -72,28 +72,28 @@ strong {
   color: #4e635e;
 }
 
-.volver-link {
-  text-align: center;
-  margin-top: 4rem;
-}
-
-.volver-link a {
-  color: #355753;
-  font-weight: 500;
+button[mat-flat-button] {
+  display: inline-block;
+  margin: 1rem 0 1rem 0;
+  padding: 0.6rem 1.2rem;
+ border: 2px solid #355753;;
+  color:#355753;;
   text-decoration: none;
-  position: relative;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
-.volver-link a::after {
-  content: '';
-  display: block;
-  height: 2px;
-  background: #355753;
-  width: 100%;
-  transition: width 0.3s ease;
+
+button[mat-flat-button]:hover {
+  background-color: #e8e4cf;
+  color: #355753;
+  
 }
 
-.volver-link a:hover::after {
-  width: 0%;
+.boton {
+  max-width: 1000px;         
+  margin: 1rem auto 0 auto;  
+  display: flex;
+  justify-content: end;       
 }
 

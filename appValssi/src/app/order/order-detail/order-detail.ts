@@ -34,9 +34,11 @@ export class OrderDetail {
         this.pedido = data;
         this.productItems = this.pedido.items?.filter((i: any) => i.product) || [];
         this.customItems = this.pedido.items?.filter((i: any) => i.customProduct) || [];
+        console.log("Info", this.pedido);
       });
   }
 
+  
   // getPromotions(item: any): string {
   //   const promos: string[] = [];
   //   const baseProduct = item?.customProduct?.baseProduct || item?.product;
@@ -87,4 +89,5 @@ getPromotions(item: any): string {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
+
 }

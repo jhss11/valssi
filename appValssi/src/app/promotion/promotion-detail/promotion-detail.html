@@ -1,3 +1,6 @@
+<div class="boton">
+  <button mat-flat-button (click)="goBack()"> <mat-icon>arrow_back</mat-icon>Volver</button>
+</div>
 <div class="promo-detalle-grid" *ngIf="promo">
   <div class="header">
     <h1 class="promo-nombre">{{ promo.name }}</h1>
@@ -50,9 +53,5 @@
         <hr class="divisor2" />
       </div>
     </div>
-  </div>
-
-  <div class="volver-link">
-    <a (click)="goBack()">← Volver al listado</a>
   </div>
 </div>

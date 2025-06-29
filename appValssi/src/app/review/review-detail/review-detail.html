@@ -1,11 +1,14 @@
+<div class="boton">
+  <button mat-flat-button (click)="goBack()"> <mat-icon>arrow_back</mat-icon>Volver</button>
+</div>
 <div class="review-detail">
   <div class="cabecera">
     <h3 class="usuario">{{ datos.user.username }}</h3>
-    <span class="fecha">{{ datos.date | date:'dd/MM/yyyy' }}</span>
+    
   </div>
 
   
-
+<span class="fecha">Fecha de publicación: {{ datos.date | date:'dd MMM yyyy' }}</span>
   <div class="producto">
     <span>Producto:</span>
     <span class="etiqueta">{{ datos.product.name }}</span>
@@ -25,7 +28,4 @@
   <p class="comentario">{{ datos.description }}</p>
 
   <hr class="divisor" />
-</div>
-<div class="boton-centro">
-  <button mat-flat-button (click)="goBack()">Volver al listado de reseñas</button>
 </div>

@@ -36,7 +36,7 @@ export class ProductDetail {
         if (this.datos?.images?.length > 0) {
         this.imagenSeleccionada = 'http://localhost:3000/images/' + this.datos.images[0].url;
       } else {
-        this.imagenSeleccionada = 'assets/image-not-found.png'; // imagen de respaldo opcional
+        this.imagenSeleccionada = 'http://localhost:3000/images/image-not-found.png'; // imagen de respaldo opcional
       }
       });
   }
