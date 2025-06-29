@@ -1,6 +1,6 @@
 .review-detail {
   max-width: 850px;
-  margin: 3rem auto;
+   margin: 1rem auto;
   font-family: 'Segoe UI', sans-serif;
   color: #333;
   padding: 2.5rem;
@@ -76,10 +76,10 @@
 
 button[mat-flat-button] {
   display: inline-block;
-  margin: 0.5rem 0 3rem 0; /* margen inferior más grande */
+  margin: 1rem 0 1rem 0;
   padding: 0.6rem 1.2rem;
-  background-color:  #355753;
-  color: #e8e4cf;
+ border: 2px solid #355753;;
+  color:#355753;;
   text-decoration: none;
   border-radius: 8px;
   transition: background-color 0.3s ease;
@@ -89,10 +89,12 @@ button[mat-flat-button] {
 button[mat-flat-button]:hover {
   background-color: #e8e4cf;
   color: #355753;
+  
 }
 
-.boton-centro {
+.boton {
+  max-width: 1000px;         
+  margin: 1rem auto 0 auto;  
   display: flex;
-  justify-content: center;
-  margin-bottom: 3rem;
+  justify-content: end;       
 }

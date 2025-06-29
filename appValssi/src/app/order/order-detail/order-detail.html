@@ -1,3 +1,6 @@
+<div class="boton">
+  <button mat-flat-button (click)="goBack()"> <mat-icon>arrow_back</mat-icon>Volver</button>
+</div>
 <div class="invoice-container" style="width: 1050px; ">
     
   <div class="header">
@@ -76,7 +79,7 @@
         <td mat-cell *matCellDef="let item">
           <div style="margin-bottom: 3%; margin-top: 2%;" *ngFor="let opt of item.customProduct.customProducts">
             <strong>{{ opt.optionValue.option.name }}</strong>  - {{ opt.optionValue.value }}:
-            ₡{{ opt.optionValue.price  }}
+            ₡{{ opt.optionValue.price | number}}
           </div>
         </td>
       </ng-container>
@@ -89,7 +92,7 @@
       <ng-container matColumnDef="total">
         <th mat-header-cell *matHeaderCellDef>Total</th>
         <!-- Este precio va a ser el que tenga  -->
-        <td mat-cell *matCellDef="let item">₡{{ item.price  }}</td>
+        <td mat-cell *matCellDef="let item">₡{{ item.price | number}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="['name', 'quantity', 'basePrice', 'criteria', 'promotion', 'total']"></tr>
@@ -102,15 +105,15 @@
   <table class="summary-table">
     <tr>
       <td>Subtotal sin IVA</td>
-      <td>₡{{ pedido.subtotal  }}</td>
+      <td>₡{{ pedido.subtotal | number }}</td>
     </tr>
     <tr>
       <td>Impuestos (13%)</td>
-      <td>₡{{ pedido.subtotal * 0.13 }}</td>
+      <td>₡{{ pedido.subtotal * 0.13 | number }}</td>
     </tr>
     <tr class="total-row">
       <td><strong>Total</strong></td>
-      <td><strong>₡{{ pedido.total  }}</strong></td>
+      <td><strong>₡{{ pedido.total | number }}</strong></td>
     </tr>
   </table>
 </div>
