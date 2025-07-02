@@ -99,3 +99,8 @@ button[mat-flat-button] {
   color: #d32f2f;
   font-weight: 580;
 }
+
+button:hover {
+  background-color: #8ba7a4;
+  color: #355753;
+}

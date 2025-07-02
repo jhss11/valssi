@@ -94,3 +94,7 @@ button[mat-flat-button] {
   right: 10px;
 }
 
+button:hover {
+  background-color: #8ba7a4;
+  color: #355753;
+}

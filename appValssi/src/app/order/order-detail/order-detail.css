@@ -1,13 +1,18 @@
 .invoice-container {
-  padding: 20px;
+  padding: 60px;
   font-family: Arial, sans-serif;
+ box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+
 }
 
 h2{
   color: #355753;
  font-size: 1.6rem;
   font-weight: 600;
-  margin-top: 2rem;
+  margin-top: 0.6rem;
 }
 
 h3{
