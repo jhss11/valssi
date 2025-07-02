@@ -8,7 +8,11 @@ export class orderController {
     try {
       //Obtener lista de pedidos
       const orders = await this.prisma.order.findMany({
-        // Where OrterStatus sea distinto de cart
+        where: {
+        NOT: {
+          status: 'CART'
+        }
+      },
         select: {
           id: true,
           status: true,
@@ -17,6 +21,12 @@ export class orderController {
           user: {
             select: { username: true },
           },
+           statusLogs: {
+          where: { status: "PENDING_PAYMENT" },
+          select: { changedAt: true  },
+          orderBy: { changedAt: "asc" },
+          take: 1,
+        }
         },
       });
       response.json(orders);

@@ -4,24 +4,39 @@
   <div class="tarjetas-grid">
     @if(datos) { @for (pedido of datos; track pedido.id) {
     <mat-card class="tarjeta-review">
-      <div class="fecha">{{ pedido.createdAt | date: 'dd/MM/yyyy' }}</div>
+      <div class="fecha">{{ pedido.statusLogs?.[0]?.changedAt| date: 'dd/MM/yyyy' }}</div>
 
       <div class="contenido">
         <p class="usuario">Usuario: {{ pedido.user.username }}</p>
 
         <p class="total">Total: ₡{{ pedido.total | number: '1.0-0' }}</p>
         <mat-chip
-          class="estado-chip"
-          [ngClass]="{
+  class="estado-chip"
+  [ngClass]="{
     'chip-pendiente': pedido.status === 'PENDING_PAYMENT',
     'chip-pagado': pedido.status === 'PAID',
+    'chip-preparacion': pedido.status === 'IN_PREPARATION',
+    'chip-entregado': pedido.status === 'DELIVERED',
     'chip-cancelado': pedido.status === 'CANCELLED'
   }"
-          selected
-        >
-          {{ pedido.status === 'PENDING_PAYMENT' ? 'Pendiente' : pedido.status
-          === 'PAID' ? 'Pagado' : 'Cancelado' }}
-        </mat-chip>
+  selected
+>
+  {{
+    pedido.status === 'PENDING_PAYMENT'
+      ? 'Pendiente'
+      : pedido.status === 'PAID'
+      ? 'Pagado'
+      : pedido.status === 'IN_PREPARATION'
+      ? 'En preparación'
+      : pedido.status === 'DELIVERED'
+      ? 'Entregado'
+      : pedido.status === 'CANCELLED'
+      ? 'Cancelado'
+      : 'Desconocido'
+  }}
+</mat-chip>
+
+
         <div class="btn-contenedor">
           <button
             mat-flat-button

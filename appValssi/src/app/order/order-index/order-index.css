@@ -28,11 +28,20 @@
 }
 
 .chip-pagado {
-  background-color: #4caf50;
+  background-color: #4c6daf;
 }
 
 .chip-cancelado {
   background-color: #f44336;
+}
+.chip-preparacion {
+  background-color:#d0d746;
+  color: white;
+}
+
+.chip-entregado {
+  background-color: #4caf50;
+  color: white;
 }
 
 .tarjetas-grid {
@@ -99,4 +108,9 @@ button[mat-flat-button] {
   font-weight: 500;
   border-radius: 8px;
   
+}
+
+button:hover {
+  background-color: #8ba7a4;
+  color: #355753;
 }

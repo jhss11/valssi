@@ -105,3 +105,8 @@ button[mat-flat-button] {
   font-size: 1.1rem;
   color: #777;
 }
+
+button:hover {
+  background-color: #8ba7a4;
+  color: #355753;
+}

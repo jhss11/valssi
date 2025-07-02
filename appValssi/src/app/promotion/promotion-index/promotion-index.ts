@@ -45,10 +45,10 @@ export class PromotionIndex {
   }
 }
 
-getStatusColor(start: Date, end: Date): '#FF4D4D' | '#7ec1d6' | '#D3D3D3' {
+getStatusColor(start: Date, end: Date): '#FF4D4D' | '#7ec1d6' | '#b8b2b2' {
   const now = new Date();
   if (now >= new Date(start) && now <= new Date(end)) return '#FF4D4D'; // vigente
   if (now < new Date(start)) return '#7ec1d6'; // pendiente
-  return '#D3D3D3'; // finalizada
+  return '#b8b2b2'; // finalizada
 }
 }

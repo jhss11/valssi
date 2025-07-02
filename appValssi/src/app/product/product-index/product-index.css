@@ -83,3 +83,8 @@ button[mat-flat-button] {
   font-weight: 500;
   border-radius: 8px;
 }
+
+button:hover {
+  background-color: #8ba7a4;
+  color: #355753;
+}
