@@ -48,13 +48,13 @@
       <div class="col">
         <div class="dato">
           <strong>Fecha de inicio:</strong>
-          {{ promo.startDate | date: 'd MMM y' }}
+          {{ getFechaEnEspanol( promo.startDate ) }}
           <hr class="divisor2" />
         </div>
 
         <div class="dato">
           <strong>Fecha de finalización:</strong>
-          {{ promo.endDate | date: 'd MMM y' }}
+          {{ getFechaEnEspanol(promo.endDate) }}
           <hr class="divisor2" />
         </div>
       </div>

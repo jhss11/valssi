@@ -31,9 +31,9 @@
         </p>
         }
 
-        <p class="promo-dates">
-          Válido del {{ promo.startDate | date: 'd MMM. y' }} al {{
-          promo.endDate | date: 'd MMM. y' }}
+        <p style="line-height: 165%" class="promo-dates">
+          Válido del {{ getFechaEnEspanol( promo.startDate)}} al  
+          {{ getFechaEnEspanol(promo.endDate )}}
         </p>
 
         <div class="btn-contenedor">
