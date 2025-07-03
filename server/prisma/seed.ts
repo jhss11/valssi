@@ -316,6 +316,17 @@ const main = async () => {
       },
     });
 
+    await prisma.promotion.create({
+      data: {
+        name: "Descuento pocas unidades",
+        type: PromoType.PERCENTAGE,
+        amount: 10,
+        productId: 2,
+        startDate: new Date("2025-09-12T00:00:00Z"),
+        endDate: new Date("2025-09-16T00:00:00Z"),
+      },
+    });
+
     // Orden 1 - Usuario 3
     const order1 = await prisma.order.create({
       data: {
@@ -323,8 +334,8 @@ const main = async () => {
         address: "Alajuela centro, la corte",
         paymentMethod: "Efectivo",
         status: "DELIVERED",
-        subtotal: 173300,
-        total: 195829,
+        subtotal: 279210,
+        total: 315507.3,
         items: {
           create: [
             { productId: 1, quantity: 2, price: 151300 },
@@ -356,10 +367,10 @@ const main = async () => {
       },
     });
     await prisma.orderStatusLog.create({
-      data: { orderId: order2.id, status: "PENDING_PAYMENT", adminId: 1, changedAt:new Date("2025-06-12T00:00:00Z") },
+      data: { orderId: order2.id, status: "PENDING_PAYMENT", adminId: 1, changedAt:new Date("2025-06-12T17:00:00Z") },
     });
     await prisma.orderStatusLog.create({
-      data: { orderId: order2.id, status: "PAID", adminId: 2, changedAt: new Date("2025-06-13T00:00:00Z")},
+      data: { orderId: order2.id, status: "PAID", adminId: 2, changedAt: new Date("2025-06-13T17:00:00Z")},
     });
 
     // Orden 3 - Usuario 5
@@ -368,9 +379,9 @@ const main = async () => {
         userId: 5,
         address: "San Ramón, Alajuela",
         paymentMethod: "Efectivo",
-        subtotal: 155900,
+        subtotal: 407900,
         status: "IN_PREPARATION",
-        total: 176167,
+        total: 460927,
         items: {
           create: [
             { productId: 3, quantity: 1, price:98000 },
@@ -380,10 +391,10 @@ const main = async () => {
       },
     });
     await prisma.orderStatusLog.create({
-      data: { orderId: order3.id, status: "PENDING_PAYMENT", adminId: 1, changedAt: new Date("2025-07-03T00:00:00Z") },
+      data: { orderId: order3.id, status: "PENDING_PAYMENT", adminId: 1, changedAt: new Date("2025-07-03T13:00:00Z") },
     });
     await prisma.orderStatusLog.create({
-      data: { orderId: order3.id, status: "IN_PREPARATION", adminId: 2, changedAt: new Date("2025-07-03T00:00:00Z") },
+      data: { orderId: order3.id, status: "IN_PREPARATION", adminId: 2, changedAt: new Date("2025-07-03T13:00:00Z") },
     });
 
     const baseProduct = await prisma.product.findFirst({
@@ -431,6 +442,31 @@ const main = async () => {
         });
       }
     }
+     // Orden 4 - Usuario 3
+    const order4 = await prisma.order.create({
+      data: {
+        userId: 3,
+        address: "Roble de Alajuela",
+        paymentMethod: "Efectivo",
+        status: "DELIVERED",
+        subtotal: 295310,
+        total: 333700.3,
+        items: {
+          create: [
+            { productId: 1, quantity: 2, price: 151300 },
+            { productId: 4, quantity: 1, price: 22000 },
+            { productId: 8, quantity: 1, price: 19000 },
+
+          ],
+        },
+      },
+    });
+    await prisma.orderStatusLog.create({
+      data: { orderId: order4.id, status: "PENDING_PAYMENT", adminId: 1, changedAt: new Date("2025-06-28T17:00:00Z")},
+    });
+    await prisma.orderStatusLog.create({
+      data: { orderId: order4.id, status: "DELIVERED", adminId: 1, changedAt: new Date("2025-06-28T17:00:00Z")},
+    });
   } catch (error) {
     throw error;
   }

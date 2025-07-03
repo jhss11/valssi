@@ -51,4 +51,15 @@ getStatusColor(start: Date, end: Date): '#FF4D4D' | '#7ec1d6' | '#b8b2b2' {
   if (now < new Date(start)) return '#7ec1d6'; // pendiente
   return '#b8b2b2'; // finalizada
 }
+
+getFechaEnEspanol(fecha: string | Date): string {
+    const opciones: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: "short",
+      year: 'numeric',
+    };
+
+    const fechaObj = new Date(fecha);
+    return fechaObj.toLocaleDateString('es-ES', opciones);
+  }
 }

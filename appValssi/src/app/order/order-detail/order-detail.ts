@@ -56,10 +56,11 @@ export class OrderDetail {
       const originalDate = new Date(date);
     const correctedDate = new Date(originalDate.getTime() + originalDate.getTimezoneOffset() * 60000);
     return new Intl.DateTimeFormat('es-CR',{
-      weekday: 'short',
       day: '2-digit',
-      month:'short',
-      year:'numeric'
+      month: 'long',
+      year:'numeric',
+      hour:'2-digit'
+
     })
     .format(correctedDate)
     .replace("",'')

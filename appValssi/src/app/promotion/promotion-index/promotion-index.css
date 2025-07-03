@@ -16,15 +16,15 @@
 
 .promotions-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
   gap: 2rem;
   padding: 1rem;
+  padding-left: 8rem;
 }
 
 .promo-card {
   width: 290px;
-  margin-left: 2rem;
 }
 
 mat-card {

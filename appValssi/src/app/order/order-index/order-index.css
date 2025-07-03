@@ -47,9 +47,10 @@
 .tarjetas-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 45px;
   justify-items: center;
   padding: 2rem;
+  margin-bottom: 6%;
 }
 
 .tarjeta-review {
