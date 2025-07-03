@@ -8,7 +8,7 @@
   </div>
 
   
-<span class="fecha">Fecha de publicación: {{ datos.date | date:'dd MMM yyyy' }}</span>
+<span class="fecha">Fecha de publicación: {{ getFechaEnEspanol(datos.date) }}</span>
   <div class="producto">
     <span>Producto:</span>
     <span class="etiqueta">{{ datos.product.name }}</span>
