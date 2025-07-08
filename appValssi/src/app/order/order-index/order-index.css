@@ -13,13 +13,42 @@
   margin-bottom: 1rem;
 }
 
+.reviews-container {
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 1000px
+}
+
+
+
+.tabla-pedidos {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem auto;
+}
+
+.tabla-pedidos th,
+.tabla-pedidos td {
+  padding: 1.3rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla-pedidos th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.tabla-pedidos tr:hover {
+  background-color: #f9f9f9;
+}
+
 .estado-chip {
   display: inline-block;
   padding: 0.2rem 0.6rem;
   border-radius: 8px;
   font-weight: 500;
   font-size: 0.9rem;
-  margin-bottom: 0.5rem;
   color: white;
 }
 
@@ -34,76 +63,35 @@
 .chip-cancelado {
   background-color: #f44336;
 }
+
 .chip-preparacion {
-  background-color:#d0d746;
-  color: white;
+  background-color: #d0d746;
 }
 
 .chip-entregado {
   background-color: #4caf50;
-  color: white;
-}
-
-.tarjetas-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 45px;
-  justify-items: center;
-  padding: 2rem;
-  margin-bottom: 6%;
-}
-
-.tarjeta-review {
-box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.08),
-    0 8px 16px rgba(0, 0, 0, 0.12);
-  border-radius: 12px;
-  background-color: #fdfcf8;
-
-  position: relative;
-  width: 240px;
-  padding: 1.5rem;
-  box-sizing: border-box;
-  min-height: 220px;
-  transition: transform 0.3s ease;
-}
-
-mat-card:hover {
-  transform: translateY(-3px);
 }
 
 .fecha {
   font-size: 14px;
-  color: #666;
-  position: absolute;
-  top: 8px;
-  right: 10px;
+  color: #4e4c4c;
 }
 
-.contenido {
-  padding: 20px 10px 10px 10px;
+.link-detalle {
+  color: #0f685e;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
 }
 
-.usuario {
-  font-size: 20px;
-  color: #000000;
-  margin-bottom: 0.5rem;
+.link-detalle:hover {
+  color: #355753;
+  text-decoration:underline;
 }
 
-.estado,
-.total {
-  font-size: 16px;
-  margin: 3px 0;
-  margin-bottom: 8%;
-}
 
-.btn-contenedor {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-}
 
-button[mat-flat-button] {
+/* button[mat-flat-button] {
   background-color: #355753;
   color: white;
   font-weight: 500;
@@ -114,4 +102,4 @@ button[mat-flat-button] {
 button:hover {
   background-color: #8ba7a4;
   color: #355753;
-}
+} */

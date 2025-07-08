@@ -1,55 +1,63 @@
 <h2 class="titulo">Listado de Pedidos</h2>
 <h3 class="subtitulo">Historial de pedidos</h3>
 <div class="reviews-container">
-  <div class="tarjetas-grid">
-    @if(datos) { @for (pedido of datos; track pedido.id) {
-    <mat-card class="tarjeta-review">
-      <div class="fecha">{{ pedido.statusLogs?.[0]?.changedAt| date: 'dd/MM/yyyy' }}</div>
-
-      <div class="contenido">
-        <p class="usuario">Usuario: {{ pedido.user.username }}</p>
-
-        <p class="total">Total: ₡{{ pedido.total | number: '1.0-0' }}</p>
-        <mat-chip
-  class="estado-chip"
-  [ngClass]="{
-    'chip-pendiente': pedido.status === 'PENDING_PAYMENT',
-    'chip-pagado': pedido.status === 'PAID',
-    'chip-preparacion': pedido.status === 'IN_PREPARATION',
-    'chip-entregado': pedido.status === 'DELIVERED',
-    'chip-cancelado': pedido.status === 'CANCELLED'
-  }"
-  selected
->
-  {{
-    pedido.status === 'PENDING_PAYMENT'
-      ? 'Pendiente'
-      : pedido.status === 'PAID'
-      ? 'Pagado'
-      : pedido.status === 'IN_PREPARATION'
-      ? 'En preparación'
-      : pedido.status === 'DELIVERED'
-      ? 'Entregado'
-      : pedido.status === 'CANCELLED'
-      ? 'Cancelado'
-      : 'Desconocido'
-  }}
-</mat-chip>
-
-
-        <div class="btn-contenedor">
-          <button
-            mat-flat-button
-            color="primary"
-            (click)="verDetalle(pedido.id)"
-          >
-            Ver detalle
-          </button>
-        </div>
-      </div>
-    </mat-card>
-    } } @else {
+  @if (datos) {
+    <table class="tabla-pedidos">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Usuario</th>
+          <th>Total</th>
+          <th>Estado</th>
+          <th>Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (pedido of datos; track pedido.id) {
+          <tr>
+            <td class="fecha">{{ pedido.statusLogs?.[0]?.changedAt| date: 'dd/MM/yyyy' }}</td>
+            <td>{{ pedido.user.username }}</td>
+            <td>₡{{ pedido.total | number: '1.0-0' }}</td>
+            <td>
+              <mat-chip
+                class="estado-chip"
+                [ngClass]="{
+                  'chip-pendiente': pedido.status === 'PENDING_PAYMENT',
+                  'chip-pagado': pedido.status === 'PAID',
+                  'chip-preparacion': pedido.status === 'IN_PREPARATION',
+                  'chip-entregado': pedido.status === 'DELIVERED',
+                  'chip-cancelado': pedido.status === 'CANCELLED'
+                }"
+                selected
+              >
+                {{
+                  pedido.status === 'PENDING_PAYMENT'
+                    ? 'Pendiente'
+                    : pedido.status === 'PAID'
+                    ? 'Pagado'
+                    : pedido.status === 'IN_PREPARATION'
+                    ? 'En preparación'
+                    : pedido.status === 'DELIVERED'
+                    ? 'Entregado'
+                    : pedido.status === 'CANCELLED'
+                    ? 'Cancelado'
+                    : 'Desconocido'
+                }}
+              </mat-chip>
+            </td>
+            <td>
+              <!-- <button mat-flat-button color="primary" (click)="verDetalle(pedido.id)">
+                Ver detalle
+              </button> -->
+              <a [routerLink]="['/orders', pedido.id]" class="link-detalle">
+                Ver detalle
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
     <p>No hay pedidos para mostrar.</p>
-    }
-  </div>
+  }
 </div>

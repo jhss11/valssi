@@ -391,7 +391,7 @@ const main = async () => {
       },
     });
     await prisma.orderStatusLog.create({
-      data: { orderId: order3.id, status: "PENDING_PAYMENT", adminId: 1, changedAt: new Date("2025-07-03T13:00:00Z") },
+      data: { orderId: order3.id, status: "PENDING_PAYMENT", adminId: 1, changedAt: new Date("2025-07-03T13:00:00z") },
     });
     await prisma.orderStatusLog.create({
       data: { orderId: order3.id, status: "IN_PREPARATION", adminId: 2, changedAt: new Date("2025-07-03T13:00:00Z") },
