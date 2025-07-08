@@ -17,7 +17,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 2.20rem;
   padding: 2rem;
   margin-bottom: 4%;
 }
@@ -43,12 +43,12 @@ mat-card img {
 }
 
 .producto-info {
-  background-color: #e8e4cf;
+  background-color: #eeebdc;
   padding: 1rem;
 }
 
 .nombre {
-  font-size: 1rem;
+  font-size: 1.05rem;
   margin: 0 0 0.3rem 0;
   color: #2c3e50;
 }

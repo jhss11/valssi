@@ -46,7 +46,7 @@ export class OrderIndex {
     });
   }
 
-  verDetalle(id: Number) {
-    this.router.navigate(['/orders', id]);
-  }
+  // verDetalle(id: Number) {
+  //   this.router.navigate(['/orders', id]);
+  // }
 }
