@@ -29,6 +29,8 @@ export class ProductController {
     }
   };
 
+  
+
   //Obtener por Id
   getById = async (
     request: Request,
@@ -136,4 +138,21 @@ export class ProductController {
       next(error);
     }
   };
+
+  getProducts = async (request: Request, response: Response, next: NextFunction) => {
+  try {
+    console.log("Iniciando consulta de productos resumidos");
+    const products = await this.prisma.product.findMany({
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+    console.log("Consulta exitosa", products.length);
+    response.json(products);
+  } catch (error) {
+    console.error("Error en getProducts:", error);
+    next(error);
+  }
+};
 }

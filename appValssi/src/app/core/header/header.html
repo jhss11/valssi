@@ -13,14 +13,14 @@
   <!-- MANTENIMIENTO -->
 <span class="menu-text" [matMenuTriggerFor]="menu2" matTooltip="Mantenimientos">Mantenimiento</span>
 <mat-menu #menu2="matMenu">
-  <button mat-menu-item>Opción de mantenimiento 1</button>
+  <button mat-menu-item>Promociones</button>
   <button mat-menu-item>Opción de mantenimiento 2</button>
 </mat-menu>
 
 <!-- REPORTES -->
   <span class="menu-text" [matMenuTriggerFor]="menu4" matTooltip="Reportes">Reportes</span>
 <mat-menu #menu4="matMenu">
-  <button mat-menu-item>Opción de reporte 1</button>
+  <button mat-menu-item [routerLink]="['/promotion']" routerLinkActive="active-link">Opción de reporte 1</button>
   <button mat-menu-item>Opción de reporte 2</button>
 </mat-menu>
 
