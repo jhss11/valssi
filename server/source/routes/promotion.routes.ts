@@ -12,9 +12,8 @@ export class PromotionRoutes {
     router.get("/:id", controller.getById);
     //Crear
     router.post("/", controller.create);
-
-     //Actualizar
-        router.put('/:id',controller.update)
+    //Actualizar
+    router.put('/:id',controller.update)
 
     return router;
   }
