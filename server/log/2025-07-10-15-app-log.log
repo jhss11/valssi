@@ -1,0 +1,88 @@
+2025-07-10 15:22:18.627 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.promotion.findMany()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\promotionController.ts:10:51
+
+   7 get = async (request: Request, response: Response, next: NextFunction) => {
+   8   try {
+   9     //Select * from promos
+→ 10     const listado = await this.prisma.promotion.findMany(
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+2025-07-10 15:22:24.745 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.review.findMany()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\reviewController.ts:9:48
+
+  6 get = async (request: Request, response: Response, next: NextFunction) => {
+  7   try {
+  8     //Obtener todas las reseñas ordenadas por la fecha  de forma descendente
+→ 9     const reviews = await this.prisma.review.findMany(
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+2025-07-10 15:22:27.234 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.promotion.findMany()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\promotionController.ts:10:51
+
+   7 get = async (request: Request, response: Response, next: NextFunction) => {
+   8   try {
+   9     //Select * from promos
+→ 10     const listado = await this.prisma.promotion.findMany(
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+2025-07-10 15:22:43.042 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.promotion.findMany()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\promotionController.ts:10:51
+
+   7 get = async (request: Request, response: Response, next: NextFunction) => {
+   8   try {
+   9     //Select * from promos
+→ 10     const listado = await this.prisma.promotion.findMany(
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+2025-07-10 15:23:20.704 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.product.findMany()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\productController.ts:9:50
+
+  6 get = async (request: Request, response: Response, next: NextFunction) => {
+  7   try {
+  8     //Obtener tods los productos ordenadas por la fecha  de forma descendente
+→ 9     const products = await this.prisma.product.findMany(
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+2025-07-10 15:23:45.444 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.product.findMany()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\productController.ts:9:50
+
+  6 get = async (request: Request, response: Response, next: NextFunction) => {
+  7   try {
+  8     //Obtener tods los productos ordenadas por la fecha  de forma descendente
+→ 9     const products = await this.prisma.product.findMany(
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+2025-07-10 15:24:44.107 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.product.findMany()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\productController.ts:9:50
+
+  6 get = async (request: Request, response: Response, next: NextFunction) => {
+  7   try {
+  8     //Obtener tods los productos ordenadas por la fecha  de forma descendente
+→ 9     const products = await this.prisma.product.findMany(
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+2025-07-10 15:26:46.105 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.product.findMany()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\productController.ts:9:50
+
+  6 get = async (request: Request, response: Response, next: NextFunction) => {
+  7   try {
+  8     //Obtener tods los productos ordenadas por la fecha  de forma descendente
+→ 9     const products = await this.prisma.product.findMany(
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
