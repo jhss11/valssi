@@ -18,7 +18,7 @@ export class ProductController {
           images: {
             select: { url: true },
             take: 1,
-            orderBy: { id: "asc" }, 
+            orderBy: { id: "asc" },
           },
         },
       });
@@ -28,8 +28,6 @@ export class ProductController {
       next(error);
     }
   };
-
-  
 
   //Obtener por Id
   getById = async (
@@ -99,7 +97,6 @@ export class ProductController {
     try {
       const now = new Date();
       const products = await this.prisma.product.findMany({
-       
         orderBy: {
           createdAt: "desc",
         },
@@ -111,15 +108,13 @@ export class ProductController {
           images: {
             select: { url: true },
             take: 1,
-            orderBy: { id: "asc" }, 
+            orderBy: { id: "asc" },
           },
           promotions: {
             where: {
               startDate: { lte: now },
               endDate: { gte: now },
             },
-                
-
           },
           category: {
             include: {
@@ -139,20 +134,58 @@ export class ProductController {
     }
   };
 
-  getProducts = async (request: Request, response: Response, next: NextFunction) => {
-  try {
-    console.log("Iniciando consulta de productos resumidos");
-    const products = await this.prisma.product.findMany({
-      select: {
-        id: true,
-        name: true,
-      },
-    });
-    console.log("Consulta exitosa", products.length);
-    response.json(products);
-  } catch (error) {
-    console.error("Error en getProducts:", error);
-    next(error);
-  }
-};
+  getProducts = async (
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) => {
+    try {
+      console.log("Iniciando consulta de productos resumidos");
+      const products = await this.prisma.product.findMany({
+        select: {
+          id: true,
+          name: true,
+        },
+      });
+      console.log("Consulta exitosa", products.length);
+      response.json(products);
+    } catch (error) {
+      console.error("Error en getProducts:", error);
+      next(error);
+    }
+  };
+
+  create = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      //Obtener los datos json
+      const body = request.body;
+
+      const nuevoProducto = await this.prisma.product.create({
+        data: {
+          name: body.name,
+          description: body.description,
+          price: body.price,
+          stock: 1,
+          // categoryId:body.categoryId,
+          //JSON generos:[{id:valor},{id:valor}]
+          category: {
+            connect: { id: body.categoryId },
+          },
+           tags: {
+          connect: body.tags // debe ser un array tipo [{id: 1}, {id: 3}]
+        },
+         images: {
+          create: body.images.map((url: string) => ({
+            url: url
+          }))
+        },
+
+        
+        },
+      });
+      response.status(201).json(nuevoProducto);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

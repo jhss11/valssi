@@ -11,12 +11,17 @@ export class ProductRoutes {
     //localhost:3000/products/summary
     router.get("/summary", controller.getProducts);
 
-     //localhost:3000/products/2
-    router.get('/:id', controller.getById)
+    //localhost:3000/products/2
+    router.get("/:id", controller.getById);
 
     //localhost:3000/products/promotions/active/
     router.get("/promotions/active", controller.getWithPromotion);
+
+    //Crear
+    router.post("/", controller.create);
     
+    //Actualizar
+    // router.put('/:id',controller.update)
 
     return router;
   }

@@ -39,7 +39,7 @@ model Product {
   description    String
   price          Float
   createdAt      DateTime               @default(now()) 
-  stock          Int
+  stock          Int             @default(1)
   averageRating  Float           @default(0)
   images         Image[]
   category       Category        @relation(fields: [categoryId], references: [id])
