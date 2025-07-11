@@ -1,0 +1,92 @@
+<form [formGroup]="productoForm" (ngSubmit)="submitProducto()" novalidate>
+  <input type="hidden" formControlName="id" />
+  <mat-card class="form-card">
+    <mat-card-header class="primary-title title">
+      <mat-card-title>{{ titleForm }} Producto</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" floatLabel="auto">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name" placeholder="Nombre" />
+            @if (errorHandling('name')) {
+              <mat-error>{{ errorHandling('name') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" floatLabel="auto">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="description" placeholder="Descripción"></textarea>
+            @if (errorHandling('description')) {
+              <mat-error>{{ errorHandling('description') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field class="full-width" floatLabel="auto">
+            <mat-label>Precio</mat-label>
+            <input matInput formControlName="price" placeholder="Precio" type="number" />
+            <span matTextPrefix>₡&nbsp;</span>
+            @if (errorHandling('price')) {
+              <mat-error>{{ errorHandling('price') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" floatLabel="auto">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="categoryId">
+              <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+                {{ categoria.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field class="full-width" floatLabel="auto">
+            <mat-label>Etiquetas</mat-label>
+            <mat-select formControlName="tags" multiple>
+              <mat-option *ngFor="let tag of tags" [value]="tag.id">{{ tag.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="card">
+          <h3>Subir Imágenes</h3>
+          <div class="row">
+            <div class="col drop_box">
+              <h4>Seleccione archivos</h4>
+              <!-- <input type="file" accept="image/*" multiple (change)="selectFiles($event)" #fileUpload class="file-input" /> -->
+              <!-- <div class="file-upload">
+                <div *ngFor="let img of previews">
+                  <img mat-card-image height="150px" [src]="img" alt="Imagen producto" />
+                </div>
+                <p>{{ nombresImagenes.join(', ') || "No se han subido archivos" }}</p>
+                <button type="button" matMiniFab class="upload-btn btn-secondary" (click)="fileUpload.click()">
+                  <mat-icon>attach_file</mat-icon>
+                </button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="button-row">
+      <!-- <button matButton class="btn-tertiary" type="button" (click)="onReset()">Reset</button> -->
+      <!-- <button matButton class="btn-secondary" type="button" (click)="onBack()">Regresar</button> -->
+      <button matButton class="btn-primary" type="submit">Guardar</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
