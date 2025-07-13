@@ -11,6 +11,11 @@ export class ReviewRoutes {
      //localhost:3000/reviews/2
     router.get('/:id', controller.getById)
 
+    //Crear
+    router.post("/", controller.create);
+    //Actualizar
+   // router.put('/:id',controller.update)
+
     return router;
   }
 }
