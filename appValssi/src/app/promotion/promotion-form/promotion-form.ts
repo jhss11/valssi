@@ -130,13 +130,14 @@ export class PromotionForm implements OnInit, OnDestroy {
       .subscribe((data) => (this.products = data));
   }
 
-  // Devuelve la fecha en formato 2025-07-12 (ajustada a la zona local) 
+  // Fecha en formato 2025-07-12, para mostrar en los inputs de fecha
   private toDateInput(date: string | Date | null): string | null {
     if (!date) return null;
     const d = new Date(date);
-    // corrige zona horaria para que no salte al día anterior
-    const tzOffset = d.getTimezoneOffset() * 60000;
-    return new Date(d.getTime() - tzOffset).toISOString().slice(0, 10);
+    const fecha = new Date(d.getTime()).toISOString().slice(0, 10);
+    console.log('método ',fecha)
+    return fecha 
+    
   }
 
   /**
@@ -156,7 +157,7 @@ export class PromotionForm implements OnInit, OnDestroy {
       //Si tiene categoryId se sabe que tiene relación con categoría, sino, es con producto
       applyTo: data.categoryId ? 'CATEGORY' : 'PRODUCT',
     });
-    console.log(data.id);
+    console.log('editar ',data.startDate)
   }
 
   /**
@@ -238,7 +239,7 @@ export class PromotionForm implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  //Obliga a seleccionar categoryId o productId según applyTo */
+  //Obliga a seleccionar categoryId o productId según applyTo
   private targetValidator(): ValidatorFn {
     return (group: AbstractControl) => {
       const applyTo = group.get('applyTo')?.value;
