@@ -14,6 +14,9 @@ export class ReviewController {
           id: true,
           date: true,
           rating: true,
+          product:{
+            select:{name:true}
+          },
           user: {
             select: { username: true },
           },

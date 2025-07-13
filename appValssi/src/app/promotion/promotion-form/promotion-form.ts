@@ -137,7 +137,6 @@ export class PromotionForm implements OnInit, OnDestroy {
     const fecha = new Date(d.getTime()).toISOString().slice(0, 10);
     console.log('método ',fecha)
     return fecha 
-    
   }
 
   /**

@@ -7,7 +7,7 @@
     class="crear-btn"
     (click)="createPromo()"
   >
-    Crear
+    Agregar
   </button>
 </div>
 
@@ -46,20 +46,21 @@
         </p>
 
         <div class="btn-contenedor">
-          <button
-            mat-flat-button
-            color="primary"
-            (click)="verDetalle(promo.id)"
-          >
-            Ver detalle
-          </button>
-
+          @if(getPromotionStatus(promo.startDate, promo.endDate)=== 'Pendiente'){
           <button
             mat-flat-button
             color="primary"
             (click)="updatePromo(promo.id)"
           >
             Editar
+          </button>
+          }
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="verDetalle(promo.id)"
+          >
+            Ver detalle
           </button>
         </div>
       </mat-card-content>
