@@ -1,5 +1,15 @@
-<h2 class="titulo">Listado de Promociones</h2>
+<h2 class="titulo">Promociones</h2>
 <h3 class="subtitulo">Historial de promociones</h3>
+<div class="btn-crear-container">
+  <button
+    mat-flat-button
+    color="primary"
+    class="crear-btn"
+    (click)="createPromo()"
+  >
+    Crear
+  </button>
+</div>
 
 <div class="promotions-container">
   @if (datos?.length > 0) { @for (promo of datos; track promo.id) {
@@ -16,7 +26,6 @@
         <h3 class="promo-title">{{ promo.name }}</h3>
 
         <p class="promo-amount">
-          
           {{ promo.type === 'PERCENTAGE' ? promo.amount + '%' : '₡' +
           promo.amount }}
         </p>
@@ -32,8 +41,8 @@
         }
 
         <p style="line-height: 165%" class="promo-dates">
-          Válido del {{ getFechaEnEspanol( promo.startDate)}} al  
-          {{ getFechaEnEspanol(promo.endDate )}}
+          Válido del {{ getFechaEnEspanol( promo.startDate)}} al {{
+          getFechaEnEspanol(promo.endDate )}}
         </p>
 
         <div class="btn-contenedor">
@@ -43,6 +52,14 @@
             (click)="verDetalle(promo.id)"
           >
             Ver detalle
+          </button>
+
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="updatePromo(promo.id)"
+          >
+            Editar
           </button>
         </div>
       </mat-card-content>

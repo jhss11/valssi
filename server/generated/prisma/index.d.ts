@@ -18993,7 +18993,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     isDeleted?: boolean
     images?: ImageCreateNestedManyWithoutProductInput
@@ -19011,7 +19011,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     categoryId: number
     isDeleted?: boolean
@@ -19064,7 +19064,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     categoryId: number
     isDeleted?: boolean
@@ -22698,7 +22698,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     isDeleted?: boolean
     category: CategoryCreateNestedOneWithoutProductsInput
@@ -22715,7 +22715,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     categoryId: number
     isDeleted?: boolean
@@ -22780,7 +22780,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     isDeleted?: boolean
     images?: ImageCreateNestedManyWithoutProductInput
@@ -22797,7 +22797,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     isDeleted?: boolean
     images?: ImageUncheckedCreateNestedManyWithoutProductInput
@@ -22899,7 +22899,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     isDeleted?: boolean
     images?: ImageCreateNestedManyWithoutProductInput
@@ -22916,7 +22916,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     categoryId: number
     isDeleted?: boolean
@@ -23101,7 +23101,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     isDeleted?: boolean
     images?: ImageCreateNestedManyWithoutProductInput
@@ -23118,7 +23118,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     categoryId: number
     isDeleted?: boolean
@@ -23254,7 +23254,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     isDeleted?: boolean
     images?: ImageCreateNestedManyWithoutProductInput
@@ -23271,7 +23271,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     categoryId: number
     isDeleted?: boolean
@@ -23623,7 +23623,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     isDeleted?: boolean
     images?: ImageCreateNestedManyWithoutProductInput
@@ -23640,7 +23640,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     categoryId: number
     isDeleted?: boolean
@@ -23913,7 +23913,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     isDeleted?: boolean
     images?: ImageCreateNestedManyWithoutProductInput
@@ -23930,7 +23930,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     categoryId: number
     isDeleted?: boolean
@@ -24497,7 +24497,7 @@ export namespace Prisma {
     description: string
     price: number
     createdAt?: Date | string
-    stock: number
+    stock?: number
     averageRating?: number
     isDeleted?: boolean
   }

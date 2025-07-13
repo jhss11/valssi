@@ -61,10 +61,10 @@ export class PromotionController {
           startDate: new Date(body.startDate),
           endDate: new Date(body.endDate),
           product: body.productId
-            ? { connect: { id: body.productId } }
+            ? { connect: { id: Number(body.productId) } }
             : undefined,
           category: body.categoryId
-            ? { connect: { id: body.categoryId } }
+            ? { connect: { id: Number(body.categoryId) } }
             : undefined,
         },
       });
@@ -75,44 +75,55 @@ export class PromotionController {
   };
   //Actualizar
   update = async (request: Request, response: Response, next: NextFunction) => {
-    try {
-      const body = request.body;
-      const idPromotion = parseInt(request.params.id);
+  try {
+    const body = request.body;
+    const idPromotion = parseInt(request.params.id);
 
-      // Verificar existencia
-      const existingPromotion = await this.prisma.promotion.findUnique({
-        where: { id: idPromotion },
-      });
+    // Verificar existencia
+    const existingPromotion = await this.prisma.promotion.findUnique({
+      where: { id: idPromotion },
+    });
 
-      if (!existingPromotion) {
-        response.status(404).json({ message: "El videojuego no existe" });
-        return;
-      }
-
-      const updatedPromotion = await this.prisma.promotion.update({
-        where: { id: idPromotion },
-        data: {
-          name: body.name,
-          type: body.type,
-          amount: body.amount,
-          startDate: new Date(body.startDate),
-          endDate: new Date(body.endDate),
-          product: body.productId
-            ? { connect: { id: body.productId } }
-            : undefined,
-          category: body.categoryId
-            ? { connect: { id: body.categoryId } }
-            : undefined,
-        },
-        include: {
-          product: true,
-          category: true,
-        },
-      });
-
-      response.json(updatedPromotion);
-    } catch (error) {
-      next(error);
+    if (!existingPromotion) {
+      response.status(404).json({ message: "La promoción no existe" });
+      return;
     }
-  };
+
+    // Armar objeto de relaciones condicionales
+    const relationData: any = {};
+
+    if (body.productId) {
+      relationData.product = { connect: { id: Number(body.productId) } };
+      relationData.category = { disconnect: true }; // Desconectar categoría anterior si la había
+    } else if (body.categoryId) {
+      relationData.category = { connect: { id: Number(body.categoryId) } };
+      relationData.product = { disconnect: true }; // Desconectar producto anterior si lo había
+    } else {
+      // Si no se manda ni producto ni categoría, desconectar ambos
+      relationData.product = { disconnect: true };
+      relationData.category = { disconnect: true };
+    }
+
+    const updatedPromotion = await this.prisma.promotion.update({
+      where: { id: idPromotion },
+      data: {
+        name: body.name,
+        type: body.type,
+        amount: body.amount,
+        startDate: new Date(body.startDate),
+        endDate: new Date(body.endDate),
+        ...relationData,
+      },
+      include: {
+        product: true,
+        category: true,
+      },
+    });
+
+    response.json(updatedPromotion);
+  } catch (error) {
+    next(error);
+  }
+};
+
 }

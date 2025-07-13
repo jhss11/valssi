@@ -3,6 +3,7 @@ import { PromotionService } from '../../share/services/promotion.service';
 import { NotificationService } from '../../share/notification-service';
 import { Router } from '@angular/router';
 import { PromotionModel } from '../../share/models/PromotionModel';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-promotion-index',
@@ -16,7 +17,8 @@ export class PromotionIndex {
 
   constructor(private vjService:PromotionService,
     private noti:NotificationService,
-    private router:Router
+    private router:Router,
+    private route: ActivatedRoute
   ) {   
     this.listPromotions()
   }
@@ -61,5 +63,17 @@ getFechaEnEspanol(fecha: string | Date): string {
 
     const fechaObj = new Date(fecha);
     return fechaObj.toLocaleDateString('es-ES', opciones);
+  }
+
+  updatePromo(id: number) {
+    this.router.navigate(['/promotion/update', id], {
+      relativeTo: this.route,
+    });
+  }
+
+  createPromo() {
+    this.router.navigate(['/promotion/create'], {
+      relativeTo: this.route,
+    });
   }
 }

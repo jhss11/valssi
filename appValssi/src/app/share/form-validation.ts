@@ -1,4 +1,5 @@
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+
 /**
  * Interface para los mensajes de error de form validation.
  */
@@ -8,74 +9,58 @@ export interface FormValidatorMessage {
   text: string;
 }
 
-//Mensajes de errores de validación
+// Mensajes de errores de validación
 export const FormErrorMessage: FormValidatorMessage[] = [
   {
-    forControl: 'nombre',
+    forControl: 'name',
     forValidator: 'required',
-    text: 'El Nombre es requerido',
+    text: 'El nombre es requerido',
   },
   {
-    forControl: 'nombre',
+    forControl: 'name',
     forValidator: 'minlength',
-    text: 'El nombre debe tener 3 carácteres mínimo',
+    text: 'El nombre debe tener al menos 3 caracteres',
   },
   {
-    forControl: 'descripcion',
+    forControl: 'type',
     forValidator: 'required',
-    text: 'La descripción es requerida',
+    text: 'Debe seleccionar un tipo de descuento',
   },
   {
-    forControl: 'precio',
+    forControl: 'amount',
     forValidator: 'required',
-    text: 'El precio es requerido',
+    text: 'El monto del descuento es obligatorio',
   },
   {
-    forControl: 'precio',
-    forValidator: 'pattern',
-    text: 'El precio solo acepta números con dos decimales',
+    forControl: 'amount',
+    forValidator: 'min',
+    text: 'El monto debe ser mayor a cero',
   },
   {
-    forControl: 'publicar',
+    forControl: 'startDate',
     forValidator: 'required',
-    text: 'Publicar es requerido',
+    text: 'La fecha de inicio es requerida',
   },
   {
-    forControl: 'generos',
+    forControl: 'endDate',
     forValidator: 'required',
-    text: 'Es requerido que seleccione un género',
+    text: 'La fecha de fin es requerida',
   },
   {
-    forControl: 'anno_lanzamiento',
+    forControl: 'categoryId',
     forValidator: 'required',
-    text: 'El año de lanzamiento es obligatorio',
+    text: 'Debe seleccionar una categoría',
   },
   {
-    forControl: 'anno_lanzamiento',
-    forValidator: 'pattern',
-    text: 'El año debe ser un número de 4 dígitos',
-  },
-  {
-    forControl: 'plataformaId',
+    forControl: 'productId',
     forValidator: 'required',
-    text: 'La plataforma es obligatoria',
+    text: 'Debe seleccionar un producto',
   },
   {
-    forControl: 'descripcion',
-    forValidator: 'minWords',
-    text: 'La descripción debe contener mínimo 3 palabras',
-  },
-  {
-    forControl: 'email',
+    forControl: 'applyTo',
     forValidator: 'required',
-    text: 'El email es requerido',
+    text: 'Debe indicar si aplica a producto o categoría',
   },
-  {
-    forControl: 'password',
-    forValidator: 'required',
-    text: 'Es password es requerido',
-  },
-  { forControl: 'rol', forValidator: 'required', text: 'El rol es requerido' },
 ];
 
 /**
@@ -93,23 +78,18 @@ export function getFormValidationErrorMessage(
   if (!control) {
     return false;
   }
-  // Validar los FormControl individuales.
+
   if (control instanceof FormGroup || control instanceof FormArray) {
-    // Si el path es para un grupo/array y no tiene errores *directos*,
-    // significa que los errores están en sus hijos y se manejarían por separado.
     if (!control.errors || !Object.keys(control.errors).length) {
       return false;
     }
   }
+
   if (control.invalid && (control.dirty || control.touched)) {
-    // Iterar sobre los posibles errores del control
     for (const validatorName in control.errors) {
       if (control.errors.hasOwnProperty(validatorName)) {
-        // Obtenemos el nombre "base" del control, sin la ruta del array 
-        // (ej. 'anno_lanzamiento' de 'plataformas.0.anno_lanzamiento')
         const baseControlName = controlPath.split('.').pop() || controlPath;
 
-        // Buscamos el mensaje de error en la lista global
         for (const message of FormErrorMessage) {
           if (
             message.forControl === baseControlName &&
