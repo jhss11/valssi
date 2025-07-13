@@ -36,23 +36,33 @@ export class PromotionIndex {
     this.router.navigate(['/promotion',id])
   }
 
-  getPromotionStatus(startDate: Date, endDate: Date): string {
-  const now = new Date();
-  if (now >= new Date(startDate) && now <= new Date(endDate)) {
-    return 'Vigente';
-  } else if (now < new Date(startDate)) {
-    return 'Pendiente';
-  } else {
-    return 'Aplicada';
-  }
+getPromotionStatus(startDate: Date, endDate: Date): string {
+  const hoy = new Date();
+  const hoyString = this.toDateStringOnly(hoy);
+  const inicioString = this.toDateStringOnly(new Date(startDate));
+  const finString = this.toDateStringOnly(new Date(endDate));
+
+  if (hoyString >= inicioString && hoyString <= finString) return 'Vigente';
+  if (hoyString < inicioString) return 'Pendiente';
+  return 'Aplicada';
+}
+
+//convierte la fecha a "YYYY-MM-DD"
+toDateStringOnly(fecha: Date): string {
+  return fecha.toISOString().split('T')[0];  // solo la parte de la fecha en formato ISO
 }
 
 getStatusColor(start: Date, end: Date): '#FF4D4D' | '#7ec1d6' | '#b8b2b2' {
-  const now = new Date();
-  if (now >= new Date(start) && now <= new Date(end)) return '#FF4D4D'; // vigente
-  if (now < new Date(start)) return '#7ec1d6'; // pendiente
-  return '#b8b2b2'; // finalizada
+  const hoy = new Date();
+  const hoyStr = this.toDateStringOnly(hoy);
+  const inicioStr = this.toDateStringOnly(new Date(start));
+  const finStr = this.toDateStringOnly(new Date(end));
+
+  if (hoyStr >= inicioStr && hoyStr <= finStr) return '#FF4D4D'; // vigente
+  if (hoyStr < inicioStr) return '#7ec1d6'; // pendiente
+  return '#b8b2b2'; // aplicada
 }
+
 
 getFechaEnEspanol(fecha: string | Date): string {
     const opciones: Intl.DateTimeFormatOptions = {
@@ -62,6 +72,7 @@ getFechaEnEspanol(fecha: string | Date): string {
     };
 
     const fechaObj = new Date(fecha);
+    fechaObj.setDate(fechaObj.getDate() + 1);
     return fechaObj.toLocaleDateString('es-ES', opciones);
   }
 
