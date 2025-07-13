@@ -16,7 +16,7 @@ import { FileUploadService } from '../../share/services/file-upload.service';
 })
 export class ProductForm implements OnInit, OnDestroy {
   private destroy$ = new Subject<boolean>();
-titleForm: string = 'Crear';
+  titleForm: string = 'Crear';
   idProduct: number | null = null;
   isCreate: boolean = true;
 

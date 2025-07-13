@@ -5,6 +5,8 @@ import { PromotionRoutes } from "./promotion.routes";
 import { OrderRoutes } from "./order.routes";
 import { CategoryRoutes } from "./category.routes";
 import { ImageRoutes } from "./image.routes";
+import { PromotionTypeRoutes } from './promoTypes.routes';
+
 export class AppRoutes {
   static get routes(): Router {
     const router = Router();
@@ -12,6 +14,7 @@ export class AppRoutes {
     router.use("/products", ProductRoutes.routes);
     router.use("/reviews", ReviewRoutes.routes);
     router.use("/promotion", PromotionRoutes.routes);
+    router.use("/promotypes", PromotionTypeRoutes.routes)
     router.use("/orders", OrderRoutes.routes);
     router.use("/categories", CategoryRoutes.routes);
     router.use("/file/", ImageRoutes.routes);

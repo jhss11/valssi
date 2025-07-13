@@ -1,0 +1,25 @@
+2025-07-11 18:09:58.079 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.promotion.create()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\promotionController.ts:56:59
+
+  53 //Obtener los datos json
+  54 const body = request.body;
+  55 
+→ 56 const nuevoVideojuego = await this.prisma.promotion.create({
+       data: {
+         name: "Probando promo",
+         type: "PERCENTAGE",
+         amount: 20,
+         startDate: new Date("2025-07-12T00:00:00.000Z"),
+         endDate: new Date("2025-07-13T00:00:00.000Z"),
+         product: {
+           connect: {
+             id: "3"
+                 ~~~
+           }
+         },
+         category: undefined
+       }
+     })
+
+Argument `id`: Invalid value provided. Expected Int, provided String.

@@ -1,0 +1,31 @@
+2025-07-12 11:01:46.925 error: 	Jhass--No existe el videojuego No existe el videojuego
+2025-07-12 11:01:53.561 error: 	Jhass--No existe el videojuego No existe el videojuego
+2025-07-12 11:06:43.444 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.promotion.findUnique()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\promotionController.ts:83:61
+
+  80 const idPromotion = parseInt(request.params.id);
+  81 
+  82 // Verificar existencia
+→ 83 const existingPromotion = await this.prisma.promotion.findUnique({
+       where: {
+     +   id: Int
+       }
+     })
+
+Argument `id` is missing.
+2025-07-12 11:09:59.066 error: 	Jhass--Se produjo un error interno del servidor 
+Invalid `this.prisma.promotion.findUnique()` invocation in
+C:\Users\Jhass\valssi\server\source\controllers\promotionController.ts:83:61
+
+  80 const idPromotion = parseInt(request.params.id);
+  81 
+  82 // Verificar existencia
+→ 83 const existingPromotion = await this.prisma.promotion.findUnique({
+       where: {
+     +   id: Int
+       }
+     })
+
+Argument `id` is missing.
+2025-07-12 11:10:46.814 error: 	Jhass--El ID no es válido El ID no es válido

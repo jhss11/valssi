@@ -1,0 +1,120 @@
+<form [formGroup]="promotionForm" (ngSubmit)="submitPromotion()" novalidate>
+  <!-- Título dinámico -->
+  <h2>{{ titleForm }} promoción</h2>
+<input type="hidden" formControlName="id" />
+
+  <!-- Nombre ----------------------------------------------------->
+  <div class="field">
+    <label for="name">Nombre</label>
+    <input id="name" type="text" formControlName="name" />
+    @if (errorHandling('name')) {
+      <small class="text-danger">{{ errorHandling('name') }}</small>
+    }
+  </div>
+
+  <!-- Tipo de descuento (PERCENTAGE / FIXED) --------------------->
+  <div class="field">
+    <label for="type">Tipo de descuento</label>
+    <select id="type" formControlName="type">
+      @for (t of promoTypes; track t.id) {
+        <option [value]="t.id">{{ t.name }}</option>
+      }
+    </select>
+    @if (errorHandling('type')) {
+      <small class="text-danger">{{ errorHandling('type') }}</small>
+    }
+  </div>
+
+  <!-- Monto ------------------------------------------------------->
+  <div class="field">
+    <label for="amount">Valor del descuento</label>
+    <input
+      id="amount"
+      type="number"
+      formControlName="amount"
+      step="0.01"
+      min="0.01"
+    />
+    @if (errorHandling('amount')) {
+      <small class="text-danger">{{ errorHandling('amount') }}</small>
+    }
+  </div>
+
+  <!-- Aplica a (Radio) ------------------------------------------->
+  <fieldset>
+    <legend>Aplica a</legend>
+    <label>
+      <input
+        type="radio"
+        value="CATEGORY"
+        formControlName="applyTo"
+      />
+      Categoría
+    </label>
+    <label>
+      <input
+        type="radio"
+        value="PRODUCT"
+        formControlName="applyTo"
+      />
+      Producto
+    </label>
+  </fieldset>
+
+  <!-- Selector de categorías ------------------------------------->
+  @if (promotionForm.value.applyTo === 'CATEGORY') {
+    <div class="field">
+      <label for="categoryId">Categoría</label>
+      <select id="categoryId" formControlName="categoryId">
+        <option [ngValue]="null">-- Seleccione --</option>
+        @for (c of categories; track c.id) {
+          <option [value]="c.id">{{ c.name }}</option>
+        }
+      </select>
+      @if (errorHandling('productId') || promotionForm.errors?.['target']) {
+        <small class="text-danger">Debe elegir una categoría</small>
+      }
+    </div>
+  }
+
+  <!-- Selector de productos -------------------------------------->
+  @if (promotionForm.value.applyTo === 'PRODUCT') {
+    <div class="field">
+      <label for="productId">Producto</label>
+      <select id="productId" formControlName="productId">
+        <option [ngValue]="null">-- Seleccione --</option>
+        @for (p of products; track p.id) {
+          <option [value]="p.id">{{ p.name }}</option>
+        }
+      </select>
+      @if (errorHandling('productId') || promotionForm.errors?.['target']) {
+        <small class="text-danger">Debe elegir un producto</small>
+      }
+    </div>
+  }
+
+  <!-- Fechas ------------------------------------------------------>
+  <div class="field">
+    <label for="startDate">Fecha inicio</label>
+    <input id="startDate" type="date" formControlName="startDate" />
+  </div>
+
+  <div class="field">
+    <label for="endDate">Fecha fin</label>
+    <input id="endDate" type="date" formControlName="endDate" />
+  </div>
+
+ @if (promotionForm.errors?.['fechas']) {
+    <small class="text-danger">
+      Rango de fechas inválido
+    </small>
+  }
+
+  <!-- Botones ----------------------------------------------------->
+  <div class="actions">
+    <button type="submit" [disabled]="promotionForm.invalid">Guardar</button>
+    <button type="button" (click)="onReset()">Limpiar</button>
+    <button type="button" (click)="onBack()">Volver</button>
+  </div>
+</form>
+

@@ -4,8 +4,9 @@ export const environment = {
     endPointReview: 'reviews',
     endPointOrder: 'orders',
     endPointPromotion: 'promotion',
-    endPointCategory: 'category',
+    endPointCategory: 'categories',
     endPointTag: 'tag',
+    endPointPromoType: 'promotypes',
 
 
 };

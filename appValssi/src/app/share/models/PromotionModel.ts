@@ -3,7 +3,7 @@ import { ProductModel } from "./ProductModel";
 import { CategoryModel } from "./CategoryModel";
 
 export interface PromotionModel {
-  id: number;
+  id?: number;
   name: string;
   type: PromoTypeModel;
   amount: number;

@@ -91,7 +91,12 @@ mat-card:hover {
 
 .btn-contenedor {
   margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.1rem;
+
 }
+
 
 button[mat-flat-button] {
   background-color: #355753;
@@ -110,3 +115,25 @@ button:hover {
   background-color: #8ba7a4;
   color: #355753;
 }
+
+.btn-crear-container {
+  padding-left: 8rem; /* mismo padding que cards */
+  margin-bottom: 1rem;
+}
+
+.crear-btn {
+  background-color: #355753;
+  color: white;
+  font-weight: 500;
+  padding: 6px 20px;
+  border-radius: 8px;
+  height: 36px;
+  min-width: 90px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.crear-btn:hover {
+  background-color: #8ba7a4;
+  color: #355753;
+}
+
