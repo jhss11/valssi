@@ -4,10 +4,11 @@
   <div class="tarjetas-grid">
     @if(datos){ @for(data of datos; track data.id){
     <mat-card class="tarjeta-review"> 
-        <div class="fecha">{{ data.date | date:'dd/MM/yyyy'}}</div>
+        <div class="fecha">{{ getFechaEnEspanol(data.date)}}</div>
 
       <div class="contenido">
         <p class="usuario" >Usuario: {{ data.user.username }}</p>
+        <p  >Producto: {{ data.product.name }}</p>
 
         <div class="estrellas">
           <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">

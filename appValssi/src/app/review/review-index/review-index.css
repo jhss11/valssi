@@ -35,10 +35,10 @@
 
 .tarjeta-review {
   position: relative; 
-  width: 240px;
+  width: 250px;
   padding: 1.5rem;
   box-sizing: border-box;
-  min-height: 220px;
+  min-height: 230px;
   border-radius: 12px;
   padding: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;

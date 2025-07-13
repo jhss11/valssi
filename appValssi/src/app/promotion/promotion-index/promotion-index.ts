@@ -36,27 +36,41 @@ export class PromotionIndex {
     this.router.navigate(['/promotion',id])
   }
 
-getPromotionStatus(startDate: Date, endDate: Date): string {
-  const hoy = new Date();
-  const hoyString = this.toDateStringOnly(hoy);
-  const inicioString = this.toDateStringOnly(new Date(startDate));
-  const finString = this.toDateStringOnly(new Date(endDate));
+// getPromotionStatus(startDate: Date, endDate: Date): string {
+//   const hoy = new Date();
+//   const hoyString = this.toDateStringOnly(hoy);
+//   const inicioString = this.toDateStringOnly(new Date(startDate));
+//   const finString = this.toDateStringOnly(new Date(endDate));
 
-  if (hoyString >= inicioString && hoyString <= finString) return 'Vigente';
-  if (hoyString < inicioString) return 'Pendiente';
+//   if (hoyString >= inicioString && hoyString <= finString) return 'Vigente';
+//   if (hoyString < inicioString) return 'Pendiente';
+//   return 'Aplicada';
+// }
+
+// //convierte la fecha a "YYYY-MM-DD"
+// toDateStringOnly(fecha: Date): string {
+//   return fecha.toISOString().split('T')[0];  // solo la parte de la fecha en formato ISO
+// }
+private toDateOnly(date: string | Date): string {
+  return new Date(date).toISOString().slice(0, 10);
+}
+
+getPromotionStatus(start: Date, end: Date): string {
+  const hoy   = this.toDateOnly(new Date());
+  const inicio = this.toDateOnly(start);
+  const fin    = this.toDateOnly(end);
+
+  if (hoy >= inicio && hoy <= fin) return 'Vigente';
+  if (hoy < inicio) return 'Pendiente';
   return 'Aplicada';
 }
 
-//convierte la fecha a "YYYY-MM-DD"
-toDateStringOnly(fecha: Date): string {
-  return fecha.toISOString().split('T')[0];  // solo la parte de la fecha en formato ISO
-}
 
 getStatusColor(start: Date, end: Date): '#FF4D4D' | '#7ec1d6' | '#b8b2b2' {
   const hoy = new Date();
-  const hoyStr = this.toDateStringOnly(hoy);
-  const inicioStr = this.toDateStringOnly(new Date(start));
-  const finStr = this.toDateStringOnly(new Date(end));
+  const hoyStr = this.toDateOnly(hoy);
+  const inicioStr = this.toDateOnly(new Date(start));
+  const finStr = this.toDateOnly(new Date(end));
 
   if (hoyStr >= inicioStr && hoyStr <= finStr) return '#FF4D4D'; // vigente
   if (hoyStr < inicioStr) return '#7ec1d6'; // pendiente

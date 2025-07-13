@@ -43,13 +43,17 @@ export class ReviewDetail {
   }
 
   getFechaEnEspanol(fecha: string | Date): string {
+    console.log('La que entra ',fecha)
     const opciones: Intl.DateTimeFormatOptions = {
       day: '2-digit',
-      month: 'short',
+      month: 'long',
       year: 'numeric',
     };
 
-    const fechaObj = new Date(fecha);
-    return fechaObj.toLocaleDateString('es-ES', opciones);
+     const fechaObj = new Date(fecha);
+    fechaObj.setDate(fechaObj.getDate() + 1);
+    const fechaRetorna= fechaObj.toLocaleDateString('es-ES', opciones);
+    console.log('La que retorna ',fecha)
+    return fechaRetorna;
   }
 }

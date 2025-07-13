@@ -18,9 +18,9 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 1rem;
   padding: 1rem;
-  padding-left: 8rem;
+  padding-left: 2rem;
 }
 
 .promo-card {
@@ -92,8 +92,8 @@ mat-card:hover {
 .btn-contenedor {
   margin-top: 1rem;
   display: flex;
-  justify-content: space-between;
-  gap: 0.1rem;
+  justify-content: end;
+  gap: 0.72rem;
 
 }
 
@@ -117,7 +117,7 @@ button:hover {
 }
 
 .btn-crear-container {
-  padding-left: 17rem; 
+  padding-left: 5.5rem; 
   margin-bottom: 1rem;
 }
 

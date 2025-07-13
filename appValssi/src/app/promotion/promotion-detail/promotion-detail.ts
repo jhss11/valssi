@@ -60,6 +60,7 @@ getFechaEnEspanol(fecha: string | Date): string {
     };
 
     const fechaObj = new Date(fecha);
+    fechaObj.setDate(fechaObj.getDate() + 1);
     return fechaObj.toLocaleDateString('es-ES', opciones);
   }
 
