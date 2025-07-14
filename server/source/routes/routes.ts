@@ -17,6 +17,7 @@ export class AppRoutes {
     router.use("/promotypes", PromotionTypeRoutes.routes)
     router.use("/orders", OrderRoutes.routes);
     router.use("/categories", CategoryRoutes.routes);
+    router.use("/tag", CategoryRoutes.routes);
     router.use("/file/", ImageRoutes.routes);
 
     return router;
