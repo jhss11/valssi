@@ -33,6 +33,7 @@ export class ProductList {
   verDetalle(id:Number) {
     this.router.navigate(['/products',id])
   }
+
   getPromotion(item: any): any | null {
   if (item.promotions?.length > 0) {
     return item.promotions[0];

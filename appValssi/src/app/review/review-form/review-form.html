@@ -1,0 +1,65 @@
+<h2>Escribir una reseña</h2>
+
+<form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+  <!-- Usuario autenticado
+  <div class="field">
+    <label>Usuario</label>
+    <input type="text" [value]="userName" readonly />
+  </div>
+
+  Fecha actual 
+  <div class="field">
+    <label>Fecha</label>
+    <input type="text" [value]="today | date: 'shortDate'" readonly />
+  </div> -->
+
+  <!-- Comentario -->
+  <div class="field">
+    <label for="comment">Comentario</label>
+    <textarea
+      id="comment"
+      rows="4"
+      formControlName="comment"
+      [class.invalid]="f['comment'].invalid && f['comment'].touched"
+    ></textarea>
+    <div class="error" *ngIf="f['comment'].touched && f['comment'].invalid">
+      {{ errorHandling('comment') }}
+    </div>
+  </div>
+
+  <!-- Valoración con estrellas -->
+  <div class="field">
+    <label for="rating">Valoración</label>
+    <div class="stars">
+      <ng-container *ngFor="let star of [1,2,3,4,5]">
+        <span
+          class="star"
+          [class.filled]="f['rating'].value >= star"
+          (click)="f['rating'].setValue(star)"
+        >
+          ★
+        </span>
+      </ng-container>
+    </div>
+    <div class="error" *ngIf="f['rating'].touched && f['rating'].invalid">
+      {{ errorHandling('rating') }}
+    </div>
+  </div>
+
+  <!-- Botón -->
+  <button type="submit">Guardar reseña</button>
+</form>
+
+<!-- Lista de reseñas (opcional) -->
+<div *ngIf="reviews.length > 0" class="review-list">
+  <h3>Reseñas recientes</h3>
+  <div *ngFor="let r of reviews" class="review-card">
+    <p><strong>{{ r.user.username }}</strong> - {{ r.date | date:'shortDate' }}</p>
+    <div class="stars readonly">
+      <ng-container *ngFor="let s of [1,2,3,4,5]">
+        <span class="star" [class.filled]="r.rating >= s">★</span>
+      </ng-container>
+    </div>
+    <p>{{ r.description }}</p>
+  </div>
+</div>

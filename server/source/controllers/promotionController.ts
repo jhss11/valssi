@@ -53,7 +53,7 @@ export class PromotionController {
       //Obtener los datos json
       const body = request.body;
 
-      const nuevoVideojuego = await this.prisma.promotion.create({
+      const nuevaPromo = await this.prisma.promotion.create({
         data: {
           name: body.name,
           type: body.type,
@@ -68,11 +68,12 @@ export class PromotionController {
             : undefined,
         },
       });
-      response.status(201).json(nuevoVideojuego);
+      response.status(201).json(nuevaPromo);
     } catch (error) {
       next(error);
     }
   };
+
   //Actualizar
   update = async (request: Request, response: Response, next: NextFunction) => {
   try {
@@ -99,7 +100,7 @@ export class PromotionController {
       relationData.category = { connect: { id: Number(body.categoryId) } };
       relationData.product = { disconnect: true }; // Desconectar producto anterior si lo había
     } else {
-      // Si no se manda ni producto ni categoría, desconectar ambos
+      // Si no se manda ni producto ni categoría, desconectar ambos     revisaaaaaaar
       relationData.product = { disconnect: true };
       relationData.category = { disconnect: true };
     }

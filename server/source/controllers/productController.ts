@@ -61,6 +61,9 @@ export class ProductController {
             },
           },
           reviews: {
+            orderBy: {
+          date: "desc",
+        },
             select: {
               rating: true,
               description: true,
