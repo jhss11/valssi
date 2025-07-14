@@ -1,0 +1,113 @@
+/* Formulario principal */
+form {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Título */
+h2 {
+  text-align: center;
+  color: #2f5d58;
+  margin-bottom: 2.5rem;
+  font-size: 1.8rem;
+}
+
+/* Estructura en dos columnas */
+form > .field,
+form > fieldset,
+form > .actions,
+form > small.text-danger {
+  grid-column: span 2;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+}
+
+/* Contenedores de campo */
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.field input,
+.field select {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+/* Estilos de fieldset (aplica a...) */
+fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}
+
+legend {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+fieldset label {
+  margin-right: 1rem;
+  margin-bottom: 0.3rem;
+  font-weight: normal;
+}
+
+fieldset input[type='radio'] {
+  margin-right: 0.4rem;
+}
+
+/* Mensajes de error */
+.text-danger {
+  color: #b30000;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+/* Botones de acción */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.actions button {
+  padding: 0.6rem 1.4rem;
+  background-color: #2f5d58;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.actions button:hover {
+  background-color: #234843;
+}
+
+.actions button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
