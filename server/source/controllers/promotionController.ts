@@ -90,7 +90,7 @@ export class PromotionController {
       return;
     }
 
-    // Armar objeto de relaciones condicionales
+    // Arma objeto de relaciones condicionales
     const relationData: any = {};
 
     if (body.productId) {
@@ -99,10 +99,6 @@ export class PromotionController {
     } else if (body.categoryId) {
       relationData.category = { connect: { id: Number(body.categoryId) } };
       relationData.product = { disconnect: true }; // Desconectar producto anterior si lo había
-    } else {
-      // Si no se manda ni producto ni categoría, desconectar ambos     revisaaaaaaar
-      relationData.product = { disconnect: true };
-      relationData.category = { disconnect: true };
     }
 
     const updatedPromotion = await this.prisma.promotion.update({

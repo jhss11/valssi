@@ -72,16 +72,16 @@ export const FormErrorMessage: FormValidatorMessage[] = [
     forValidator: 'required',
     text: 'La fecha de fin es requerida',
   },
-  {
-    forControl: 'categoryId',
-    forValidator: 'required',
-    text: 'Debe seleccionar una categoría',
-  },
-  {
-    forControl: 'productId',
-    forValidator: 'required',
-    text: 'Debe seleccionar un producto',
-  },
+  // {
+  //   forControl: 'categoryId',
+  //   forValidator: 'required',
+  //   text: 'Debe seleccionar una categoría',
+  // },
+  // {
+  //   forControl: 'productId',
+  //   forValidator: 'required',
+  //   text: 'Debe seleccionar un producto',
+  // },
   {
     forControl: 'applyTo',
     forValidator: 'required',

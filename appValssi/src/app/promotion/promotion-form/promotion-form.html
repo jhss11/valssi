@@ -1,9 +1,7 @@
 <form [formGroup]="promotionForm" (ngSubmit)="submitPromotion()" novalidate>
-  <!-- Título dinámico -->
   <h2>{{ titleForm }} promoción</h2>
 <input type="hidden" formControlName="id" />
 
-  <!-- Nombre ----------------------------------------------------->
   <div class="field">
     <label for="name">Nombre</label>
     <input id="name" type="text" formControlName="name" />
@@ -12,7 +10,6 @@
     }
   </div>
 
-  <!-- Tipo de descuento (PERCENTAGE / FIXED) --------------------->
   <div class="field">
     <label for="type">Tipo de descuento</label>
     <select id="type" formControlName="type">
@@ -25,7 +22,6 @@
     }
   </div>
 
-  <!-- Monto ------------------------------------------------------->
   <div class="field">
     <label for="amount">Valor del descuento</label>
     <input
@@ -40,7 +36,6 @@
     }
   </div>
 
-  <!-- Aplica a (Radio) ------------------------------------------->
   <fieldset>
     <legend>Aplica a</legend>
     <label>
@@ -61,7 +56,6 @@
     </label>
   </fieldset>
 
-  <!-- Selector de categorías ------------------------------------->
   @if (promotionForm.value.applyTo === 'CATEGORY') {
     <div class="field">
       <label for="categoryId">Categoría</label>
@@ -71,13 +65,12 @@
           <option [value]="c.id">{{ c.name }}</option>
         }
       </select>
-      @if (errorHandling('productId') || promotionForm.errors?.['target']) {
+      @if ( promotionForm.errors?.['target']) {
         <small class="text-danger">Debe elegir una categoría</small>
       }
     </div>
   }
 
-  <!-- Selector de productos -------------------------------------->
   @if (promotionForm.value.applyTo === 'PRODUCT') {
     <div class="field">
       <label for="productId">Producto</label>
@@ -93,7 +86,6 @@
     </div>
   }
 
-  <!-- Fechas ------------------------------------------------------>
   <div class="field">
     <label for="startDate">Fecha inicio</label>
     <input id="startDate" type="date" formControlName="startDate" />
@@ -104,13 +96,30 @@
     <input id="endDate" type="date" formControlName="endDate" />
   </div>
 
- @if (promotionForm.errors?.['fechas']) {
+ @if (promotionForm.errors?.['faltaFechaInicio']) {
     <small class="text-danger">
-      Rango de fechas inválido
+      Selecciona la fecha de inicio
     </small>
   }
 
-  <!-- Botones ----------------------------------------------------->
+  @if (promotionForm.errors?.['faltaFechaFin']) {
+    <small class="text-danger">
+      Selecciona la fecha de fin
+    </small>
+  }
+
+  @if (promotionForm.errors?.['fechaInicioPasada']) {
+    <small class="text-danger">
+      La fecha de inicio no puede ser anterior a hoy
+    </small>
+  }
+
+  @if (promotionForm.errors?.['rangoInvalido']) {
+    <small class="text-danger">
+      La fecha de fin no puede ser anterior a la de inicio
+    </small>
+  }
+
   <div class="actions">
     <button type="submit" [disabled]="promotionForm.invalid">Guardar</button>
     <button type="button" (click)="onReset()">Limpiar</button>
