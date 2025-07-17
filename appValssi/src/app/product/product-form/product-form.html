@@ -1,57 +1,154 @@
 <form [formGroup]="productForm" (ngSubmit)="submitProduct()" novalidate>
   <h2>{{ titleForm }} Producto</h2>
-<input type="hidden" formControlName="id" />
 
+  <input type="hidden" formControlName="id" />
 
+  <!-- Nombre -->
   <div class="field">
-    <label for="name">Nombre del Producto</label>
-    <input id="name" type="text" formControlName="name" />
+    <mat-form-field  floatLabel="auto">
+      <mat-label>Nombre del Producto</mat-label>
+      <input matInput formControlName="name" placeholder="Nombre" style="font-weight: 550"/>
+       @if(errorHandling('name')){
+                        <mat-error class="text-danger">
+                            {{ errorHandling('name') }}
+                        </mat-error>
+                        }
+    </mat-form-field>
+  </div>
+
+  <!-- Descripción -->
+  <div class="field">
+    <mat-form-field  floatLabel="auto">
+      <mat-label>Descripción</mat-label>
+      <textarea  matInput formControlName="description" placeholder="Descripción"   style="font-weight: 550"></textarea>
+     @if(errorHandling('description')){
+                        <mat-error  class="text-danger">
+                            {{ errorHandling('description') }}
+                        </mat-error>
+                        
+                        }</mat-form-field>
+  </div>
+
+  <!-- Precio -->
+  <div class="field">
+    <mat-form-field  floatLabel="auto">
+      <mat-label>Precio</mat-label>
+      <input matInput formControlName="price" placeholder="Precio" type="number"  style="font-weight: 550" />
+       @if(errorHandling('price')){
+                        <mat-error  class="text-danger">
+                            {{ errorHandling('price') }}
+                        </mat-error>
+                        }
+    </mat-form-field>
+  </div>
+
+  <!-- Stock -->
+  <div class="field">
+    <mat-form-field floatLabel="auto">
+      <mat-label>Stock</mat-label>
+      <input matInput formControlName="stock" placeholder="Stock" type="number" style="font-weight: 550"/>
+     @if(errorHandling('stock')){
+                        <mat-error  class="text-danger">
+                            {{ errorHandling('stock') }}
+                        </mat-error>
+                        }
+    </mat-form-field>
+  </div>
+
+  <!-- Categoría -->
+  <div class="field">
+    <mat-form-field  floatLabel="auto">
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="categoryId" style="font-weight: 550">
+        <mat-option style="font-weight: 350; color: #ffff" *ngFor="let cat of categorias" [value]="cat.id">
+          {{ cat.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Tags -->
+  <div class="field">
+    <mat-form-field class="full-width"  floatLabel="auto">
+      <mat-label>Etiquetas</mat-label>
+      <mat-select formControlName="tags" multiple  style="font-weight: 550">
+        @for (item of tags; track item.id) {
+  
+        <mat-option  style="font-weight: 350; color: #ffff"  [value]="item.id">{{ item.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="field">
-    <label for="description">Descripción</label>
-    <input id="description" type="text" formControlName="description" />
+    <div class="row">
+                <div class="col">
+                    <mat-label>Imágenes</mat-label>
+                </div>
+                <div class="col">
+                    <button mat-fab extended type="button" class="btn-secondary"
+                        ><mat-icon>add</mat-icon> Agregar Imagen</button>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead class="bg-tertiary">
+                        <tr>
+                            <th>Imagen</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                     <tbody>
+
+                        <!-- Array de plataformas *ngFor="let p of plataformas.controls; let i = index"-->
+                         <!-- @for (p of plataformas.controls; track $index; let i = $index) { 
+                        <tr formArrayName="plataformas" >
+                            <td>
+                                <mat-form-field [formGroupName]="i">
+                                    <mat-select placeholder="Plataforma" formControlName="plataformaId"
+                                        id="{{'plataformaId'+i}}">
+                                        @for (item of plataformaList; track item.id) {
+                                        <mat-option [value]="item.id">
+                                            {{item.nombre}}
+                                        </mat-option>
+                                        }
+                                    </mat-select>
+                                    @if(errorHandling('plataformas.' + i + '.plataformaId')){
+                                    <mat-error>
+                                        {{ errorHandling('plataformas.' + i + '.plataformaId') }}
+                                    </mat-error>
+                                    }
+                                </mat-form-field>
+                            </td> -->
+                            <!-- <td>
+                                <mat-form-field [formGroupName]="i">
+                                    <input matInput formControlName="anno_lanzamiento" id="{{'anno_lanzamiento'+i}}"
+                                        placeholder="Año de lanzamiento">
+                                    @if(errorHandling('plataformas.' + i + '.anno_lanzamiento')){
+                                    <mat-error>
+                                        {{ errorHandling('plataformas.' + i + '.anno_lanzamiento') }}
+                                    </mat-error>
+                                    }
+                                </mat-form-field>
+
+                            </td> -->
+                            <td>
+                                <button matMiniFab type="button"
+                                    
+                                    ><mat-icon>delete</mat-icon></button>
+                            </td>
+                        <!-- </tr> -->
+                        <!-- } -->
+                        <!-- Array de plataformas -->
+                    </tbody>
+
+                </table>
+  </div>
   </div>
 
-  <div class="field">
-    <label for="price">Precio</label>
-    <input id="price" type="number" formControlName="price" />
-  </div>
-
-  <div class="field">
-    <label for="stock">Stock</label>
-    <input id="stock" type="number" formControlName="stock" />
-  </div>
-
-  <div class="field">
-    <label for="categ">Categoría</label>
-    <select id="category" formControlName="categoryId">
-      <option *ngFor="let cat of categorias" [value]="cat.id">{{ cat.name }}</option>
-    </select>
-  </div>
-
-  <div class="field">
-    <label for="tags">Etiquetas</label>
-    <select id="tags" formControlName="tags" multiple>
-@for (item of tags; track item.id) {
-                            <option [value]="item.id">
-                                {{item.name}}
-                            </option>
-                            }
-
-    </select>
-  </div>
-
-  <!-- <fieldset>
-    <legend>Imágenes del producto</legend>
-    <input type="file" (change)="onFileChange($event)" multiple accept="image/*" />
-    <div *ngIf="previewUrls.length">
-      <img *ngFor="let url of previewUrls" [src]="url" height="100" style="margin: 0.5rem" />
-    </div>
-  </fieldset> -->
-
+  <!-- Botones -->
   <div class="actions">
-    <button type="submit">Guardar</button>
+    <button type="submit" [disabled]="productForm.invalid">Guardar</button>
     <button type="button" (click)="onReset()">Limpiar</button>
     <button type="button" (click)="onBack()">Regresar</button>
   </div>
