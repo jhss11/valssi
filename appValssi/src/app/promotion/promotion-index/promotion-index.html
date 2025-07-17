@@ -46,7 +46,7 @@
         </p>
 
         <div class="btn-contenedor">
-          @if(getPromotionStatus(promo.startDate, promo.endDate)=== 'Pendiente'){
+          @if(getPromotionStatus(promo.startDate, promo.endDate) != 'Aplicada'){
           <button
             mat-flat-button
             color="primary"

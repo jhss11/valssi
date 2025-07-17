@@ -87,7 +87,7 @@ export class PromotionForm implements OnInit, OnDestroy {
         endDate: [null, Validators.required],
         categoryId: [null],
         productId: [null],
-        /* Campo local para saber a quién aplica la promo ------------- */
+        // Campo local para saber a quién aplica la promo
         applyTo: ['CATEGORY', Validators.required], // 'CATEGORY' | 'PRODUCT'
       },
       { validators: [this.targetValidator(), this.dateRangeValidator()] }
@@ -252,22 +252,26 @@ export class PromotionForm implements OnInit, OnDestroy {
   }
 
   private dateRangeValidator(): ValidatorFn {
-    return (group: AbstractControl) => {
-      const start = group.get('startDate')?.value;
-      const end = group.get('endDate')?.value;
+  return (group: AbstractControl) => {
+    const start = group.get('startDate')?.value;
+    const end = group.get('endDate')?.value;
 
-      const today = new Date();
-      today.setHours(0, 0, 0, 0); // Hoy a las 00:00 (sin horas)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Hoy a las 00:00
 
-      // Evita conversión a UTC forzando formato local
-      const startDate = start ? new Date(start + 'T00:00:00') : null;
-      const endDate = end ? new Date(end + 'T00:00:00') : null;
+    const startDate = start ? new Date(start + 'T00:00:00') : null;
+    const endDate = end ? new Date(end + 'T00:00:00') : null;
 
-      // Validación lógica de fechas
-      if (startDate && startDate < today) return { fechas: true };
-      if (startDate && endDate && endDate < startDate) return { fechas: true };
+    if (endDate && !startDate) return { faltaFechaInicio: true };
 
-      return null;
-    };
-  }
+    if (startDate && !endDate) return { faltaFechaFin: true };
+
+    if (startDate && startDate < today) return { fechaInicioPasada: true };
+
+    if (startDate && endDate && endDate < startDate) return { rangoInvalido: true };
+
+    return null; 
+  };
+}
+
 }
