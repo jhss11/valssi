@@ -22,6 +22,32 @@ export const FormErrorMessage: FormValidatorMessage[] = [
     text: 'El nombre debe tener al menos 3 caracteres',
   },
   {
+    forControl: 'description',
+    forValidator: 'required',
+    text: 'La descripción es requerida',
+  },
+  
+  {
+    forControl: 'price',
+    forValidator: 'min',
+    text: 'El precio debe ser mayor a 1',
+  },
+  {
+    forControl: 'price',
+    forValidator: 'required',
+    text: 'El precio es obligatorio',
+  },
+   {
+    forControl: 'stock',
+    forValidator: 'min',
+    text: 'La cantidad en stock debe ser mayor a 1',
+  },
+  {
+    forControl: 'stock',
+    forValidator: 'required',
+    text: 'La cantidad en stock es obligatoria',
+  },
+  {
     forControl: 'type',
     forValidator: 'required',
     text: 'Debe seleccionar un tipo de descuento',

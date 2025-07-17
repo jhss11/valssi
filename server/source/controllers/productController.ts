@@ -168,7 +168,7 @@ export class ProductController {
           name: body.name,
           description: body.description,
           price: body.price,
-          stock: 1,
+          stock: body.stock,
           // categoryId:body.categoryId,
           //JSON generos:[{id:valor},{id:valor}]
           category: {
@@ -177,11 +177,11 @@ export class ProductController {
            tags: {
           connect: body.tags // debe ser un array tipo [{id: 1}, {id: 3}]
         },
-         images: {
-          create: body.images.map((url: string) => ({
-            url: url
-          }))
-        },
+        //  images: {
+        //   create: body.images.map((url: string) => ({
+        //     url: url
+        //   }))
+        // },
 
         
         },
@@ -191,4 +191,64 @@ export class ProductController {
       next(error);
     }
   };
+
+  update = async (request: Request, response: Response, next: NextFunction) => {
+  try {
+    const body = request.body;
+    const idProducto = parseInt(request.params.id);
+
+    // Buscar el producto existente
+    const productoExistente = await this.prisma.product.findUnique({
+      where: { id: idProducto },
+      include: {
+        tags: { select: { id: true } },
+        // images: { select: { id: true } },
+      },
+    });
+
+    if (!productoExistente) {
+      return response.status(404).json({ message: "El producto no existe" });
+    }
+
+    // Preparar desconexión de tags antiguos y conexión de nuevos
+    const disconnectTags = productoExistente.tags.map(tag => ({ id: tag.id }));
+    const connectTags = body.tags ? body.tags.map((tag: { id: number }) => ({ id: tag.id })) : [];
+
+    // Eliminar imágenes anteriores del producto
+    // await this.prisma.image.deleteMany({
+    //   where: { productId: idProducto },
+    // });
+
+    // Crear nuevas imágenes
+    // const createImages = body.images
+    //   ? body.images.map((url: string) => ({ url }))
+    //   : [];
+
+    // Actualizar el producto
+    const productoActualizado = await this.prisma.product.update({
+      where: { id: idProducto },
+      data: {
+        name: body.name,
+        description: body.description,
+        price: body.price,
+        stock: body.stock,
+        category: {
+          connect: { id: body.categoryId },
+        },
+        tags: {
+          disconnect: disconnectTags,
+          connect: connectTags,
+        },
+        // images: {
+        //   create: createImages,
+        // },
+      },
+    });
+
+    response.json(productoActualizado);
+  } catch (error) {
+    next(error);
+  }
+};
+
 }

@@ -10,6 +10,8 @@ import { TagService } from '../../share/services/tag.service';
 import { FileUploadService } from '../../share/services/file-upload.service';
 import { TagModel } from '../../share/models/TagModel';
 import { CategoryModel } from '../../share/models/CategoryModel';
+import { minWordsValidator } from '../../share/validators/min-words-validator';
+import { ProductModel } from '../../share/models/ProductModel';
 
 @Component({
   selector: 'app-product-form',
@@ -21,13 +23,19 @@ export class ProductForm implements OnInit, OnDestroy {
   private destroy$ = new Subject<boolean>();
 
   titleForm: string = 'Crear';
-  isCreate: boolean = true;
   idProduct: number | null = null;
+  isCreate: boolean = true;
 
-  productForm!: FormGroup;
   // --- Datos de los selects o combos ---
   categorias: any[] = [];
   tags: any[] = [];
+
+   // --- Relativo al formulario ---
+  productForm!: FormGroup;
+  number4digits = /^\d{4}$/;
+  number2decimals = /^[0-9]+[.,]{1,1}[0-9]{2,2}$/;
+
+
 
   // --- Gestión de imagen ---
   // currentFile?: File;
@@ -47,8 +55,11 @@ export class ProductForm implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    //Inicializar formulario
     this.initForm();
+    //Obtener lista de categorías
     this.loadCategories();
+    //Obtener lista de etiquetas
     this.loadTags();
 
     //Verificar si se envio un id por parametro para crear formulario para actualizar
@@ -76,12 +87,12 @@ export class ProductForm implements OnInit, OnDestroy {
   private initForm(): void {
     this.productForm = this.fb.group({
       id: [null],
-      name: [null, [Validators.required, Validators.minLength(2)]],
+      name: [null, [Validators.required, Validators.minLength(3)]],
       description: [null, [Validators.required]],
-      price: [null, [Validators.required, Validators.min(0.01)]],
-      stock: [null, [Validators.required, Validators.min(0)]],
+      price: [null, [Validators.required, Validators.min(1)]],
+      stock: [null, [Validators.required, Validators.min(1)]],
       categoryId: [null, [Validators.required]],
-      tags: [[], Validators.required],
+      tags: [null, Validators.required],
       // image: [this.nameImage],
     });
   }
@@ -109,15 +120,15 @@ export class ProductForm implements OnInit, OnDestroy {
    * Carga en el formulario el videojuego existeste para actualizar.
    * @param data El objecto de respuesta del API.
    */
-  private patchFormValues(data: any): void {
+  private patchFormValues(data: ProductModel): void {
     this.productForm.patchValue({
       id: data.id,
       name: data.name,
       description: data.description,
       price: parseFloat(data.price.toString()).toFixed(2),
       stock: data.stock,
-      categoryId: data.category?.id,
-      tags: data.tags?.map((t: any) => t.id),
+      categoryId: data.category.id,
+      tags: data.tags.map(({ id }) => id),
       // image: data.image,
     });
 
@@ -141,6 +152,52 @@ export class ProductForm implements OnInit, OnDestroy {
   //   }
   // }
 
+  
+
+  submitProduct(): void {
+
+    this.productForm.markAllAsTouched();
+
+     if (this.productForm.invalid) {
+       console.log('Formulario inválido:', this.productForm.errors);
+
+  Object.keys(this.productForm.controls).forEach(key => {
+    const control = this.productForm.get(key);
+    if (control?.invalid) {
+      console.warn(`❌ Campo inválido: ${key}`, control.errors);
+    }
+  });
+    this.noti.error(
+      'Formulario Inválido',
+      'Por favor, revise los campos marcados en rojo.',
+      5000
+    );
+    console.log('Formulario inválido:', this.productForm.errors);
+    return;
+  }
+
+  const formValue = this.productForm.value;
+    console.log(formValue);
+
+  // Transformar tags en formato correcto para el API
+  const payloadTags = formValue.tags
+    ? formValue.tags.map((id: number) => ({ id }))
+    : [];
+
+  // Verificar que el precio sea un número
+  const payloadPrice =
+    typeof formValue.price === 'string'
+      ? parseFloat(formValue.price)
+      : formValue.price;
+
+   this.productForm.patchValue({
+        tags: payloadTags,
+        price: payloadPrice,
+        // imagen: this.previousImage,
+      });
+     //Paso 2: Guardar/actualizar el videojuego en el API
+      this.guardarProducto();
+  }
   guardarProducto() {
      if (this.isCreate) {
       //Accion API create enviando toda la informacion del formulario
@@ -169,57 +226,6 @@ export class ProductForm implements OnInit, OnDestroy {
           );
         });
     }
-  }
-
-  submitProduct(): void {
-
-    this.productForm.markAllAsTouched();
-     if (this.productForm.invalid) {
-    this.noti.error(
-      'Formulario Inválido',
-      'Por favor, revise los campos marcados en rojo.',
-      5000
-    );
-    console.log('Formulario inválido:', this.productForm.errors);
-    return;
-  }
-
-  const formValue = this.productForm.value;
-
-  // Transformar tags en formato correcto para el API
-  const payloadTags = formValue.tags
-    ? formValue.tags.map((id: number) => ({ id }))
-    : [];
-
-  // Verificar que el precio sea un número
-  const payloadPrice =
-    typeof formValue.price === 'string'
-      ? parseFloat(formValue.price)
-      : formValue.price;
-
-    // const afterUpload = (imageFileName: string | null) => {
-    //   payload.image = imageFileName ?? this.previousImage;
-    //   if (this.isCreate) {
-    //     this.productService.create(payload).subscribe((data: any) => {
-    //       this.noti.success('Product creado', `Name: ${data.name}`, 3000, '/product');
-    //     });
-    //   } else {
-    //     this.productService.update(payload).subscribe((data: any) => {
-    //       this.noti.success('Producto actualizado', `Name: ${data.name}`, 3000, '/product');
-    //     });
-    //   }
-    // };
-
-    // if (this.currentFile) {
-    //   this.uploadService.upload(this.currentFile, this.previousImage).subscribe((res: any) => {
-    //     this.nameImage = res.filename;
-    //     afterUpload(res.filename);
-    //   });
-    // } else {
-    //   afterUpload(null);
-    // }
-     //Paso 2: Guardar/actualizar el videojuego en el API
-      this.guardarProducto();
   }
 
   errorHandling(controlPath: string): string | false {
