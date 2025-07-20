@@ -21,7 +21,7 @@ export class ProductRoutes {
     router.post("/", controller.create);
     
     //Actualizar
-    // router.put("/:id", controller.update);
+    router.put("/:id", controller.update);
 
     return router;
   }

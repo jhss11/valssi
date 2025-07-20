@@ -44,15 +44,18 @@ export class ProductController {
           name: true,
           description: true,
           price: true,
+          stock: true,
           averageRating: true,
           category: {
             select: {
               name: true,
+              id: true,
             },
           },
           tags: {
             select: {
               name: true,
+              id: true,
             },
           },
           images: {
@@ -130,6 +133,7 @@ export class ProductController {
             },
           },
         },
+        
       });
       response.json(products);
     } catch (error) {
@@ -177,14 +181,18 @@ export class ProductController {
            tags: {
           connect: body.tags // debe ser un array tipo [{id: 1}, {id: 3}]
         },
-        //  images: {
-        //   create: body.images.map((url: string) => ({
-        //     url: url
-        //   }))
-        // },
+         images: {
+          create: body.images.map((url: string) => ({
+            url: url
+          }))
+        },
 
         
         },
+         include: {
+        tags: true,
+        images: true,
+      },
       });
       response.status(201).json(nuevoProducto);
     } catch (error) {
@@ -202,27 +210,25 @@ export class ProductController {
       where: { id: idProducto },
       include: {
         tags: { select: { id: true } },
-        // images: { select: { id: true } },
+        images: { select: { id: true } },
       },
     });
 
-    if (!productoExistente) {
-      return response.status(404).json({ message: "El producto no existe" });
-    }
+
 
     // Preparar desconexión de tags antiguos y conexión de nuevos
-    const disconnectTags = productoExistente.tags.map(tag => ({ id: tag.id }));
+    const disconnectTags = productoExistente?.tags.map(tag => ({ id: tag.id }));
     const connectTags = body.tags ? body.tags.map((tag: { id: number }) => ({ id: tag.id })) : [];
 
     // Eliminar imágenes anteriores del producto
-    // await this.prisma.image.deleteMany({
-    //   where: { productId: idProducto },
-    // });
+    await this.prisma.image.deleteMany({
+      where: { productId: idProducto },
+    });
 
     // Crear nuevas imágenes
-    // const createImages = body.images
-    //   ? body.images.map((url: string) => ({ url }))
-    //   : [];
+    const createImages = body.images
+      ? body.images.map((url: string) => ({ url }))
+      : [];
 
     // Actualizar el producto
     const productoActualizado = await this.prisma.product.update({
@@ -239,9 +245,9 @@ export class ProductController {
           disconnect: disconnectTags,
           connect: connectTags,
         },
-        // images: {
-        //   create: createImages,
-        // },
+        images: {
+          create: createImages,
+        },
       },
     });
 

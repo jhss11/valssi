@@ -1,5 +1,15 @@
 <h2 class="titulo">Productos</h2>
 <h3 class="subtitulo">Historial de productos</h3>
+<div class="btn-crear-container">
+  <button
+    mat-flat-button
+    color="primary"
+    class="crear-btn"
+    (click)="create()"
+  >
+    Agregar
+  </button>
+</div>
 <div class="productos-container">
   @if (datos) {
     @for (item of datos; track item.id) {
@@ -24,8 +34,16 @@
             </div>
 
             <div class="rating">({{ item.averageRating }}.0)</div>
+ 
 
             <div class="btn-contenedor">
+              <button
+            mat-flat-button
+            color="primary"
+            (click)="update(item.id)"
+          >
+            Editar
+          </button>
               <button mat-flat-button color="primary" (click)="verDetalle(item.id)">Ver detalle</button>
             </div>
           </div>
