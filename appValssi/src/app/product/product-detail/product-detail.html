@@ -5,119 +5,120 @@
 </div>
 <div class="detalle-container">
   @if (datos) {
-    <!-- COLUMNA IZQUIERDA: Imágenes + Opiniones (scroll) -->
-    <div class="columna-izquierda">
-      <div class="contenido-scrollable">
-        <div class="producto-header">
-          <img
-            class="producto-principal"
-            [src]="imagenSeleccionada"
-            alt="Imagen principal"
-          />
+  <div class="columna-izquierda">
+    <div >
+      <div class="producto-header">
+        <img
+          class="producto-principal"
+          [src]="imagenSeleccionada"
+          alt="Imagen principal"
+        />
 
-          <div class="imagenes-secundarias">
-            @for (img of datos.images; track img.url) {
-              <img
-                [src]="'http://localhost:3000/images/' + img.url"
-                alt="Imagen secundaria"
-                (click)="cambiarImagen(img.url)"
-                [class.seleccionada]="('http://localhost:3000/images/' + img.url) === imagenSeleccionada"
-              />
+        <div class="imagenes-secundarias">
+          @for (img of datos.images; track img.url) {
+          <img
+            [src]="'http://localhost:3000/images/' + img.url"
+            alt="Imagen secundaria"
+            (click)="cambiarImagen(img.url)"
+            [class.seleccionada]="('http://localhost:3000/images/' + img.url) === imagenSeleccionada"
+          />
+          }
+        </div>
+      </div>
+
+      <div class="opinion-cliente">
+        <h4>Opiniones de clientes</h4>
+        @for (review of datos.reviews; track review.date) {
+        <div class="review">
+          <strong>{{ review.user.username }}</strong>
+          <span class="fecha">{{ review.date | date:'dd/MM/yyyy' }}</span>
+          <div class="review-rating">
+            @for (star of [].constructor(review.rating); track $index) {
+            <mat-icon color="warn">star</mat-icon>
             }
           </div>
+          <p>{{ review.description }}</p>
+          <hr />
         </div>
-
-        <div class="opinion-cliente">
-          <h4>Opiniones de clientes</h4>
-          @for (review of datos.reviews; track review.date) {
-            <div class="review">
-              <strong>{{ review.user.username }}</strong>
-              <span class="fecha">{{ review.date | date:'dd/MM/yyyy' }}</span>
-              <div class="review-rating">
-                @for (star of [].constructor(review.rating); track $index) {
-                  <mat-icon color="warn">star</mat-icon>
-                }
-              </div>
-              <p>{{ review.description }}</p>
-              <hr />
-            </div>
-          }
-        </div>
+        }
       </div>
     </div>
-
-    <!-- COLUMNA DERECHA: Info del producto + Formulario de reseña -->
-    <div class="columna-derecha">
-      <div class="producto-info">
-        <div class="etiquetas">
-          @for (tag of datos.tags; track tag.name) {
-            <span class="etiqueta">{{ tag.name }}</span>
-          }
-        </div>
-
-        <h2 class="nombre">{{ datos.name }}</h2>
-
-        <div class="categoria">
-          Categoría: <span class="categoria-tag">{{ datos.category.name }}</span>
-        </div>
-
-        <div class="precio">
-          ₡{{ datos.price | number }}
-          <span class="estrellas">
-            @for (i of [].constructor(5); track $index) {
-              <mat-icon color="warn">
-                {{ $index < datos.averageRating ? 'star' : 'star_border' }}
-              </mat-icon>
-            }
-          </span>
-          <span class="rating-num">({{ datos.averageRating.toFixed(1) }})</span>
-        </div>
-
-        <p class="descripcion">{{ datos.description }}</p>
-      </div>
-      <button class="comprar mat-flat-button" (click)="goBack()">
-    Agregar al carrito
-  </button>
-
-      <!-- FORMULARIO DE RESEÑA -->
-      <form class="review-form" [formGroup]="reviewForm" (ngSubmit)="submitReview()">
-        <h4>Agregar reseña</h4>
-
-       <!-- Valoración con estrellas interactivas -->
-<div class="field">
-  <label>Valoración</label>
-
-  <div class="estrellas-input">
-    @for (i of [].constructor(5); track $index) {
-      <mat-icon
-        [class.resaltada]="$index < f['rating'].value"
-        (click)="f['rating'].setValue($index + 1)"
-      >
-        {{ $index < f['rating'].value ? 'star' : 'star_border' }}
-      </mat-icon>
-    }
   </div>
 
-  @if (f['rating'].touched && f['rating'].invalid) {
-    <small class="text-danger">
-      {{ errorHandling('rating') }}
-    </small>
-  }
-</div>
+  <div class="columna-derecha">
+    <div class="producto-info">
+      <div class="etiquetas">
+        @for (tag of datos.tags; track tag.name) {
+        <span class="etiqueta">{{ tag.name }}</span>
+        }
+      </div>
 
+      <h2 class="nombre">{{ datos.name }}</h2>
 
-        <div class="field" style="grid-column: span 2;">
-          <label for="comment">Comentario</label>
-          <textarea id="comment" formControlName="comment" rows="4"></textarea>
-          <small class="text-danger" *ngIf="f['comment'].touched && f['comment'].invalid">
-            {{ errorHandling('comment') }}
-          </small>
-        </div>
+      <div class="categoria">
+        Categoría: <span class="categoria-tag">{{ datos.category.name }}</span>
+      </div>
 
-        <div class="actions">
-          <button mat-flat-button color="primary" type="submit">Publicar reseña</button>
-        </div>
-      </form>
+      <div class="precio">
+        ₡{{ datos.price | number }}
+        <span class="estrellas">
+          @for (i of [].constructor(5); track $index) {
+          <mat-icon color="warn">
+            {{ $index < datos.averageRating ? 'star' : 'star_border' }}
+          </mat-icon>
+          }
+        </span>
+        <span class="rating-num">({{ datos.averageRating.toFixed(1) }})</span>
+      </div>
+
+      <p class="descripcion">{{ datos.description }}</p>
     </div>
+    <button class="comprar mat-flat-button" (click)="goBack()">
+      Agregar al carrito
+    </button>
+
+    <!-- Formulario-->
+    <form
+      class="review-form"
+      [formGroup]="reviewForm"
+      (ngSubmit)="submitReview()"
+    >
+      <h4>Agregar reseña</h4>
+      <div class="field">
+        <label>Valoración</label>
+
+        <div class="estrellas-input">
+          @for (i of [].constructor(5); track $index) {
+          <mat-icon
+            [class.resaltada]="$index < reviewForm.controls['rating'].value"
+            (click)="reviewForm.controls['rating'].setValue($index + 1)"
+          >
+            {{ $index < reviewForm.controls['rating'].value ? 'star' : 'star_border' }}
+          </mat-icon>
+          }
+        </div>
+
+        @if (errorHandling('rating')) {
+        <small class="text-danger"> {{ errorHandling('rating') }} </small>
+        }
+      </div>
+
+      <div class="field" style="grid-column: span 2">
+        <label for="comment">Comentario</label>
+        <textarea matInput id="comment" formControlName="comment" rows="4"></textarea>
+        @if(errorHandling('comment')){ 
+        <small
+          class="text-danger"
+        >
+          {{ errorHandling('comment') }}
+        </small>
+        }
+      </div>
+
+      <div class="actions">
+    <button type="submit" >Publicar</button>
+  </div>
+    </form>
+  </div>
   }
 </div>

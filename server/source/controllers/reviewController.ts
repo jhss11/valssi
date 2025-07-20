@@ -87,7 +87,7 @@ export class ReviewController {
           },
         });
 
-         //Función de Prisma para operaciones count, avg, sum etc
+        //Función de Prisma para operaciones count, avg, sum etc
         const avg = await tx.review.aggregate({
           where: { productId: Number(body.productId) },
           _avg: { rating: true }, //Calcula el promedio del campo rating de un prod específico
@@ -102,7 +102,10 @@ export class ReviewController {
           data: { averageRating: avg._avg.rating ?? 0 },
         });
 
-        return review;
+        return {
+          ...review,
+          averageRating: avg._avg.rating ?? 0,
+        };
       });
 
       response.status(201).json(nuevaReseña);

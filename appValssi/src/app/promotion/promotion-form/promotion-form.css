@@ -9,7 +9,6 @@ form {
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* Título */
 h2 {
   text-align: center;
   color: #2f5d58;
@@ -31,7 +30,6 @@ form {
   gap: 1.5rem 2rem;
 }
 
-/* Contenedores de campo */
 .field {
   display: flex;
   flex-direction: column;
