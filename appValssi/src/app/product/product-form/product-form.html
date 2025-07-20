@@ -6,8 +6,8 @@
   <!-- Nombre -->
   <div class="field">
     <mat-form-field  floatLabel="auto">
-      <mat-label>Nombre del Producto</mat-label>
-      <input matInput formControlName="name" placeholder="Nombre" style="font-weight: 550"/>
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" placeholder="Nombre" style="font-weight: 400"/>
        @if(errorHandling('name')){
                         <mat-error class="text-danger">
                             {{ errorHandling('name') }}
@@ -20,7 +20,7 @@
   <div class="field">
     <mat-form-field  floatLabel="auto">
       <mat-label>Descripción</mat-label>
-      <textarea  matInput formControlName="description" placeholder="Descripción"   style="font-weight: 550"></textarea>
+      <textarea  matInput formControlName="description" placeholder="Descripción"   style="font-weight: 400"></textarea>
      @if(errorHandling('description')){
                         <mat-error  class="text-danger">
                             {{ errorHandling('description') }}
@@ -33,7 +33,7 @@
   <div class="field">
     <mat-form-field  floatLabel="auto">
       <mat-label>Precio</mat-label>
-      <input matInput formControlName="price" placeholder="Precio" type="number"  style="font-weight: 550" />
+      <input matInput formControlName="price" placeholder="Precio" type="number"  style="font-weight: 400" />
        @if(errorHandling('price')){
                         <mat-error  class="text-danger">
                             {{ errorHandling('price') }}
@@ -46,7 +46,7 @@
   <div class="field">
     <mat-form-field floatLabel="auto">
       <mat-label>Stock</mat-label>
-      <input matInput formControlName="stock" placeholder="Stock" type="number" style="font-weight: 550"/>
+      <input matInput formControlName="stock" placeholder="Stock" type="number" style="font-weight: 400"/>
      @if(errorHandling('stock')){
                         <mat-error  class="text-danger">
                             {{ errorHandling('stock') }}
@@ -59,7 +59,7 @@
   <div class="field">
     <mat-form-field  floatLabel="auto">
       <mat-label>Categoría</mat-label>
-      <mat-select formControlName="categoryId" style="font-weight: 550">
+      <mat-select formControlName="categoryId" style="font-weight: 400">
         <mat-option style="font-weight: 350; color: #ffff" *ngFor="let cat of categorias" [value]="cat.id">
           {{ cat.name }}
         </mat-option>
@@ -71,7 +71,7 @@
   <div class="field">
     <mat-form-field class="full-width"  floatLabel="auto">
       <mat-label>Etiquetas</mat-label>
-      <mat-select formControlName="tags" multiple  style="font-weight: 550">
+      <mat-select  placeholder="Etiquetas" formControlName="tags" multiple  style="font-weight: 400">
         @for (item of tags; track item.id) {
   
         <mat-option  style="font-weight: 350; color: #ffff"  [value]="item.id">{{ item.name }}</mat-option>
@@ -80,71 +80,72 @@
     </mat-form-field>
   </div>
 
+  <!-- Promedio de valoraciones -->
   <div class="field">
-    <div class="row">
-                <div class="col">
-                    <mat-label>Imágenes</mat-label>
-                </div>
-                <div class="col">
-                    <button mat-fab extended type="button" class="btn-secondary"
-                        ><mat-icon>add</mat-icon> Agregar Imagen</button>
-                </div>
-            </div>
-            <div class="row">
-                <table class="table">
-                    <thead class="bg-tertiary">
-                        <tr>
-                            <th>Imagen</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                     <tbody>
-
-                        <!-- Array de plataformas *ngFor="let p of plataformas.controls; let i = index"-->
-                         <!-- @for (p of plataformas.controls; track $index; let i = $index) { 
-                        <tr formArrayName="plataformas" >
-                            <td>
-                                <mat-form-field [formGroupName]="i">
-                                    <mat-select placeholder="Plataforma" formControlName="plataformaId"
-                                        id="{{'plataformaId'+i}}">
-                                        @for (item of plataformaList; track item.id) {
-                                        <mat-option [value]="item.id">
-                                            {{item.nombre}}
-                                        </mat-option>
-                                        }
-                                    </mat-select>
-                                    @if(errorHandling('plataformas.' + i + '.plataformaId')){
-                                    <mat-error>
-                                        {{ errorHandling('plataformas.' + i + '.plataformaId') }}
-                                    </mat-error>
-                                    }
-                                </mat-form-field>
-                            </td> -->
-                            <!-- <td>
-                                <mat-form-field [formGroupName]="i">
-                                    <input matInput formControlName="anno_lanzamiento" id="{{'anno_lanzamiento'+i}}"
-                                        placeholder="Año de lanzamiento">
-                                    @if(errorHandling('plataformas.' + i + '.anno_lanzamiento')){
-                                    <mat-error>
-                                        {{ errorHandling('plataformas.' + i + '.anno_lanzamiento') }}
-                                    </mat-error>
-                                    }
-                                </mat-form-field>
-
-                            </td> -->
-                            <td>
-                                <button matMiniFab type="button"
-                                    
-                                    ><mat-icon>delete</mat-icon></button>
-                            </td>
-                        <!-- </tr> -->
-                        <!-- } -->
-                        <!-- Array de plataformas -->
-                    </tbody>
-
-                </table>
+    <mat-form-field floatLabel="auto">
+      <mat-label>Promedio de valoraciones</mat-label>
+      <input matInput formControlName="averageRating" readonly="true" placeholder="Promedio" type="number" style="font-weight: 400"/>
+    </mat-form-field>
   </div>
+
+  <div class="field">
+  <h3>Subir imagen</h3>
+  <div class="row">
+    <!-- Carga y previews -->
+    <div class="col drop_box">
+      <h4>Seleccione archivos</h4>
+      <input
+        type="file"
+        accept="image/*"
+        multiple
+        (change)="selectFiles($event)"
+        #fileUpload
+        class="file-input"
+      />
+      <div class="file-upload">
+        <!-- Vista previa de múltiples imágenes -->
+        <div class="preview-container" *ngIf="previewUrls.length > 0">
+          <div *ngFor="let preview of previewUrls" class="img-preview">
+            <img
+              mat-card-image
+              height="120px"
+              [src]="preview"
+              alt="Imagen producto"
+            />
+          </div>
+        </div>
+
+        <div *ngIf="previewUrls.length === 0">
+          {{ nameImages.length ? nameImages.join(', ') : 'No se ha subido ningún archivo todavía' }}
+        </div>
+
+        <button
+          type="button"
+          matMiniFab
+          class="upload-btn btn-secondary"
+          (click)="fileUpload.click()"
+        >
+          <mat-icon>attach_file</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Imagen anterior solo si está editando -->
+    <div class="col drop_box" *ngIf="!isCreate && previousImages?.length">
+      <h4>Imágenes actuales</h4>
+      <div class="preview-container">
+        <div *ngFor="let img of previousImages" class="img-preview">
+          <img
+            mat-card-image
+            height="120px"
+            [src]="'http://localhost:3000/images/' + img"
+            alt="Imagen existente"
+          />
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
   <!-- Botones -->
   <div class="actions">

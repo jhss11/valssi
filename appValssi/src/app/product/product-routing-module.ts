@@ -7,9 +7,11 @@ import { ProductForm } from './product-form/product-form';
 
 const routes: Routes = [
   {path:'product',component: ProductIndex},
-  {path:'products/:id',component: ProductDetail},
   {path:'product/list',component: ProductList},
-  {path:'product/create',component: ProductForm}
+  {path:'product/create',component: ProductForm},
+  {path:'product/update/:id',component: ProductForm},
+  {path:'products/:id',component: ProductDetail},
+
 
 
 ];

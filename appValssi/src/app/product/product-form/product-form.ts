@@ -43,6 +43,11 @@ export class ProductForm implements OnInit, OnDestroy {
   // nameImage: string = 'image-not-found.jpg';
   // previousImage: string | null = null;
 
+ currentFiles: File[] = [];
+previewUrls: string[] = [];
+previousImages: string[] = []; // si estás actualizando
+nameImages: string[] = [];
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -93,6 +98,8 @@ export class ProductForm implements OnInit, OnDestroy {
       stock: [null, [Validators.required, Validators.min(1)]],
       categoryId: [null, [Validators.required]],
       tags: [null, Validators.required],
+      averageRating:[null],
+      images: [[]],
       // image: [this.nameImage],
     });
   }
@@ -129,6 +136,7 @@ export class ProductForm implements OnInit, OnDestroy {
       stock: data.stock,
       categoryId: data.category.id,
       tags: data.tags.map(({ id }) => id),
+      averageRating: data.averageRating,
       // image: data.image,
     });
 
@@ -151,6 +159,28 @@ export class ProductForm implements OnInit, OnDestroy {
   //     // this.nameImage = this.previousImage || 'image-not-found.jpg';
   //   }
   // }
+
+  selectFiles(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    this.currentFiles = Array.from(input.files);
+    this.previewUrls = [];
+
+    this.currentFiles.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        if (e.target?.result) {
+          this.previewUrls.push(e.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  } else {
+    this.previewUrls = [];
+    this.currentFiles = [];
+  }
+}
+
 
   
 
@@ -190,13 +220,45 @@ export class ProductForm implements OnInit, OnDestroy {
       ? parseFloat(formValue.price)
       : formValue.price;
 
+       // Verificar que el precio sea un número
+  const payloadCat =
+    typeof formValue.categoryId === 'string'
+      ? parseFloat(formValue.categoryId)
+      : formValue.categoryId;
    this.productForm.patchValue({
         tags: payloadTags,
         price: payloadPrice,
+        categoryId: payloadCat
         // imagen: this.previousImage,
       });
+
+if (this.currentFiles.length > 0) {
+  this.uploadService
+    .uploadMultiple(this.currentFiles, this.previousImages)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((uploaded: any[]) => {
+      this.nameImages = uploaded.map((u: any) => u.filename);
+      this.productForm.patchValue({
+        images: this.nameImages,
+        tags: payloadTags,
+        price: payloadPrice,
+        categoryId: payloadCat,
+      });
+      this.guardarProducto(); // ✅ Solo se llama cuando ya se cargaron las imágenes
+    });
+} else {
+  this.productForm.patchValue({
+    images: this.previousImages,
+    tags: payloadTags,
+    price: payloadPrice,
+    categoryId: payloadCat,
+  });
+  this.guardarProducto();
+}
+
      //Paso 2: Guardar/actualizar el videojuego en el API
       this.guardarProducto();
+
   }
   guardarProducto() {
      if (this.isCreate) {
@@ -207,11 +269,13 @@ export class ProductForm implements OnInit, OnDestroy {
         .subscribe((data: any) => {
           this.noti.success(
             'Crear Producto',
-            `Producto creado: ${data.nombre}`,
-            5000,
+            `Producto creado: ${data.name}`,
+            5000, '/product'
             // '/videojuego-admin'
           );
         });
+    this.productForm.reset();
+        
     } else {
       //Accion API actualizar enviando toda la informacion del formulario
       this.productService
@@ -220,11 +284,13 @@ export class ProductForm implements OnInit, OnDestroy {
         .subscribe((data: any) => {
           this.noti.success(
             'Actualizar Producto',
-            `Videojuego producto: ${data.nombre}`,
-            5000,
+            `Producto actualizado: ${data.name}`,
+            5000, '/product'
             // '/videojuego-admin'
+            
           );
         });
+
     }
   }
 
