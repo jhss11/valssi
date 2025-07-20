@@ -72,6 +72,16 @@ export const FormErrorMessage: FormValidatorMessage[] = [
     forValidator: 'required',
     text: 'La fecha de fin es requerida',
   },
+  {
+    forControl: 'comment',
+    forValidator: 'required',
+    text: 'Escriba su comentario.',
+  },
+  {
+    forControl: 'rating',
+    forValidator: 'required',
+    text: 'Seleccione estrellas',
+  },
   // {
   //   forControl: 'categoryId',
   //   forValidator: 'required',

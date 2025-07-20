@@ -1,4 +1,4 @@
-/* ---- CONTENEDOR PRINCIPAL ------------------------------------ */
+/* Contenedor principal */
 .detalle-container {
   display: grid; /* 2 columnas */
   grid-template-columns: 1.2fr 1.3fr;
@@ -9,15 +9,13 @@
   background: #fff;
   font-family: "Segoe UI", sans-serif;
   line-height: 1.6rem;
-  align-items: start; /* <-- alinea las dos columnas arriba */
+  align-items: start; 
 }
 
-/* ---- COLUMNA IZQUIERDA --------------------------------------- */
 .columna-izquierda {
   max-height: none;
   overflow-y: visible;
 }
-
 
 .producto-principal {
   width: 100%;
@@ -53,7 +51,7 @@
 .opinion-cliente {
   margin-top: 2rem;
   padding: 0.8rem;
-  background: #f9f9f9;
+  background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
@@ -80,15 +78,14 @@ hr {
   margin: 1rem 0;
 }
 
-/* ---- COLUMNA DERECHA ----------------------------------------- */
+/* Columna derecha*/
 .columna-derecha {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  align-self: start; /* <-- asegura tope alineado */
+  align-self: start; 
 }
 
-/* Tarjeta de info del producto */
 .producto-info {
   display: flex;
   flex-direction: column;
@@ -114,7 +111,7 @@ hr {
 }
 .categoria {
   font-size: 1rem;
-  color: #666;
+  color: #000000;
 }
 .categoria-tag {
   background: #dcdcdc;
@@ -132,7 +129,7 @@ hr {
   color: #97890b;
 }
 
-/* ---- FORMULARIO DE RESEÑA ------------------------------------ */
+/* Formulario de reseña */
 .review-form {
   background: #f9f9f9;
   border-radius: 12px;
@@ -141,13 +138,11 @@ hr {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.2rem 2rem;
-  font-family: "Segoe UI", sans-serif;
 }
 
 .review-form h4 {
   grid-column: span 2;
   color: #2f5d58;
-  margin-bottom: 1rem;
 }
 .review-form .field {
   display: flex;
@@ -167,6 +162,15 @@ hr {
   display: flex;
   justify-content: center;
 }
+.actions button:hover {
+  background-color: #234843;
+}
+
+.actions button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
 .review-form button {
   padding: 0.6rem 1.4rem;
   background: #2f5d58;
@@ -177,9 +181,7 @@ hr {
   cursor: pointer;
   transition: background 0.3s;
 }
-.review-form button:hover {
-  background: #234843;
-}
+
 
 /* Estrellas interactivas */
 .estrellas-input {
@@ -230,17 +232,23 @@ button[mat-flat-button]:hover {
 
 .comprar{
   margin: 1rem 0 0 1rem;
-  padding: 0.6rem 1.4rem;
-  
+  padding: 0.8rem 1.4rem;
   border-radius: 8px;
   transition: background-color 0.3s ease;
   gap: 0.5rem;
-  font-weight: 500;
+  font-weight: 666;
+  color: #f0f4f1;
   font-size: 15px;
   border: none;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.25s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;  
- background-color: #df751f;
+  background-color: #c2661b;
+}
+
+.text-danger {
+  color: #b30000;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  margin-left: -8px;
 }
