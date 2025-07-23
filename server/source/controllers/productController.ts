@@ -178,21 +178,19 @@ export class ProductController {
           category: {
             connect: { id: body.categoryId },
           },
-           tags: {
-          connect: body.tags // debe ser un array tipo [{id: 1}, {id: 3}]
+          tags: {
+            connect: body.tags, // debe ser un array tipo [{id: 1}, {id: 3}]
+          },
+          images: {
+            create: body.images.map((img: any) => ({
+              url: img.url,
+            })),
+          },
         },
-         images: {
-          create: body.images.map((url: string) => ({
-            url: url
-          }))
+        include: {
+          tags: true,
+          images: true,
         },
-
-        
-        },
-         include: {
-        tags: true,
-        images: true,
-      },
       });
       response.status(201).json(nuevoProducto);
     } catch (error) {
@@ -200,7 +198,7 @@ export class ProductController {
     }
   };
 
-  update = async (request: Request, response: Response, next: NextFunction) => {
+ update = async (request: Request, response: Response, next: NextFunction) => {
   try {
     const body = request.body;
     const idProducto = parseInt(request.params.id);
@@ -210,27 +208,49 @@ export class ProductController {
       where: { id: idProducto },
       include: {
         tags: { select: { id: true } },
-        images: { select: { id: true } },
+        images: { select: { url: true } },
       },
     });
 
+    // if (!productoExistente) {
+    //   return response.status(404).json({ error: 'Producto no encontrado' });
+    // }
 
-
-    // Preparar desconexión de tags antiguos y conexión de nuevos
+    // Preparar tags
     const disconnectTags = productoExistente?.tags.map(tag => ({ id: tag.id }));
-    const connectTags = body.tags ? body.tags.map((tag: { id: number }) => ({ id: tag.id })) : [];
+    const connectTags = body.tags
+      ? body.tags.map((tag: { id: number }) => ({ id: tag.id }))
+      : [];
 
-    // Eliminar imágenes anteriores del producto
-    await this.prisma.image.deleteMany({
+    // 🔥 CORREGIDO: Eliminar imágenes indicadas
+    if (body.eliminar && Array.isArray(body.eliminar)) {
+      await this.prisma.image.deleteMany({
+        where: {
+          url: { in: body.eliminar },
+          productId: idProducto,
+        },
+      });
+    }
+
+    // Obtener URLs ya existentes después de eliminación
+    const imagenesRestantes = await this.prisma.image.findMany({
       where: { productId: idProducto },
     });
 
-    // Crear nuevas imágenes
+    const urlsActuales = imagenesRestantes.map(img => img.url);
+
+    // 🔍 Ver qué imágenes nuevas hay (que no estén aún en la base)
     const createImages = body.images
-      ? body.images.map((url: string) => ({ url }))
+      ? body.images
+          .filter(
+            (img: any) =>
+              !urlsActuales.includes(img.url) && // no duplicar
+              !body.eliminar?.includes(img.url) // no agregar eliminadas
+          )
+          .map((img: any) => ({ url: img.url }))
       : [];
 
-    // Actualizar el producto
+    // 🔄 Actualizar producto
     const productoActualizado = await this.prisma.product.update({
       where: { id: idProducto },
       data: {
@@ -238,16 +258,9 @@ export class ProductController {
         description: body.description,
         price: body.price,
         stock: body.stock,
-        category: {
-          connect: { id: body.categoryId },
-        },
-        tags: {
-          disconnect: disconnectTags,
-          connect: connectTags,
-        },
-        images: {
-          create: createImages,
-        },
+        category: { connect: { id: body.categoryId } },
+        tags: { disconnect: disconnectTags, connect: connectTags },
+        images: { create: createImages },
       },
     });
 
@@ -256,5 +269,6 @@ export class ProductController {
     next(error);
   }
 };
+
 
 }
