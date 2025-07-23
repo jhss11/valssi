@@ -90,62 +90,45 @@
 
   <div class="field">
   <h3>Subir imagen</h3>
-  <div class="row">
-    <!-- Carga y previews -->
-    <div class="col drop_box">
-      <h4>Seleccione archivos</h4>
-      <input
-        type="file"
-        accept="image/*"
-        multiple
-        (change)="selectFiles($event)"
-        #fileUpload
-        class="file-input"
-      />
-      <div class="file-upload">
-        <!-- Vista previa de múltiples imágenes -->
-        <div class="preview-container" *ngIf="previewUrls.length > 0">
-          <div *ngFor="let preview of previewUrls" class="img-preview">
-            <img
-              mat-card-image
-              height="120px"
-              [src]="preview"
-              alt="Imagen producto"
-            />
+   <div class="row">
+      <div class="col drop_box">
+        <h4>Seleccione archivos</h4>
+
+        <!-- INPUT MULTIPLE -->
+        <input type="file" multiple accept="image/*" (change)="selectFiles($event)" #fileUpload class="file-input" />
+
+        <div class="file-upload">
+          <!-- Mostrar todas las vistas previas -->
+          <ng-container *ngIf="previews.length > 0">
+            <div *ngFor="let preview of previews">
+              <img [src]="preview" height="200px" />
+            </div>
+          </ng-container>
+
+          <div *ngIf="previews.length === 0">
+            No se han seleccionado archivos todavía
           </div>
-        </div>
 
-        <div *ngIf="previewUrls.length === 0">
-          {{ nameImages.length ? nameImages.join(', ') : 'No se ha subido ningún archivo todavía' }}
-        </div>
-
-        <button
-          type="button"
-          matMiniFab
-          class="upload-btn btn-secondary"
-          (click)="fileUpload.click()"
-        >
-          <mat-icon>attach_file</mat-icon>
-        </button>
-      </div>
-    </div>
-
-    <!-- Imagen anterior solo si está editando -->
-    <div class="col drop_box" *ngIf="!isCreate && previousImages?.length">
-      <h4>Imágenes actuales</h4>
-      <div class="preview-container">
-        <div *ngFor="let img of previousImages" class="img-preview">
-          <img
-            mat-card-image
-            height="120px"
-            [src]="'http://localhost:3000/images/' + img"
-            alt="Imagen existente"
-          />
+          <button type="button" matMiniFab class="upload-btn btn-secondary" (click)="fileUpload.click()">
+            <mat-icon>attach_file</mat-icon>
+          </button>
         </div>
       </div>
-    </div>
-  </div>
+
+      <!-- Imágenes anteriores del producto -->
+      <div class="col drop_box" *ngIf="!isCreate && previousImages.length > 0">
+        <h4>Imágenes existentes</h4>
+        <div *ngFor="let img of previousImages; let i = index">
+          <img [src]="'http://localhost:3000/images/' + img" height="300px" />
+          <button type="button" mat-icon-button color="warn" (click)="eliminarImagenAnterior(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+        </div>
+      </div>
+  </div>  
 </div>
+
 
   <!-- Botones -->
   <div class="actions">

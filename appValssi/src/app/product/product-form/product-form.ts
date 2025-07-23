@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { getFormValidationErrorMessage } from '../../share/form-validation';
@@ -17,7 +17,7 @@ import { ProductModel } from '../../share/models/ProductModel';
   selector: 'app-product-form',
   standalone: false,
   templateUrl: './product-form.html',
-  styleUrl: './product-form.css'
+  styleUrl: './product-form.css',
 })
 export class ProductForm implements OnInit, OnDestroy {
   private destroy$ = new Subject<boolean>();
@@ -30,23 +30,17 @@ export class ProductForm implements OnInit, OnDestroy {
   categorias: any[] = [];
   tags: any[] = [];
 
-   // --- Relativo al formulario ---
+  // --- Relativo al formulario ---
   productForm!: FormGroup;
   number4digits = /^\d{4}$/;
   number2decimals = /^[0-9]+[.,]{1,1}[0-9]{2,2}$/;
 
-
-
   // --- Gestión de imagen ---
-  // currentFile?: File;
-  // previewUrls: string[] = [];
-  // nameImage: string = 'image-not-found.jpg';
-  // previousImage: string | null = null;
-
- currentFiles: File[] = [];
-previewUrls: string[] = [];
-previousImages: string[] = []; // si estás actualizando
-nameImages: string[] = [];
+  currentFiles: File[] = []; // Varios archivos seleccionados
+  previews: string[] = []; // Vistas previas
+  nameImages: string[] = []; // Nombres de imágenes
+  previousImages: string[] = []; // Imágenes anteriores si está en edición
+  eliminadas: string[] = []; // Almacena imágenes a eliminar
 
   constructor(
     private fb: FormBuilder,
@@ -71,7 +65,7 @@ nameImages: string[] = [];
     this.activeRouter.params.subscribe((params: Params) => {
       this.idProduct = params['id'];
       //Identificar sí es crear o Actualizar
-      this.isCreate = this.idProduct === undefined;//no NULL
+      this.isCreate = this.idProduct === undefined; //no NULL
       this.titleForm = this.isCreate ? 'Crear' : 'Actualizar';
       if (this.idProduct != undefined) {
         //Obtener del API el videojuego se va a actualizar
@@ -98,8 +92,9 @@ nameImages: string[] = [];
       stock: [null, [Validators.required, Validators.min(1)]],
       categoryId: [null, [Validators.required]],
       tags: [null, Validators.required],
-      averageRating:[null],
-      images: [[]],
+      averageRating: [null],
+      images: [[], null],
+      eliminar: [[]],
       // image: [this.nameImage],
     });
   }
@@ -122,8 +117,7 @@ nameImages: string[] = [];
       });
   }
 
-
-   /**
+  /**
    * Carga en el formulario el videojuego existeste para actualizar.
    * @param data El objecto de respuesta del API.
    */
@@ -141,127 +135,108 @@ nameImages: string[] = [];
     });
 
     // this.nameImage = data.image || 'image-not-found.jpg';
-    // this.previousImage = data.image;
+    this.previousImages = data.images.map((img) => img.url);
   }
-
-  // selectFile(event: Event): void {
-  //   const input = event.target as HTMLInputElement;
-  //   if (input.files && input.files.length > 0) {
-  //     this.currentFile = input.files[0];
-  //     const reader = new FileReader();
-  //     reader.onload = (e: ProgressEvent<FileReader>) => {
-  //       this.previewUrls = [e.target?.result as string];
-  //     };
-  //     reader.readAsDataURL(this.currentFile);
-  //   } else {
-  //     this.previewUrls = [];
-  //     this.currentFile = undefined;
-  //     // this.nameImage = this.previousImage || 'image-not-found.jpg';
-  //   }
-  // }
 
   selectFiles(event: Event): void {
-  const input = event.target as HTMLInputElement;
-  if (input.files && input.files.length > 0) {
-    this.currentFiles = Array.from(input.files);
-    this.previewUrls = [];
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      for (let i = 0; i < input.files.length; i++) {
+        const file = input.files[i];
+        this.currentFiles.push(file);
+        this.nameImages.push(file.name);
 
-    this.currentFiles.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        if (e.target?.result) {
-          this.previewUrls.push(e.target.result as string);
-        }
-      };
-      reader.readAsDataURL(file);
-    });
-  } else {
-    this.previewUrls = [];
-    this.currentFiles = [];
+        const reader = new FileReader();
+        reader.onload = (e: ProgressEvent<FileReader>) => {
+          this.previews.push(e.target?.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
   }
-}
 
-
-  
+  eliminarImagenAnterior(index: number) {
+    const imgEliminada = this.previousImages[index];
+    this.eliminadas.push(imgEliminada); // marcar para borrar en backend
+    this.previousImages.splice(index, 1); // eliminar visualmente
+  }
 
   submitProduct(): void {
-
     this.productForm.markAllAsTouched();
 
-     if (this.productForm.invalid) {
-       console.log('Formulario inválido:', this.productForm.errors);
+    if (this.productForm.invalid) {
+      console.log('Formulario inválido:', this.productForm.errors);
 
-  Object.keys(this.productForm.controls).forEach(key => {
-    const control = this.productForm.get(key);
-    if (control?.invalid) {
-      console.warn(`❌ Campo inválido: ${key}`, control.errors);
+      // Object.keys(this.productForm.controls).forEach((key) => {
+      //   const control = this.productForm.get(key);
+      //   if (control?.invalid) {
+      //     console.warn(`❌ Campo inválido: ${key}`, control.errors);
+      //   }
+      // });
+      this.noti.error(
+        'Formulario Inválido',
+        'Por favor, revise los campos marcados en rojo.',
+        5000
+      );
+      console.log('Formulario inválido:', this.productForm.errors);
+      return;
     }
-  });
-    this.noti.error(
-      'Formulario Inválido',
-      'Por favor, revise los campos marcados en rojo.',
-      5000
-    );
-    console.log('Formulario inválido:', this.productForm.errors);
-    return;
-  }
 
-  const formValue = this.productForm.value;
+    const formValue = this.productForm.value;
     console.log(formValue);
 
-  // Transformar tags en formato correcto para el API
-  const payloadTags = formValue.tags
-    ? formValue.tags.map((id: number) => ({ id }))
-    : [];
+    // Transformar tags en formato correcto para el API
+    const payloadTags = formValue.tags
+      ? formValue.tags.map((id: number) => ({ id }))
+      : [];
 
-  // Verificar que el precio sea un número
-  const payloadPrice =
-    typeof formValue.price === 'string'
-      ? parseFloat(formValue.price)
-      : formValue.price;
+    // Verificar que el precio sea un número
+    const payloadPrice =
+      typeof formValue.price === 'string'
+        ? parseFloat(formValue.price)
+        : formValue.price;
 
-       // Verificar que el precio sea un número
-  const payloadCat =
-    typeof formValue.categoryId === 'string'
-      ? parseFloat(formValue.categoryId)
-      : formValue.categoryId;
-   this.productForm.patchValue({
-        tags: payloadTags,
-        price: payloadPrice,
-        categoryId: payloadCat
-        // imagen: this.previousImage,
+    // Verificar que el precio sea un número
+    const payloadCat =
+      typeof formValue.categoryId === 'string'
+        ? parseFloat(formValue.categoryId)
+        : formValue.categoryId;
+
+    if (this.currentFiles.length > 0) {
+      const uploadObservables = this.currentFiles.map((file, index) =>
+        this.uploadService.upload(file, this.previousImages[index] || '')
+      );
+
+      forkJoin(uploadObservables).subscribe((responses: any[]) => {
+        const imagenesSubidas = responses.map((res) => ({ url: res.fileName }));
+
+        this.productForm.patchValue({
+          images: [
+            ...this.previousImages.map((name) => ({ url: name })), // conserva anteriores
+            ...imagenesSubidas, // agrega nuevas
+          ],
+          eliminar: this.eliminadas, // ← aquí indicas cuáles eliminar
+          tags: payloadTags,
+          price: payloadPrice,
+          categoryId: payloadCat,
+        });
+
+        this.guardarProducto();
       });
-
-if (this.currentFiles.length > 0) {
-  this.uploadService
-    .uploadMultiple(this.currentFiles, this.previousImages)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((uploaded: any[]) => {
-      this.nameImages = uploaded.map((u: any) => u.filename);
+    } else {
       this.productForm.patchValue({
-        images: this.nameImages,
+        images: this.previousImages.map((name) => ({ url: name })),
+        eliminar: this.eliminadas, // también aquí
         tags: payloadTags,
         price: payloadPrice,
         categoryId: payloadCat,
       });
-      this.guardarProducto(); // ✅ Solo se llama cuando ya se cargaron las imágenes
-    });
-} else {
-  this.productForm.patchValue({
-    images: this.previousImages,
-    tags: payloadTags,
-    price: payloadPrice,
-    categoryId: payloadCat,
-  });
-  this.guardarProducto();
-}
-
-     //Paso 2: Guardar/actualizar el videojuego en el API
       this.guardarProducto();
-
+    }
   }
+
   guardarProducto() {
-     if (this.isCreate) {
+    if (this.isCreate) {
       //Accion API create enviando toda la informacion del formulario
       this.productService
         .create(this.productForm.value)
@@ -270,12 +245,12 @@ if (this.currentFiles.length > 0) {
           this.noti.success(
             'Crear Producto',
             `Producto creado: ${data.name}`,
-            5000, '/product'
+            5000,
+            '/product'
             // '/videojuego-admin'
           );
         });
-    this.productForm.reset();
-        
+      this.productForm.reset();
     } else {
       //Accion API actualizar enviando toda la informacion del formulario
       this.productService
@@ -285,12 +260,11 @@ if (this.currentFiles.length > 0) {
           this.noti.success(
             'Actualizar Producto',
             `Producto actualizado: ${data.name}`,
-            5000, '/product'
+            5000,
+            '/product'
             // '/videojuego-admin'
-            
           );
         });
-
     }
   }
 
@@ -300,9 +274,9 @@ if (this.currentFiles.length > 0) {
 
   onReset(): void {
     this.productForm.reset();
-    // this.previewUrls = [];
-    // this.currentFile = undefined;
-    // this.nameImage = 'image-not-found.jpg';
+    this.previews = [];
+    this.currentFiles = [];
+    // this.nameImages = 'image-not-found.jpg';
   }
 
   onBack(): void {

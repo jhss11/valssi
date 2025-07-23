@@ -1,0 +1,128 @@
+2025-07-22 14:04:22.414 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.product.update()` invocation in
+C:\Angular\valssi\server\source\controllers\productController.ts:234:59
+
+  231   : [];
+  232 
+  233 // Actualizar el producto
+→ 234 const productoActualizado = await this.prisma.product.update({
+        where: {
+          id: 8
+        },
+        data: {
+          name: "Maceta set de 2",
+          description: "Conjunto de 2 macetas de cerámica con bases de madera. Macetas blancas tamaño medio, madera lisa barnizada.",
+          price: 19000,
+          stock: 25,
+          category: {
+            connect: {
+              id: 4
+            }
+          },
+          tags: {
+            disconnect: [
+              {
+                id: 4
+              },
+              {
+                id: 5
+              }
+            ],
+            connect: [
+              {
+                id: 4
+              },
+              {
+                id: 5
+              }
+            ]
+          },
+          images: {
+            create: [
+              {
+                url: {
+                  url: "product_1753214662336.jpg"
+                }
+              },
+              {
+                url: {
+                  url: "product_1753214662338.jpg"
+                }
+              },
+              {
+                url: {
+                  url: "product_1753214662340.jpg"
+                }
+              }
+            ]
+          }
+        }
+      })
+
+Argument `url`: Invalid value provided. Expected String, provided Object.
+2025-07-22 14:04:28.317 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.product.update()` invocation in
+C:\Angular\valssi\server\source\controllers\productController.ts:234:59
+
+  231   : [];
+  232 
+  233 // Actualizar el producto
+→ 234 const productoActualizado = await this.prisma.product.update({
+        where: {
+          id: 8
+        },
+        data: {
+          name: "Maceta set de 2",
+          description: "Conjunto de 2 macetas de cerámica con bases de madera. Macetas blancas tamaño medio, madera lisa barnizada.",
+          price: 19000,
+          stock: 25,
+          category: {
+            connect: {
+              id: 4
+            }
+          },
+          tags: {
+            disconnect: [
+              {
+                id: 4
+              },
+              {
+                id: 5
+              }
+            ],
+            connect: [
+              {
+                id: {
+                  id: 4
+                }
+              },
+              {
+                id: {
+                  id: 5
+                }
+              }
+            ]
+          },
+          images: {
+            create: [
+              {
+                url: {
+                  url: "product_1753214668290.jpg"
+                }
+              },
+              {
+                url: {
+                  url: "product_1753214668292.jpg"
+                }
+              },
+              {
+                url: {
+                  url: "product_1753214668293.jpg"
+                }
+              }
+            ]
+          }
+        }
+      })
+
+Argument `id`: Invalid value provided. Expected Int, provided Object.
