@@ -5,40 +5,53 @@
 
   <!-- Nombre -->
   <div class="field">
-    <mat-form-field  floatLabel="auto">
+    <mat-form-field floatLabel="auto">
       <mat-label>Nombre</mat-label>
-      <input matInput formControlName="name" placeholder="Nombre" style="font-weight: 400"/>
-       @if(errorHandling('name')){
-                        <mat-error class="text-danger">
-                            {{ errorHandling('name') }}
-                        </mat-error>
-                        }
+      <input
+        matInput
+        formControlName="name"
+        placeholder="Nombre"
+        style="font-weight: 400"
+      />
+      @if(errorHandling('name')){
+      <mat-error class="text-danger"> {{ errorHandling('name') }} </mat-error>
+      }
     </mat-form-field>
   </div>
 
   <!-- Descripción -->
   <div class="field">
-    <mat-form-field  floatLabel="auto">
+    <mat-form-field floatLabel="auto">
       <mat-label>Descripción</mat-label>
-      <textarea  matInput formControlName="description" placeholder="Descripción"   style="font-weight: 400"></textarea>
-     @if(errorHandling('description')){
-                        <mat-error  class="text-danger">
-                            {{ errorHandling('description') }}
-                        </mat-error>
-                        
-                        }</mat-form-field>
+      <textarea
+        matInput
+        formControlName="description"
+        placeholder="Descripción"
+        style="font-weight: 400"
+      ></textarea>
+      @if(errorHandling('description')){
+      <mat-error class="text-danger">
+        {{ errorHandling('description') }}
+      </mat-error>
+
+      }</mat-form-field
+    >
   </div>
 
   <!-- Precio -->
   <div class="field">
-    <mat-form-field  floatLabel="auto">
+    <mat-form-field floatLabel="auto">
       <mat-label>Precio</mat-label>
-      <input matInput formControlName="price" placeholder="Precio" type="number"  style="font-weight: 400" />
-       @if(errorHandling('price')){
-                        <mat-error  class="text-danger">
-                            {{ errorHandling('price') }}
-                        </mat-error>
-                        }
+      <input
+        matInput
+        formControlName="price"
+        placeholder="Precio"
+        type="number"
+        style="font-weight: 400"
+      />
+      @if(errorHandling('price')){
+      <mat-error class="text-danger"> {{ errorHandling('price') }} </mat-error>
+      }
     </mat-form-field>
   </div>
 
@@ -46,21 +59,29 @@
   <div class="field">
     <mat-form-field floatLabel="auto">
       <mat-label>Stock</mat-label>
-      <input matInput formControlName="stock" placeholder="Stock" type="number" style="font-weight: 400"/>
-     @if(errorHandling('stock')){
-                        <mat-error  class="text-danger">
-                            {{ errorHandling('stock') }}
-                        </mat-error>
-                        }
+      <input
+        matInput
+        formControlName="stock"
+        placeholder="Stock"
+        type="number"
+        style="font-weight: 400"
+      />
+      @if(errorHandling('stock')){
+      <mat-error class="text-danger"> {{ errorHandling('stock') }} </mat-error>
+      }
     </mat-form-field>
   </div>
 
   <!-- Categoría -->
   <div class="field">
-    <mat-form-field  floatLabel="auto">
+    <mat-form-field floatLabel="auto">
       <mat-label>Categoría</mat-label>
       <mat-select formControlName="categoryId" style="font-weight: 400">
-        <mat-option style="font-weight: 350; color: #ffff" *ngFor="let cat of categorias" [value]="cat.id">
+        <mat-option
+          style="font-weight: 350; color: #ffff"
+          *ngFor="let cat of categorias"
+          [value]="cat.id"
+        >
           {{ cat.name }}
         </mat-option>
       </mat-select>
@@ -69,12 +90,19 @@
 
   <!-- Tags -->
   <div class="field">
-    <mat-form-field class="full-width"  floatLabel="auto">
+    <mat-form-field class="full-width" floatLabel="auto">
       <mat-label>Etiquetas</mat-label>
-      <mat-select  placeholder="Etiquetas" formControlName="tags" multiple  style="font-weight: 400">
+      <mat-select
+        placeholder="Etiquetas"
+        formControlName="tags"
+        multiple
+        style="font-weight: 400"
+      >
         @for (item of tags; track item.id) {
-  
-        <mat-option  style="font-weight: 350; color: #ffff"  [value]="item.id">{{ item.name }}</mat-option>
+
+        <mat-option style="font-weight: 350; color: #ffff" [value]="item.id"
+          >{{ item.name }}</mat-option
+        >
         }
       </mat-select>
     </mat-form-field>
@@ -84,24 +112,48 @@
   <div class="field">
     <mat-form-field floatLabel="auto">
       <mat-label>Promedio de valoraciones</mat-label>
-      <input matInput formControlName="averageRating" readonly="true" placeholder="Promedio" type="number" style="font-weight: 400"/>
+      <input
+        matInput
+        formControlName="averageRating"
+        readonly="true"
+        placeholder="Promedio"
+        type="number"
+        style="font-weight: 400"
+      />
     </mat-form-field>
   </div>
 
   <div class="field">
-  <h3>Subir imagen</h3>
-   <div class="row">
+    <h3>Subir imagen</h3>
+    <div class="row">
       <div class="col drop_box">
         <h4>Seleccione archivos</h4>
-
-        <!-- INPUT MULTIPLE -->
-        <input type="file" multiple accept="image/*" (change)="selectFiles($event)" #fileUpload class="file-input" />
+        <input
+          type="file"
+          multiple
+          accept="image/*"
+          (change)="selectFiles($event)"
+          #fileUpload
+          class="file-input"
+        />
 
         <div class="file-upload">
           <!-- Mostrar todas las vistas previas -->
           <ng-container *ngIf="previews.length > 0">
-            <div *ngFor="let preview of previews">
-              <img [src]="preview" height="200px" />
+            <div
+              *ngFor="let preview of previews; let i = index"
+              style="position: relative; display: inline-block; margin: 5px"
+            >
+              <img [src]="preview" height="180px" />
+              <button
+                type="button"
+                mat-icon-button
+                color="warn"
+                class="delete-btn"
+                (click)="eliminarImagenNueva(i)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
             </div>
           </ng-container>
 
@@ -109,26 +161,42 @@
             No se han seleccionado archivos todavía
           </div>
 
-          <button type="button" matMiniFab class="upload-btn btn-secondary" (click)="fileUpload.click()">
-            <mat-icon>attach_file</mat-icon>
-          </button>
+          <div class="upload-button-wrapper">
+            <button
+              type="button"
+              matMiniFab
+              class="upload-btn"
+              (click)="fileUpload.click()"
+            >
+              <mat-icon>attach_file</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
 
       <!-- Imágenes anteriores del producto -->
-      <div class="col drop_box" *ngIf="!isCreate && previousImages.length > 0">
-        <h4>Imágenes existentes</h4>
-        <div *ngFor="let img of previousImages; let i = index">
-          <img [src]="'http://localhost:3000/images/' + img" height="300px" />
-          <button type="button" mat-icon-button color="warn" (click)="eliminarImagenAnterior(i)">
-            <mat-icon>delete</mat-icon>
-          </button>
-
+      <div *ngIf="!isCreate && previousImages.length > 0">
+        <h3>Imágenes existentes</h3>
+        <div class="file-upload">
+          <div
+            *ngFor="let img of previousImages; let i = index"
+            style="position: relative; display: inline-block; margin: 5px"
+          >
+            <img [src]="'http://localhost:3000/images/' + img" height="180px" />
+            <button
+              type="button"
+              mat-icon-button
+              color="warn"
+              class="delete-btn"
+              (click)="eliminarImagenAnterior(i)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
-  </div>  
-</div>
-
+    </div>
+  </div>
 
   <!-- Botones -->
   <div class="actions">

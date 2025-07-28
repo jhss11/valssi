@@ -92,10 +92,9 @@ export class ProductForm implements OnInit, OnDestroy {
       stock: [null, [Validators.required, Validators.min(1)]],
       categoryId: [null, [Validators.required]],
       tags: [null, Validators.required],
-      averageRating: [null],
+      averageRating: [0],
       images: [[], null],
       eliminar: [[]],
-      // image: [this.nameImage],
     });
   }
 
@@ -118,7 +117,7 @@ export class ProductForm implements OnInit, OnDestroy {
   }
 
   /**
-   * Carga en el formulario el videojuego existeste para actualizar.
+   * Carga en el formulario el producto existeste para actualizar.
    * @param data El objecto de respuesta del API.
    */
   private patchFormValues(data: ProductModel): void {
@@ -131,10 +130,8 @@ export class ProductForm implements OnInit, OnDestroy {
       categoryId: data.category.id,
       tags: data.tags.map(({ id }) => id),
       averageRating: data.averageRating,
-      // image: data.image,
     });
 
-    // this.nameImage = data.image || 'image-not-found.jpg';
     this.previousImages = data.images.map((img) => img.url);
   }
 
@@ -157,65 +154,60 @@ export class ProductForm implements OnInit, OnDestroy {
 
   eliminarImagenAnterior(index: number) {
     const imgEliminada = this.previousImages[index];
-    this.eliminadas.push(imgEliminada); // marcar para borrar en backend
-    this.previousImages.splice(index, 1); // eliminar visualmente
+    this.eliminadas.push(imgEliminada); // Borrar en backend
+    this.previousImages.splice(index, 1); // Eliminar visualmente
+  }
+
+  eliminarImagenNueva(index: number): void {
+    this.previews.splice(index, 1);
+    this.currentFiles.splice(index, 1); // También elimina el archivo del array que se manda
   }
 
   submitProduct(): void {
     this.productForm.markAllAsTouched();
 
     if (this.productForm.invalid) {
-      console.log('Formulario inválido:', this.productForm.errors);
-
-      // Object.keys(this.productForm.controls).forEach((key) => {
-      //   const control = this.productForm.get(key);
-      //   if (control?.invalid) {
-      //     console.warn(`❌ Campo inválido: ${key}`, control.errors);
-      //   }
-      // });
       this.noti.error(
         'Formulario Inválido',
-        'Por favor, revise los campos marcados en rojo.',
+        'Por favor, revise los campos.',
         5000
       );
-      console.log('Formulario inválido:', this.productForm.errors);
       return;
     }
 
     const formValue = this.productForm.value;
-    console.log(formValue);
 
-    // Transformar tags en formato correcto para el API
-    const payloadTags = formValue.tags
-      ? formValue.tags.map((id: number) => ({ id }))
-      : [];
-
-    // Verificar que el precio sea un número
+    const payloadTags = formValue.tags?.map((id: number) => ({ id })) || [];
     const payloadPrice =
       typeof formValue.price === 'string'
         ? parseFloat(formValue.price)
         : formValue.price;
-
-    // Verificar que el precio sea un número
     const payloadCat =
       typeof formValue.categoryId === 'string'
         ? parseFloat(formValue.categoryId)
         : formValue.categoryId;
 
+    // Subir nuevas imágenes si existen
     if (this.currentFiles.length > 0) {
-      const uploadObservables = this.currentFiles.map((file, index) =>
-        this.uploadService.upload(file, this.previousImages[index] || '')
+      const uploadObservables = this.currentFiles.map((file) =>
+        this.uploadService.upload(file, null)
       );
 
       forkJoin(uploadObservables).subscribe((responses: any[]) => {
+        // Las imágenes nuevas
         const imagenesSubidas = responses.map((res) => ({ url: res.fileName }));
 
+        // Filtro para que no haya errores en el array de imágenes anteriores, además se le da formato a la url
+        const imagenesPreviasFinales = this.previousImages
+          .filter((name) => !this.eliminadas.includes(name))
+          .map((url) => ({ url }));
+
+        // Junta las anteriores no eliminadas con las nuevas subidas.
+        const imagenesTotales = [...imagenesPreviasFinales, ...imagenesSubidas];
+
         this.productForm.patchValue({
-          images: [
-            ...this.previousImages.map((name) => ({ url: name })), // conserva anteriores
-            ...imagenesSubidas, // agrega nuevas
-          ],
-          eliminar: this.eliminadas, // ← aquí indicas cuáles eliminar
+          images: imagenesTotales,
+          eliminar: this.eliminadas,
           tags: payloadTags,
           price: payloadPrice,
           categoryId: payloadCat,
@@ -224,13 +216,22 @@ export class ProductForm implements OnInit, OnDestroy {
         this.guardarProducto();
       });
     } else {
+      // Solo enviar las imágenes previas que no han sido eliminadas
+      const imagenesFinales = this.previousImages
+        .filter((name) => !this.eliminadas.includes(name))
+        .map((url) => ({ url }));
+
       this.productForm.patchValue({
-        images: this.previousImages.map((name) => ({ url: name })),
-        eliminar: this.eliminadas, // también aquí
+        images:
+          imagenesFinales.length > 0
+            ? imagenesFinales
+            : [{ url: 'image-not-found.jpg' }],
+        eliminar: this.eliminadas,
         tags: payloadTags,
         price: payloadPrice,
         categoryId: payloadCat,
       });
+
       this.guardarProducto();
     }
   }
@@ -242,13 +243,7 @@ export class ProductForm implements OnInit, OnDestroy {
         .create(this.productForm.value)
         .pipe(takeUntil(this.destroy$))
         .subscribe((data: any) => {
-          this.noti.success(
-            'Crear Producto',
-            `Producto creado: ${data.name}`,
-            5000,
-            '/product'
-            // '/videojuego-admin'
-          );
+          this.noti.success('Crear Producto', `${data.name}`, 3000, '/product');
         });
       this.productForm.reset();
     } else {
@@ -259,10 +254,9 @@ export class ProductForm implements OnInit, OnDestroy {
         .subscribe((data: any) => {
           this.noti.success(
             'Actualizar Producto',
-            `Producto actualizado: ${data.name}`,
-            5000,
+            ` ${data.name}`,
+            3000,
             '/product'
-            // '/videojuego-admin'
           );
         });
     }
@@ -273,10 +267,14 @@ export class ProductForm implements OnInit, OnDestroy {
   }
 
   onReset(): void {
-    this.productForm.reset();
+    this.productForm.reset({
+      averageRating: 0,
+    });
     this.previews = [];
     this.currentFiles = [];
-    // this.nameImages = 'image-not-found.jpg';
+    this.nameImages = [];
+    this.previousImages = [];
+    this.eliminadas = [];
   }
 
   onBack(): void {
