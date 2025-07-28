@@ -40,7 +40,7 @@ export class ProductDetail implements OnInit, OnDestroy {
     if (!isNaN(id)) this.getProduct(id);
 
     this.reviewForm = this.fb.group({
-      comment: [null, [Validators.required, minWordsValidator(1), Validators.minLength(4)]],
+      comment: [null, [Validators.required, minWordsValidator(1)]],
       rating: [null, [Validators.required, Validators.min(1), Validators.max(5)],
       ], 
     });
@@ -90,7 +90,7 @@ export class ProductDetail implements OnInit, OnDestroy {
         this.reviewForm.reset();
         this.noti.success(
           '¡Reseña registrada!',
-          'Gracias por tu aporte.',
+          'Gracias por su aporte.',
           2000
         );
       },
@@ -107,7 +107,7 @@ export class ProductDetail implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.router.navigate(['/product']);
+    this.router.navigate(['/product/list']);
   }
 
   errorHandling(control: string) {

@@ -1,12 +1,12 @@
 <div class="boton">
   <button mat-flat-button (click)="goBack()">
-    <mat-icon>arrow_back</mat-icon>Volver
+    <mat-icon>arrow_back</mat-icon>Regresar
   </button>
 </div>
 <div class="detalle-container">
   @if (datos) {
   <div class="columna-izquierda">
-    <div >
+    <div>
       <div class="producto-header">
         <img
           class="producto-principal"
@@ -64,7 +64,8 @@
         <span class="estrellas">
           @for (i of [].constructor(5); track $index) {
           <mat-icon color="warn">
-            {{ $index < datos.averageRating ? 'star' : 'star_border' }}
+            {{ datos.averageRating >= $index + 1 ? 'star' : 
+            datos.averageRating >= $index + 0.5 ? 'star_half' : 'star_border' }}
           </mat-icon>
           }
         </span>
@@ -93,7 +94,8 @@
             [class.resaltada]="$index < reviewForm.controls['rating'].value"
             (click)="reviewForm.controls['rating'].setValue($index + 1)"
           >
-            {{ $index < reviewForm.controls['rating'].value ? 'star' : 'star_border' }}
+            {{ $index < reviewForm.controls['rating'].value ? 'star' :
+            'star_border' }}
           </mat-icon>
           }
         </div>
@@ -105,19 +107,20 @@
 
       <div class="field" style="grid-column: span 2">
         <label for="comment">Comentario</label>
-        <textarea matInput id="comment" formControlName="comment" rows="4"></textarea>
-        @if(errorHandling('comment')){ 
-        <small
-          class="text-danger"
-        >
-          {{ errorHandling('comment') }}
-        </small>
+        <textarea
+          matInput
+          id="comment"
+          formControlName="comment"
+          rows="4"
+        ></textarea>
+        @if(errorHandling('comment')){
+        <small class="text-danger"> {{ errorHandling('comment') }} </small>
         }
       </div>
 
       <div class="actions">
-    <button type="submit" >Publicar</button>
-  </div>
+        <button type="submit">Publicar</button>
+      </div>
     </form>
   </div>
   }

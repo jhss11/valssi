@@ -1,53 +1,54 @@
 <h2 class="titulo">Productos con promociones</h2>
 <h3 class="subtitulo">Historial de promociones</h3>
 <div class="productos-container">
-  @if (datos) {
-    @for (item of datos; track item.id) {
-      <div class="producto-card">
-        <mat-card>
-          <img
-            mat-card-image
-            [src]="'http://localhost:3000/images/' + (item.images?.[0]?.url || 'image-not-found')"
-            [alt]="item.name"
-          />
+  @if (datos) { @for (item of datos; track item.id) {
+  <div class="producto-card">
+    <mat-card>
+      <img
+        mat-card-image
+        [src]="'http://localhost:3000/images/' + (item.images?.[0]?.url || 'image-not-found')"
+        [alt]="item.name"
+      />
 
-          <div class="producto-info">
-            <h3 class="nombre">
-              {{ item.name }}
-              <!-- @if (getPromotion(item)) {
+      <div class="producto-info">
+        <h3 class="nombre">
+          {{ item.name }}
+          <!-- @if (getPromotion(item)) {
                 <mat-chip color="warn" class="promo-chip" selected>
                   {{ getPromotion(item)?.name }}
                 </mat-chip>
               } -->
-            </h3>
+        </h3>
 
-            @if (getPromotion(item)) {
-              <div class="precio promo-aplicado">
-                <span class="precio-original">₡{{ item.price | number }}</span>
-                <span class="precio-descuento">
-                  ₡{{ getDiscountedPrice(item) | number }}
-                </span>
-              </div>
-            } @else {
-              <div class="precio">₡{{ item.price | number }}</div>
-            }
+        @if (getPromotion(item)) {
+        <div class="precio promo-aplicado">
+          <span class="precio-original">₡{{ item.price | number }}</span>
+          <span class="precio-descuento">
+            ₡{{ getDiscountedPrice(item) | number }}
+          </span>
+        </div>
+        } @else {
+        <div class="precio">₡{{ item.price | number }}</div>
+        }
 
-            <div class="estrellas">
-              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
-                <mat-icon color="warn">
-                  {{ i < item.averageRating ? 'star' : 'star_border' }}
-                </mat-icon>
-              </ng-container>
-            </div>
+        <span class="estrellas">
+          @for (i of [].constructor(5); track $index) {
+          <mat-icon color="warn">
+            {{ item.averageRating >= $index + 1 ? 'star' : item.averageRating >=
+            $index + 0.5 ? 'star_half' : 'star_border' }}
+          </mat-icon>
+          }
+        </span>
 
-            <div class="rating">({{ item.averageRating }}.0)</div>
+        <span class="rating">({{ item.averageRating.toFixed(1) }})</span>
 
-            <div class="btn-contenedor">
-              <button mat-flat-button color="primary" (click)="verDetalle(item.id)">Ver detalle</button>
-            </div>
-          </div>
-        </mat-card>
+        <div class="btn-contenedor">
+          <button mat-flat-button color="primary" (click)="verDetalle(item.id)">
+            Ver detalle
+          </button>
+        </div>
       </div>
-    }
-  }
+    </mat-card>
+  </div>
+  } }
 </div>
