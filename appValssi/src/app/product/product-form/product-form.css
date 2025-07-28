@@ -16,11 +16,11 @@ form {
 
 /* Título */
 h2 {
-  text-align: center;
+  text-align: start;
   color: #2f5d58;
   margin-bottom: 2.5rem;
   font-size: 1.8rem;
-  grid-column: span 2;
+  
 }
 
 /* Campos en dos columnas */

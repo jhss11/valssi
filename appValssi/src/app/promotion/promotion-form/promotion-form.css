@@ -16,12 +16,13 @@ h2 {
   font-size: 1.8rem;
 }
 
+
 /* Estructura en dos columnas */
 form > .field,
 form > fieldset,
 form > .actions,
 form > small.text-danger {
-  grid-column: span 2;
+  grid-column: span 5;
 }
 
 form {

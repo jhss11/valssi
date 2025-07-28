@@ -1,12 +1,13 @@
 <form [formGroup]="promotionForm" (ngSubmit)="submitPromotion()" novalidate>
-  <h2>{{ titleForm }} promoción</h2>
-<input type="hidden" formControlName="id" />
+  <div class="contenedor">
+  <h2>{{ titleForm }} promoción</h2></div>
+  <input type="hidden" formControlName="id" />
 
   <div class="field">
     <label for="name">Nombre</label>
     <input id="name" type="text" formControlName="name" />
     @if (errorHandling('name')) {
-      <small class="text-danger">{{ errorHandling('name') }}</small>
+    <small class="text-danger">{{ errorHandling('name') }}</small>
     }
   </div>
 
@@ -14,11 +15,11 @@
     <label for="type">Tipo de descuento</label>
     <select id="type" formControlName="type">
       @for (t of promoTypes; track t.id) {
-        <option [value]="t.id">{{ t.name }}</option>
+      <option [value]="t.id">{{ t.name }}</option>
       }
     </select>
     @if (errorHandling('type')) {
-      <small class="text-danger">{{ errorHandling('type') }}</small>
+    <small class="text-danger">{{ errorHandling('type') }}</small>
     }
   </div>
 
@@ -32,58 +33,48 @@
       min="0.01"
     />
     @if (errorHandling('amount')) {
-      <small class="text-danger">{{ errorHandling('amount') }}</small>
+    <small class="text-danger">{{ errorHandling('amount') }}</small>
     }
   </div>
 
   <fieldset>
     <legend>Aplica a</legend>
     <label>
-      <input
-        type="radio"
-        value="CATEGORY"
-        formControlName="applyTo"
-      />
+      <input type="radio" value="CATEGORY" formControlName="applyTo" />
       Categoría
     </label>
     <label>
-      <input
-        type="radio"
-        value="PRODUCT"
-        formControlName="applyTo"
-      />
+      <input type="radio" value="PRODUCT" formControlName="applyTo" />
       Producto
     </label>
   </fieldset>
 
   @if (promotionForm.value.applyTo === 'CATEGORY') {
-    <div class="field">
-      <label for="categoryId">Categoría</label>
-      <select id="categoryId" formControlName="categoryId">
-        <option [ngValue]="null">-- Seleccione --</option>
-        @for (c of categories; track c.id) {
-          <option [value]="c.id">{{ c.name }}</option>
-        }
-      </select>
-      @if ( promotionForm.errors?.['target']) {
-        <small class="text-danger">Debe elegir una categoría</small>
+  <div class="field">
+    <label for="categoryId">Categoría</label>
+    <select id="categoryId" formControlName="categoryId">
+      <option [ngValue]="null">-- Seleccione --</option>
+      @for (c of categories; track c.id) {
+      <option [value]="c.id">{{ c.name }}</option>
       }
-    </div>
-  }
-
-  @if (promotionForm.value.applyTo === 'PRODUCT') {
-    <div class="field">
-      <label for="productId">Producto</label>
-      <select id="productId" formControlName="productId">
-        <option [ngValue]="null">-- Seleccione --</option>
-        @for (p of products; track p.id) {
-          <option [value]="p.id">{{ p.name }}</option>
-        }
-      </select>
-      @if (errorHandling('productId') || promotionForm.errors?.['target']) {
-        <small class="text-danger">Debe elegir un producto</small>
+    </select>
+    @if ( promotionForm.errors?.['target']) {
+    <small class="text-danger">Debe elegir una categoría</small>
+    }
+  </div>
+  } @if (promotionForm.value.applyTo === 'PRODUCT') {
+  <div class="field">
+    <label for="productId">Producto</label>
+    <select id="productId" formControlName="productId">
+      <option [ngValue]="null">-- Seleccione --</option>
+      @for (p of products; track p.id) {
+      <option [value]="p.id">{{ p.name }}</option>
       }
-    </div>
+    </select>
+    @if (errorHandling('productId') || promotionForm.errors?.['target']) {
+    <small class="text-danger">Debe elegir un producto</small>
+    }
+  </div>
   }
 
   <div class="field">
@@ -96,34 +87,23 @@
     <input id="endDate" type="date" formControlName="endDate" />
   </div>
 
- @if (promotionForm.errors?.['faltaFechaInicio']) {
-    <small class="text-danger">
-      Selecciona la fecha de inicio
-    </small>
-  }
-
-  @if (promotionForm.errors?.['faltaFechaFin']) {
-    <small class="text-danger">
-      Selecciona la fecha de fin
-    </small>
-  }
-
-  @if (promotionForm.errors?.['fechaInicioPasada']) {
-    <small class="text-danger">
-      La fecha de inicio no puede ser anterior a hoy
-    </small>
-  }
-
-  @if (promotionForm.errors?.['rangoInvalido']) {
-    <small class="text-danger">
-      La fecha de fin no puede ser anterior a la de inicio
-    </small>
+  @if (promotionForm.errors?.['faltaFechaInicio']) {
+  <small class="text-danger"> Selecciona la fecha de inicio </small>
+  } @if (promotionForm.errors?.['faltaFechaFin']) {
+  <small class="text-danger"> Selecciona la fecha de fin </small>
+  } @if (promotionForm.errors?.['fechaInicioPasada']) {
+  <small class="text-danger">
+    La fecha de inicio no puede ser anterior a hoy
+  </small>
+  } @if (promotionForm.errors?.['rangoInvalido']) {
+  <small class="text-danger">
+    La fecha de fin no puede ser anterior a la de inicio
+  </small>
   }
 
   <div class="actions">
     <button type="submit" [disabled]="promotionForm.invalid">Guardar</button>
     <button type="button" (click)="onReset()">Limpiar</button>
-    <button type="button" (click)="onBack()">Volver</button>
+    <button type="button" (click)="onBack()">Regresar</button>
   </div>
 </form>
-
