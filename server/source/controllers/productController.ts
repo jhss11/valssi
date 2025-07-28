@@ -87,14 +87,6 @@ export class ProductController {
     }
   };
 
-  // //Crear
-  // create = async (request: Request, response: Response, next: NextFunction) => {
-  //     try {
-  //     } catch (error) {
-  //         next(error);
-  //     }
-  // };
-
   getWithPromotion = async (
     request: Request,
     response: Response,
@@ -212,17 +204,13 @@ export class ProductController {
       },
     });
 
-    // if (!productoExistente) {
-    //   return response.status(404).json({ error: 'Producto no encontrado' });
-    // }
-
     // Preparar tags
     const disconnectTags = productoExistente?.tags.map(tag => ({ id: tag.id }));
     const connectTags = body.tags
       ? body.tags.map((tag: { id: number }) => ({ id: tag.id }))
       : [];
 
-    // 🔥 CORREGIDO: Eliminar imágenes indicadas
+    //Eliminar imágenes indicadas
     if (body.eliminar && Array.isArray(body.eliminar)) {
       await this.prisma.image.deleteMany({
         where: {
@@ -232,14 +220,14 @@ export class ProductController {
       });
     }
 
-    // Obtener URLs ya existentes después de eliminación
+    // Obtener urls del producto después de eliminación
     const imagenesRestantes = await this.prisma.image.findMany({
       where: { productId: idProducto },
     });
 
     const urlsActuales = imagenesRestantes.map(img => img.url);
 
-    // 🔍 Ver qué imágenes nuevas hay (que no estén aún en la base)
+    //Ver qué imágenes nuevas hay (que no estén aún en la base)
     const createImages = body.images
       ? body.images
           .filter(
@@ -250,7 +238,7 @@ export class ProductController {
           .map((img: any) => ({ url: img.url }))
       : [];
 
-    // 🔄 Actualizar producto
+    // Actualizar producto
     const productoActualizado = await this.prisma.product.update({
       where: { id: idProducto },
       data: {
