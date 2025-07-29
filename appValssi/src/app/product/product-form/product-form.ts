@@ -10,8 +10,8 @@ import { TagService } from '../../share/services/tag.service';
 import { FileUploadService } from '../../share/services/file-upload.service';
 import { TagModel } from '../../share/models/TagModel';
 import { CategoryModel } from '../../share/models/CategoryModel';
-import { minWordsValidator } from '../../share/validators/min-words-validator';
 import { ProductModel } from '../../share/models/ProductModel';
+import { minWordsValidator } from '../../share/min-words-validator';
 
 @Component({
   selector: 'app-product-form',
@@ -87,9 +87,9 @@ export class ProductForm implements OnInit, OnDestroy {
     this.productForm = this.fb.group({
       id: [null],
       name: [null, [Validators.required, Validators.minLength(3)]],
-      description: [null, [Validators.required]],
+      description: [null, [Validators.required, minWordsValidator(2)]],
       price: [null, [Validators.required, Validators.min(1)]],
-      stock: [null, [Validators.required, Validators.min(1)]],
+      stock: [null, [Validators.required, Validators.min(1), Validators.pattern(/^[1-9]\d*$/)]],
       categoryId: [null, [Validators.required]],
       tags: [null, Validators.required],
       averageRating: [0],
