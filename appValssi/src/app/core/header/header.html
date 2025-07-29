@@ -13,8 +13,8 @@
   <!-- MANTENIMIENTO -->
 <span class="menu-text" [matMenuTriggerFor]="menu2" matTooltip="Mantenimientos">Mantenimiento</span>
 <mat-menu #menu2="matMenu">
-  <button mat-menu-item>Promociones</button>
-  <button mat-menu-item>Opción de mantenimiento 2</button>
+    <button mat-menu-item [routerLink]="['/product']" routerLinkActive="active-link">Productos</button>
+  <button mat-menu-item [routerLink]="['/promotion']" routerLinkActive="active-link">Promociones</button>
 </mat-menu>
 
 <!-- REPORTES -->
@@ -27,8 +27,7 @@
 <span class="menu-text" [matMenuTriggerFor]="menu5" matTooltip="Listados">Listados</span>
 <mat-menu #menu5="matMenu">
   <button mat-menu-item [routerLink]="['/review']" routerLinkActive="active-link">Reseñas</button>
-    <button mat-menu-item [routerLink]="['/promotion']" routerLinkActive="active-link">Promociones</button>
-    <button mat-menu-item [routerLink]="['/product/list']" routerLinkActive="active-link">Productos</button>
+    
     <button mat-menu-item [routerLink]="['/order']" routerLinkActive="active-link">Pedidos</button>
 </mat-menu>
 
@@ -38,7 +37,7 @@
   <mat-menu #menu1="matMenu">
     <button mat-menu-item [routerLink]="['/inicio']" routerLinkActive="active-link">Inicio</button>
     <button mat-menu-item [routerLink]="['/aboutus']" routerLinkActive="active-link">Acerca de</button>
-    <button mat-menu-item [routerLink]="['/product']" routerLinkActive="active-link">Productos</button>
+    <button mat-menu-item [routerLink]="['/product/list']" routerLinkActive="active-link">Productos</button>
     
   </mat-menu>
 
@@ -47,7 +46,7 @@
       <mat-icon [ngClass]="isAutenticated ? 'cart': ''">shopping_cart</mat-icon>
     </button>
     <!-- Menu de Usuario-->
-    <span class="small-text">{{ currentUser?.email}}</span>
+    <!-- <span class="small-text">{{ currentUser?.email}}</span> -->
     <button matIconButton [matMenuTriggerFor]="menu3">
       <mat-icon [ngStyle]="{'color':isAutenticated ? '#ffffff':'#9ab0aa'}">person</mat-icon>
     </button>

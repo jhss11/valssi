@@ -243,7 +243,7 @@ export class ProductForm implements OnInit, OnDestroy {
         .create(this.productForm.value)
         .pipe(takeUntil(this.destroy$))
         .subscribe((data: any) => {
-          this.noti.success('Crear Producto', `${data.name}`, 3000, '/product');
+          this.noti.success('Crear Producto', `${data.name}`, 2000, '/product');
         });
       this.productForm.reset();
     } else {
@@ -255,7 +255,7 @@ export class ProductForm implements OnInit, OnDestroy {
           this.noti.success(
             'Actualizar Producto',
             ` ${data.name}`,
-            3000,
+            2000,
             '/product'
           );
         });
