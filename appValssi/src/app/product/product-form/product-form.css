@@ -45,7 +45,6 @@ mat-label, input {
   width: 100%;
 }
 
-/* Botones de acción */
 .actions {
   display: flex;
   justify-content: center;
@@ -137,4 +136,11 @@ mat-label, input {
 
 .upload-btn:hover mat-icon {
   color: #00796b; 
+}
+
+.moneda {
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+  margin-top: 13px;
 }

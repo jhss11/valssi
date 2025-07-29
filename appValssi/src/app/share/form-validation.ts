@@ -26,7 +26,11 @@ export const FormErrorMessage: FormValidatorMessage[] = [
     forValidator: 'required',
     text: 'La descripción es requerida',
   },
-  
+  {
+    forControl: 'description',
+    forValidator: 'minWords',
+    text: 'La descripción debe contener mínimo 2 palabras',
+  },
   {
     forControl: 'price',
     forValidator: 'min',
@@ -47,6 +51,11 @@ export const FormErrorMessage: FormValidatorMessage[] = [
     forValidator: 'required',
     text: 'La cantidad en stock es obligatoria',
   },
+  {
+  forControl: 'stock',
+  forValidator: 'pattern',
+  text: 'El stock debe ser un número entero',
+},
   {
     forControl: 'type',
     forValidator: 'required',

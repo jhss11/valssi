@@ -29,6 +29,7 @@
         placeholder="Descripción"
         style="font-weight: 400"
       ></textarea>
+      
       @if(errorHandling('description')){
       <mat-error class="text-danger">
         {{ errorHandling('description') }}
@@ -42,6 +43,7 @@
   <div class="field">
     <mat-form-field floatLabel="auto" hideRequiredMarker="true">
       <mat-label>Precio</mat-label>
+       <span matPrefix  class="moneda">₡&nbsp;</span>
       <input
         matInput
         formControlName="price"
@@ -90,7 +92,11 @@
 
   <!-- Tags -->
   <div class="field">
-    <mat-form-field class="full-width" floatLabel="auto" hideRequiredMarker="true">
+    <mat-form-field
+      class="full-width"
+      floatLabel="auto"
+      hideRequiredMarker="true"
+    >
       <mat-label>Etiquetas</mat-label>
       <mat-select
         placeholder="Etiquetas"
@@ -139,27 +145,26 @@
 
         <div class="file-upload">
           <!-- Mostrar todas las vistas previas -->
-          <ng-container *ngIf="previews.length > 0">
-            <div
-              *ngFor="let preview of previews; let i = index"
-              style="position: relative; display: inline-block; margin: 5px"
+          @if (previews.length > 0) { 
+            @for (preview of previews; track preview;
+          let i = $index) {
+          <div style="position: relative; display: inline-block; margin: 5px">
+            <img [src]="preview" height="180px" />
+            <button
+              type="button"
+              mat-icon-button
+              color="warn"
+              class="delete-btn"
+              (click)="eliminarImagenNueva(i)"
             >
-              <img [src]="preview" height="180px" />
-              <button
-                type="button"
-                mat-icon-button
-                color="warn"
-                class="delete-btn"
-                (click)="eliminarImagenNueva(i)"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-          </ng-container>
-
-          <div *ngIf="previews.length === 0">
-            No se han seleccionado archivos todavía
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
+          } 
+        } 
+          @if (previews.length === 0) {
+          <div>No se han seleccionado archivos todavía</div>
+          }
 
           <div class="upload-button-wrapper">
             <button
@@ -175,33 +180,33 @@
       </div>
 
       <!-- Imágenes anteriores del producto -->
-      <div *ngIf="!isCreate && previousImages.length > 0">
+      @if (!isCreate && previousImages.length > 0) {
+      <div>
         <h3>Imágenes existentes</h3>
         <div class="file-upload">
-          <div
-            *ngFor="let img of previousImages; let i = index"
-            style="position: relative; display: inline-block; margin: 5px"
-          >
+          @for (img of previousImages; track $index) {
+          <div style="position: relative; display: inline-block; margin: 5px">
             <img [src]="'http://localhost:3000/images/' + img" height="180px" />
             <button
               type="button"
               mat-icon-button
               color="warn"
               class="delete-btn"
-              (click)="eliminarImagenAnterior(i)"
+              (click)="eliminarImagenAnterior($index)"
             >
               <mat-icon>delete</mat-icon>
             </button>
           </div>
+          }
         </div>
       </div>
+      }
     </div>
   </div>
 
   <!-- Botones -->
   <div class="actions">
     <button type="submit" [disabled]="productForm.invalid">Guardar</button>
-    <button type="button" (click)="onReset()">Limpiar</button>
     <button type="button" (click)="onBack()">Regresar</button>
   </div>
 </form>
