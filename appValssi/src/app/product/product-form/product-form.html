@@ -87,6 +87,9 @@
           {{ cat.name }}
         </mat-option>
       </mat-select>
+      @if(errorHandling('categoryId')){
+      <mat-error class="text-danger"> {{ errorHandling('categoryId') }} </mat-error>
+      }
     </mat-form-field>
   </div>
 
@@ -111,6 +114,9 @@
         >
         }
       </mat-select>
+      @if(errorHandling('tags')){
+      <mat-error class="text-danger"> {{ errorHandling('tags') }} </mat-error>
+      }
     </mat-form-field>
   </div>
 
@@ -136,7 +142,6 @@
         <h4>Seleccione archivos</h4>
         <input
           type="file"
-          multiple
           accept="image/*"
           (change)="selectFiles($event)"
           #fileUpload

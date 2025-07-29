@@ -37,6 +37,16 @@ export const FormErrorMessage: FormValidatorMessage[] = [
     text: 'El precio debe ser mayor a 1',
   },
   {
+    forControl: 'tags',
+    forValidator: 'required',
+    text: 'Es requerido que seleccione una etiqueta',
+  },
+  {
+    forControl: 'categoryId',
+    forValidator: 'required',
+    text: 'Es requerido que seleccione una categoría',
+  },
+  {
     forControl: 'price',
     forValidator: 'required',
     text: 'El precio es obligatorio',
