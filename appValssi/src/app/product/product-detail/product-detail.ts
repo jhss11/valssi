@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
 import { ProductService } from '../../share/services/product.service';
+import { UserService } from '../../share/services/user.service';
 import { ReviewService } from '../../share/services/review.service';
 // import { AuthService } from '../../share/services/auth.service';
 import { NotificationService } from '../../share/notification-service';
@@ -22,11 +23,13 @@ export class ProductDetail implements OnInit, OnDestroy {
   imagenSeleccionada = '';
 
   reviewForm!: FormGroup;
-  userId = 3;
+  userId = 5;
+  username = '';
 
   destroy$ = new Subject<void>();
 
   constructor(
+    private userService: UserService,
     private prodService: ProductService,
     private reviewService: ReviewService,
     private fb: FormBuilder,
@@ -38,6 +41,7 @@ export class ProductDetail implements OnInit, OnDestroy {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (!isNaN(id)) this.getProduct(id);
+    if (!isNaN(id)) this.getUser(this.userId);
 
     this.reviewForm = this.fb.group({
       comment: [null, [Validators.required, minWordsValidator(1)]],
@@ -117,6 +121,39 @@ export class ProductDetail implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  getPromotion(item: any): any | null {
+  if (item.promotions?.length > 0) {
+    console.log('primer if', item.promotions?.length > 0)
+    return item.promotions[0];
+  }
+  if (item.category?.promotions?.length > 0) {
+    console.log('segundo if', item.category?.promotions?.length > 0)
+    return item.category.promotions[0];
+  }
+  return null;
+}
+
+getDiscountedPrice(item: any): number {
+  const promo = this.getPromotion(item);
+  if (!promo) return item.price;
+
+  if (promo.type === 'PERCENTAGE') {
+    return item.price * (1 - promo.amount / 100);
+  } else if (promo.type === 'FIXED') {
+    return item.price - promo.amount;
+  }
+  return item.price;
+}
+
+private getUser(id: number): void {
+    this.userService
+      .getById(id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        this.username = data.username;
+      });
   }
 
 }

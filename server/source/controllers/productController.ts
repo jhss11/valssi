@@ -37,6 +37,7 @@ export class ProductController {
   ) => {
     try {
       let idProduct = parseInt(request.params.id);
+      const now = new Date();
       const product = await this.prisma.product.findUnique({
         where: { id: idProduct },
         select: {
@@ -47,9 +48,20 @@ export class ProductController {
           stock: true,
           averageRating: true,
           category: {
-            select: {
-              name: true,
-              id: true,
+            
+            include: {
+              promotions: {
+                where: {
+                  startDate: { lte: now },
+                  endDate: { gte: now },
+                },
+              },
+            },
+          },
+          promotions: {
+            where: {
+              startDate: { lte: now },
+              endDate: { gte: now },
             },
           },
           tags: {

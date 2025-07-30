@@ -51,7 +51,7 @@ export class ReviewDetail {
     };
 
      const fechaObj = new Date(fecha);
-    fechaObj.setDate(fechaObj.getDate() + 1);
+    fechaObj.setDate(fechaObj.getDate());
     const fechaRetorna= fechaObj.toLocaleDateString('es-ES', opciones);
     console.log('La que retorna ',fecha)
     return fechaRetorna;

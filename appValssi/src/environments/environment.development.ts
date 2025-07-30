@@ -7,6 +7,7 @@ export const environment = {
     endPointCategory: 'categories',
     endPointTag: 'tag',
     endPointPromoType: 'promotypes',
+    endPointUser: 'users',
 
 
 };
