@@ -36,9 +36,11 @@ export class ProductList {
 
   getPromotion(item: any): any | null {
   if (item.promotions?.length > 0) {
+    console.log('primer if', item.promotions?.length > 0)
     return item.promotions[0];
   }
   if (item.category?.promotions?.length > 0) {
+    console.log('segundo if', item.category?.promotions?.length > 0)
     return item.category.promotions[0];
   }
   return null;

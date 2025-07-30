@@ -7,6 +7,7 @@ import { CategoryRoutes } from "./category.routes";
 import { ImageRoutes } from "./image.routes";
 import { PromotionTypeRoutes } from './promoTypes.routes';
 import { TagRoutes } from "./tag.routes";
+import { UserRoutes } from "./user.routes";
 
 export class AppRoutes {
   static get routes(): Router {
@@ -20,6 +21,7 @@ export class AppRoutes {
     router.use("/categories", CategoryRoutes.routes);
     router.use("/tag", TagRoutes.routes);
     router.use("/file/", ImageRoutes.routes);
+    router.use("/users", UserRoutes.routes);
 
     return router;
   }

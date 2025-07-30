@@ -313,7 +313,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Angular\\valssi\\server\\generated\\prisma",
+      "value": "C:\\Users\\Jhass\\valssi\\server\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -327,7 +327,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Angular\\valssi\\server\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Jhass\\valssi\\server\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

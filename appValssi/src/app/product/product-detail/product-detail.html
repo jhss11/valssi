@@ -60,12 +60,21 @@
       </div>
 
       <div class="precio">
-        ₡{{ datos.price | number }}
+        @if (getPromotion(datos)) {
+        <div class="precio promo-aplicado">
+          <span class="precio-original">₡{{ datos.price | number }}</span>
+          <span class="precio-descuento">
+            ₡{{ getDiscountedPrice(datos) | number }}
+          </span>
+        </div>
+        } @else {
+        <div class="precio">₡{{ datos.price | number }}</div>
+        }
         <span class="estrellas">
           @for (i of [].constructor(5); track $index) {
           <mat-icon color="warn">
-            {{ datos.averageRating >= $index + 1 ? 'star' : 
-            datos.averageRating >= $index + 0.5 ? 'star_half' : 'star_border' }}
+            {{ datos.averageRating >= $index + 1 ? 'star' : datos.averageRating
+            >= $index + 0.5 ? 'star_half' : 'star_border' }}
           </mat-icon>
           }
         </span>
@@ -85,24 +94,29 @@
       (ngSubmit)="submitReview()"
     >
       <h4>Agregar reseña</h4>
-      <div class="field">
-        <label>Valoración</label>
-
-        <div class="estrellas-input">
-          @for (i of [].constructor(5); track $index) {
-          <mat-icon
-            [class.resaltada]="$index < reviewForm.controls['rating'].value"
-            (click)="reviewForm.controls['rating'].setValue($index + 1)"
-          >
-            {{ $index < reviewForm.controls['rating'].value ? 'star' :
-            'star_border' }}
-          </mat-icon>
-          }
+      <div class="usuario-valoracion" style="grid-column: span 2">
+        <div class="usuario-box">
+          Usuario: {{ username }}
         </div>
 
-        @if (errorHandling('rating')) {
-        <small class="text-danger"> {{ errorHandling('rating') }} </small>
-        }
+        <div class="field">
+          <label >Valoración</label>
+          <div class="estrellas-input">
+            @for (i of [].constructor(5); track $index) {
+            <mat-icon
+              [class.resaltada]="$index < reviewForm.controls['rating'].value"
+              (click)="reviewForm.controls['rating'].setValue($index + 1)"
+            >
+              {{ $index < reviewForm.controls['rating'].value ? 'star' :
+              'star_border' }}
+            </mat-icon>
+            }
+          </div>
+
+          @if (errorHandling('rating')) {
+          <small class="text-danger"> {{ errorHandling('rating') }} </small>
+          }
+        </div>
       </div>
 
       <div class="field" style="grid-column: span 2">
