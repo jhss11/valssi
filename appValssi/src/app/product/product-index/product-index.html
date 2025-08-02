@@ -1,8 +1,8 @@
-<h2 class="titulo">Productos</h2>
-<h3 class="subtitulo">Historial de productos</h3>
+<h2 class="titulo">{{ 'product-index.titulo' | translate }}</h2>
+<h3 class="subtitulo">{{ 'product-index.subtitulo' | translate }}</h3>
 <div class="btn-crear-container">
   <button mat-flat-button color="primary" class="crear-btn" (click)="create()">
-    Agregar
+    {{ 'product-index.agregar' | translate }}
   </button>
 </div>
 <div class="productos-container">
@@ -32,10 +32,10 @@
 
         <div class="btn-contenedor">
           <button mat-flat-button color="primary" (click)="update(item.id)">
-            Editar
+            {{ 'product-index.editar' | translate }}
           </button>
           <button mat-flat-button color="primary" (click)="verDetalle(item.id)">
-            Ver detalle
+            {{ 'product-index.detalle' | translate }}
           </button>
         </div>
       </div>

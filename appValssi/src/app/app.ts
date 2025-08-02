@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,18 @@ import { Component } from '@angular/core';
   styleUrl: './app.css'
 })
 
-// ver si se puede poner solo Valssi
+
 export class App {
   protected title = 'appValssi';
+  
+   constructor(private translate: TranslateService) {
+    translate.setDefaultLang('es');
+
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      translate.use(savedLang);
+    } else {
+      translate.use('es');
+    }
+  }
 }

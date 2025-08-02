@@ -12,6 +12,7 @@ import { TagModel } from '../../share/models/TagModel';
 import { CategoryModel } from '../../share/models/CategoryModel';
 import { ProductModel } from '../../share/models/ProductModel';
 import { minWordsValidator } from '../../share/min-words-validator';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product-form',
@@ -50,33 +51,43 @@ export class ProductForm implements OnInit, OnDestroy {
     private categoryService: CategoryService,
     private tagService: TagService,
     private uploadService: FileUploadService,
-    private noti: NotificationService
+    private noti: NotificationService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
-    //Inicializar formulario
     this.initForm();
-    //Obtener lista de categorías
     this.loadCategories();
-    //Obtener lista de etiquetas
     this.loadTags();
 
-    //Verificar si se envio un id por parametro para crear formulario para actualizar
     this.activeRouter.params.subscribe((params: Params) => {
       this.idProduct = params['id'];
-      //Identificar sí es crear o Actualizar
-      this.isCreate = this.idProduct === undefined; //no NULL
-      this.titleForm = this.isCreate ? 'Crear' : 'Actualizar';
+      this.isCreate = this.idProduct === undefined;
+
+      this.setTranslatedTitle();
+
       if (this.idProduct != undefined) {
-        //Obtener del API el videojuego se va a actualizar
         this.productService
           .getById(this.idProduct)
           .pipe(takeUntil(this.destroy$))
           .subscribe((data: any) => {
-            //Cargar los valores en el formulario
             this.patchFormValues(data);
           });
       }
+    });
+
+    // Reaccionar al cambio de idioma para actualizar el título
+    this.translate.onLangChange
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.setTranslatedTitle();
+      });
+  }
+
+  private setTranslatedTitle(): void {
+    const key = this.isCreate ? 'product-form.create' : 'product-form.update';
+    this.translate.get(key).subscribe((value) => {
+      this.titleForm = value;
     });
   }
 

@@ -1,12 +1,12 @@
 <form [formGroup]="productForm" (ngSubmit)="submitProduct()" novalidate>
-  <h2>{{ titleForm }} Producto</h2>
+  <h2>{{ titleForm }} {{ 'product-form.titulo' | translate }}</h2>
 
   <input type="hidden" formControlName="id" />
 
   <!-- Nombre -->
   <div class="field">
     <mat-form-field floatLabel="auto" hideRequiredMarker="true">
-      <mat-label>Nombre</mat-label>
+      <mat-label>{{ 'product-form.nombre' | translate }}</mat-label>
       <input
         matInput
         formControlName="name"
@@ -22,7 +22,7 @@
   <!-- Descripción -->
   <div class="field">
     <mat-form-field floatLabel="auto" hideRequiredMarker="true">
-      <mat-label>Descripción</mat-label>
+      <mat-label>{{ 'product-form.descripcion' | translate }}</mat-label>
       <textarea
         matInput
         formControlName="description"
@@ -42,7 +42,7 @@
   <!-- Precio -->
   <div class="field">
     <mat-form-field floatLabel="auto" hideRequiredMarker="true">
-      <mat-label>Precio</mat-label>
+      <mat-label>{{ 'product-form.precio' | translate }}</mat-label>
        <span matPrefix  class="moneda">₡&nbsp;</span>
       <input
         matInput
@@ -60,7 +60,7 @@
   <!-- Stock -->
   <div class="field">
     <mat-form-field floatLabel="auto" hideRequiredMarker="true">
-      <mat-label>Stock</mat-label>
+      <mat-label>{{ 'product-form.stock' | translate }}</mat-label>
       <input
         matInput
         formControlName="stock"
@@ -77,7 +77,7 @@
   <!-- Categoría -->
   <div class="field">
     <mat-form-field floatLabel="auto" hideRequiredMarker="true">
-      <mat-label>Categoría</mat-label>
+      <mat-label>{{ 'product-form.categoria' | translate }}</mat-label>
       <mat-select formControlName="categoryId" style="font-weight: 400">
         <mat-option
           style="font-weight: 350; color: #ffff"
@@ -100,7 +100,7 @@
       floatLabel="auto"
       hideRequiredMarker="true"
     >
-      <mat-label>Etiquetas</mat-label>
+      <mat-label>{{ 'product-form.etiquetas' | translate }}</mat-label>
       <mat-select
         placeholder="Etiquetas"
         formControlName="tags"
@@ -123,7 +123,7 @@
   <!-- Promedio de valoraciones -->
   <div class="field">
     <mat-form-field floatLabel="auto" hideRequiredMarker="true">
-      <mat-label>Promedio de valoraciones</mat-label>
+      <mat-label>{{ 'product-form.promedio' | translate }}</mat-label>
       <input
         matInput
         formControlName="averageRating"
@@ -136,10 +136,10 @@
   </div>
 
   <div class="field">
-    <h3>Subir imagen</h3>
+    <h3>{{ 'product-form.subirImagen' | translate }}</h3>
     <div class="row">
       <div class="col drop_box">
-        <h4>Seleccione archivos</h4>
+        <h4>{{ 'product-form.seleccionar' | translate }}</h4>
         <input
           type="file"
           accept="image/*"
@@ -168,7 +168,7 @@
           } 
         } 
           @if (previews.length === 0) {
-          <div>No se han seleccionado archivos todavía</div>
+          <div>{{ 'product-form.noSeleccionado' | translate }}</div>
           }
 
           <div class="upload-button-wrapper">
@@ -187,7 +187,7 @@
       <!-- Imágenes anteriores del producto -->
       @if (!isCreate && previousImages.length > 0) {
       <div>
-        <h3>Imágenes existentes</h3>
+        <h3>{{ 'product-form.actuales' | translate }}</h3>
         <div class="file-upload">
           @for (img of previousImages; track $index) {
           <div style="position: relative; display: inline-block; margin: 5px">
@@ -211,7 +211,7 @@
 
   <!-- Botones -->
   <div class="actions">
-    <button type="submit" [disabled]="productForm.invalid">Guardar</button>
-    <button type="button" (click)="onBack()">Regresar</button>
+    <button type="submit" [disabled]="productForm.invalid">{{ 'product-form.guardar' | translate }}</button>
+    <button type="button" (click)="onBack()">{{ 'product-form.regresar' | translate }}</button>
   </div>
 </form>

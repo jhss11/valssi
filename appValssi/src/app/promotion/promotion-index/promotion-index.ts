@@ -32,9 +32,9 @@ export class PromotionIndex {
     });
   }
 
-  verDetalle(id:Number) {
-    this.router.navigate(['/promotion',id])
-  }
+  // verDetalle(id:Number) {
+  //   this.router.navigate(['/promotion',id])
+  // }
 
 // getPromotionStatus(startDate: Date, endDate: Date): string {
 //   const hoy = new Date();
@@ -90,11 +90,11 @@ getFechaEnEspanol(fecha: string | Date): string {
     return fechaObj.toLocaleDateString('es-ES', opciones);
   }
 
-  updatePromo(id: number) {
-    this.router.navigate(['/promotion/update', id], {
-      relativeTo: this.route,
-    });
-  }
+  // updatePromo(id: number) {
+  //   this.router.navigate(['/promotion/update', id], {
+  //     relativeTo: this.route,
+  //   });
+  // }
 
   createPromo() {
     this.router.navigate(['/promotion/create'], {

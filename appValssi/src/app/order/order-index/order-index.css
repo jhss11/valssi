@@ -84,12 +84,30 @@
   font-weight: 500;
   text-decoration: none;
   display: inline-block;
+  position: relative;
+  padding-bottom: 2px; /* espacio para el subrayado */
+  transition: color 0.3s ease;
+}
+
+.link-detalle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0; /* al borde inferior del texto */
+  width: 0;
+  height: 2px;
+  background-color: #355753;
+  transition: width 0.3s ease;
 }
 
 .link-detalle:hover {
   color: #355753;
-  text-decoration:underline;
 }
+
+.link-detalle:hover::after {
+  width: 100%;
+}
+
 
 
 

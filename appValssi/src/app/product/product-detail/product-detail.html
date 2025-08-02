@@ -1,6 +1,6 @@
 <div class="boton">
   <button mat-flat-button (click)="goBack()">
-    <mat-icon>arrow_back</mat-icon>Regresar
+    <mat-icon>arrow_back</mat-icon> {{ 'product-detail.regresar' | translate }}
   </button>
 </div>
 <div class="detalle-container">
@@ -27,7 +27,7 @@
       </div>
 
       <div class="opinion-cliente">
-        <h4>Opiniones de clientes</h4>
+        <h4>{{ 'product-detail.opiniones' | translate }}</h4>
         @for (review of datos.reviews; track review.date) {
         <div class="review">
           <strong>{{ review.user.username }}</strong>
@@ -56,7 +56,7 @@
       <h2 class="nombre">{{ datos.name }}</h2>
 
       <div class="categoria">
-        Categoría: <span class="categoria-tag">{{ datos.category.name }}</span>
+        {{ 'product-detail.categoria' | translate }} <span class="categoria-tag">{{ datos.category.name }}</span>
       </div>
 
       <div class="precio">
@@ -84,7 +84,7 @@
       <p class="descripcion">{{ datos.description }}</p>
     </div>
     <button class="comprar mat-flat-button" (click)="goBack()">
-      Agregar al carrito
+      {{ 'product-detail.agregarCarrito' | translate }}
     </button>
 
     <!-- Formulario-->
@@ -93,14 +93,14 @@
       [formGroup]="reviewForm"
       (ngSubmit)="submitReview()"
     >
-      <h4>Agregar reseña</h4>
+      <h4>{{ 'product-detail.agregarReseña' | translate }}</h4>
       <div class="usuario-valoracion" style="grid-column: span 2">
         <div class="usuario-box">
-          Usuario: {{ username }}
+          {{ 'product-detail.usuario' | translate }}: {{ username }}
         </div>
 
         <div class="field">
-          <label >Valoración</label>
+          <label >{{ 'product-detail.valoracion' | translate }}</label>
           <div class="estrellas-input">
             @for (i of [].constructor(5); track $index) {
             <mat-icon
@@ -120,7 +120,7 @@
       </div>
 
       <div class="field" style="grid-column: span 2">
-        <label for="comment">Comentario</label>
+        <label for="comment">{{ 'product-detail.comentario' | translate }}</label>
         <textarea
           matInput
           id="comment"
@@ -133,7 +133,7 @@
       </div>
 
       <div class="actions">
-        <button type="submit">Publicar</button>
+        <button type="submit">{{ 'product-detail.publicar' | translate }}</button>
       </div>
     </form>
   </div>

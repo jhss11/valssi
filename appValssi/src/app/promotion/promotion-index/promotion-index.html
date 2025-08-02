@@ -1,5 +1,6 @@
 <h2 class="titulo">Promociones</h2>
 <h3 class="subtitulo">Historial de promociones</h3>
+
 <div class="btn-crear-container">
   <button
     mat-flat-button
@@ -11,62 +12,72 @@
   </button>
 </div>
 
-<div class="promotions-container">
-  @if (datos?.length > 0) { @for (promo of datos; track promo.id) {
-  <div class="promo-card">
-    <mat-card>
-      <mat-card-content>
-        <mat-chip
-          selected
-          class="estado-chip"
-          [ngStyle]="{ 'background-color': getStatusColor(promo.startDate, promo.endDate), 'color': '#fff' }"
-        >
-          {{ getPromotionStatus(promo.startDate, promo.endDate) }}
-        </mat-chip>
-        <h3 class="promo-title">{{ promo.name }}</h3>
-
-        <p class="promo-amount">
+<div class="tabla-promociones-container">
+  @if (datos?.length > 0) {
+  <table class="tabla-pedidos">
+    <thead>
+      <tr>
+        <th class="col-fecha">Fecha</th>
+        <th>Nombre</th>
+        <th>Monto</th>
+        <th>Estado</th>
+        <th>Producto / Categoría</th>
+        <th class="col-acciones">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (promo of datos; track promo.id) {
+      <tr>
+        <td class="col-fecha">
+          Válido del {{ getFechaEnEspanol(promo.startDate) }} al {{
+          getFechaEnEspanol(promo.endDate) }}
+        </td>
+        <td>{{ promo.name }}</td>
+        <td>
           {{ promo.type === 'PERCENTAGE' ? promo.amount + '%' : '₡' +
           promo.amount }}
-        </p>
-
-        @if (promo.product) {
-        <p class="promo-detail">
-          Producto: <strong>{{ promo.product.name }}</strong>
-        </p>
-        } @if (promo.category) {
-        <p class="promo-detail">
-          Categoría: <strong>{{ promo.category.name }}</strong>
-        </p>
-        }
-
-        <p style="line-height: 165%" class="promo-dates">
-          Válido del {{ getFechaEnEspanol( promo.startDate)}} al {{
-          getFechaEnEspanol(promo.endDate )}}
-        </p>
-
-        <div class="btn-contenedor">
-          @if(getPromotionStatus(promo.startDate, promo.endDate) != 'Aplicada'){
-          <button
-            mat-flat-button
-            color="primary"
-            (click)="updatePromo(promo.id)"
+        </td>
+        <td>
+          <mat-chip
+            selected
+            class="estado-chip"
+            [ngStyle]="{ 'background-color': getStatusColor(promo.startDate, promo.endDate), 'color': '#fff' }"
           >
-            Editar
-          </button>
+            {{ getPromotionStatus(promo.startDate, promo.endDate) }}
+          </mat-chip>
+        </td>
+        <td>
+          @if (promo.product) {
+          <strong>Producto:</strong> {{ promo.product.name }} } @else if
+          (promo.category) { <strong>Categoría:</strong> {{ promo.category.name
+          }} }
+        </td>
+        <td class="col-acciones">
+          
+          <div >
+            <a [routerLink]="['/promotion', promo.id]" class="link-accion">
+              Ver detalle
+            </a>
+          </div>
+          @if (getPromotionStatus(promo.startDate, promo.endDate) !== 'Aplicada') {
+            <div>
+              <a
+                [routerLink]="['/promotion/update', promo.id]"
+                class="link-accion link-editar"
+              >
+                Editar
+              </a>
+            </div>
           }
-          <button
-            mat-flat-button
-            color="primary"
-            (click)="verDetalle(promo.id)"
-          >
-            Ver detalle
-          </button>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  } } @else {
+        </td>
+
+
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  } @else {
   <p class="no-promos">No hay promociones disponibles actualmente.</p>
   }
 </div>

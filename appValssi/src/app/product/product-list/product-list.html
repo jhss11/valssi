@@ -1,5 +1,5 @@
-<h2 class="titulo">Productos con promociones</h2>
-<h3 class="subtitulo">Historial de promociones</h3>
+<h2 class="titulo">{{ 'product-list.titulo' | translate }}</h2>
+<h3 class="subtitulo">{{ 'product-list.subtitulo' | translate }}</h3>
 <div class="productos-container">
   @if (datos) { @for (item of datos; track item.id) {
   <div class="producto-card">
@@ -44,7 +44,7 @@
 
         <div class="btn-contenedor">
           <button mat-flat-button color="primary" (click)="verDetalle(item.id)">
-            Ver detalle
+            {{ 'product-list.detalle' | translate }}
           </button>
         </div>
       </div>
