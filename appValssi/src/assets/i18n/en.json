@@ -1,0 +1,59 @@
+{
+  "product-index": {
+    "titulo": "Products",
+    "subtitulo": "Product history",
+    "agregar": "Add",
+    "editar": "Edit",
+    "detalle": "Details"
+  },
+
+  "product-list": {
+    "titulo": "Products with Promotions",
+    "subtitulo": "Promotion History",
+    "detalle": "Details"
+  },
+
+  "product-detail": {
+    "regresar": "Back",
+    "opiniones": "Customer reviews",
+    "categoria": "Category:",
+    "agregarCarrito": "Add to cart",
+    "agregarReseña": "Add a review",
+    "usuario": "User",
+    "valoracion": "Rating",
+    "comentario": "Comment",
+    "publicar": "Submit"
+  },
+  "product-form": {
+    "titulo": "Product",
+    "nombre": "Name",
+    "descripcion": "Description",
+    "precio": "Price",
+    "stock": "Stock",
+    "categoria": "Category",
+    "etiquetas": "Tags",
+    "promedio": "Average Rating",
+    "subirImagen": "Upload Images",
+    "seleccionar": "Select files",
+    "noSeleccionado": "No files have been selected yet",
+    "actuales": "Current Images",
+    "regresar": "Back",
+    "guardar": "Submit",
+    "create": "Create",
+    "update": "Update"
+
+  },
+  "header": {
+    "mantenimientos": "Maintenance",
+    "productos": "Products",
+    "promociones": "Promotions",
+    "reportes": "Reports",
+    "listados": "Lists",
+    "reseñas": "Reviews",
+    "pedidos": "Orders",
+    "inicio": "Home",
+    "acercaDe": "About us",
+    "idioma": "Language"
+
+  }
+}

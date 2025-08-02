@@ -1,0 +1,64 @@
+{
+  "product-index": {
+    "titulo": "Productos",
+    "subtitulo": "Historial de productos",
+    "agregar": "Agregar",
+    "editar": "Editar",
+    "detalle": "Ver detalle"
+    
+  },
+
+"product-list": {
+    "titulo": "Productos con promociones",
+    "subtitulo": "Historial de promociones",
+    "detalle": "Ver detalle"
+  },
+
+  "product-detail": {
+    "regresar": "Regresar",
+    "opiniones": "Opiniones de clientes",
+    "categoria": "Categoría:",
+    "agregarCarrito": "Agregar al carrito",
+    "agregarReseña": "Agregar reseña",
+    "usuario": "Usuario",
+    "valoracion": "Valoración",
+    "comentario": "Comentario",
+    "publicar": "Publicar"
+  },
+  "product-form": {
+    "titulo": "Producto",
+    "nombre": "Nombre",
+    "descripcion": "Descripción",
+    "precio": "Precio",
+    "stock": "Cantidad en Inventario",
+    "categoria": "Categoría",
+    "etiquetas": "Etiquetas",
+    "promedio": "Promedio de Valoraciones",
+    "subirImagen": "Subir Imágenes",
+    "seleccionar": "Seleccione archivos",
+    "noSeleccionado": "No se han seleccionado archivos todavía",
+    "actuales": "Imágenes actuales",
+    "regresar": "Regresar",
+    "guardar": "Guardar",
+    "create": "Crear",
+    "update": "Actualizar"
+  },
+
+
+  "header": {
+    "mantenimientos": "Mantenimientos",
+    "productos": "Productos",
+    "promociones": "Promociones",
+    "reportes": "Reportes",
+    "listados": "Listados",
+    "reseñas": "Reseñas",
+    "pedidos": "Pedidos",
+    "inicio": "Inicio",
+    "acercaDe": "Acerca de",
+    "idioma": "Idioma"
+
+  }
+
+
+
+}

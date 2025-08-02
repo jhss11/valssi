@@ -15,35 +15,100 @@
   margin-bottom: 1rem;
 }
 
-
-.promotions-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 1rem;
-  padding-left: 2rem;
+.tabla-promociones-container {
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 1200px;
 }
 
-.promo-card {
-  width: 290px;
+.tabla-pedidos {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem auto;
 }
 
-mat-card {
-  border-radius: 12px;
-  padding: 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.1),
-  0 -1px 4px rgba(0, 0, 0, 0.06);
+.tabla-pedidos th,
+.tabla-pedidos td {
+  padding: 1.3rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  vertical-align: center;
 }
 
-mat-card:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.1),
-  0 -2px 6px rgba(0, 0, 0, 0.1);
+.tabla-pedidos th {
+  background-color: #f2f2f2;
+  color: #333;
 }
+
+.tabla-pedidos tr:hover {
+  background-color: #f9f9f9;
+}
+.col-fecha {
+  width: 160px;
+  min-width: 120px;
+}
+
+.link-accion {
+  display: inline-block;
+  font-weight: 500;
+  text-decoration: none;
+  margin-bottom: 0.4rem;
+  position: relative;
+  padding-bottom: 2px; 
+  transition: color 0.3s ease;
+}
+
+/* Ver detalle */
+.link-accion:not(.link-editar) {
+  color: #0f685e;
+}
+
+.link-accion:not(.link-editar)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0; 
+  width: 0;
+  height: 2px;
+  background-color: #355753;
+  transition: width 0.3s ease;
+}
+
+.link-accion:not(.link-editar):hover {
+  color: #355753;
+}
+
+.link-accion:not(.link-editar):hover::after {
+  width: 100%;
+}
+
+/* Editar */
+.link-editar {
+  color: #5fbbb1;
+  padding-bottom: 2px;
+}
+
+.link-editar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #71d5ca;
+  transition: width 0.3s ease;
+}
+
+.link-editar:hover {
+  color: #71d5ca;
+}
+
+.link-editar:hover::after {
+  width: 100%;
+}
+
+
+
 
 .promo-chip {
   display: inline-block;

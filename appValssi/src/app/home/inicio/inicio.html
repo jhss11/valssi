@@ -1,4 +1,70 @@
 <div class="inicio-container">
+  <!-- Hero principal -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Bienvenido a Valssi</h1>
+      <p class="hero-subtitle">
+        Tu sitio de confianza para explorar y comprar productos con calidad garantizada.
+      </p>
+      <a
+        mat-flat-button
+        class="btn-hero"
+        [routerLink]="['/product']"
+        routerLinkActive="active-link"
+      >
+        Explorar productos
+      </a>
+    </div>
+    <div class="hero-img-wrapper">
+      <img
+        src="https://muebleslospacos.es/wp-content/uploads/2024/12/sillon-con-mecanismo-relax-hero-acomodel-copia.jpg"
+        alt="Imagen principal"
+        class="hero-img"
+      />
+    </div>
+  </section>
+
+  <!-- Sección de valores o beneficios -->
+  <section class="valores">
+    <div class="valor">
+      <h3>Calidad garantizada</h3>
+      <p>Seleccionamos productos con altos estándares de calidad.</p>
+    </div>
+    <div class="valor">
+      <h3>Estilo y comodidad</h3>
+      <p>Diseños modernos que combinan funcionalidad y elegancia.</p>
+    </div>
+    <div class="valor">
+      <h3>Compra segura</h3>
+      <p>Plataforma confiable con múltiples opciones de pago.</p>
+    </div>
+  </section>
+
+  <!-- Productos destacados -->
+  <section class="destacados">
+  <h2 class="seccion-titulo">Productos destacados</h2>
+
+  <div class="tarjetas-grid">
+    @for (producto of productos; track producto.id) {
+      <div class="tarjeta-producto">
+        <img [src]="producto.images[0]" alt="{{ producto.name }}" />
+        <div class="producto-info">
+          <h3 class="nombre">{{ producto.name }}</h3>
+          <p class="precio">₡{{ producto.price | number: '1.0-0' }}</p>
+          <div class="btn-contenedor">
+            <button mat-flat-button color="primary" [routerLink]="['/product', producto.id]">
+              Ver más
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+</div>
+
+
+<!-- <div class="inicio-container">
   <section class="hero">
     <div class="hero-texto">
       <h1>Bienvenido a Valssi</h1>
@@ -12,4 +78,4 @@
     <h2 class="seccion-titulo">Productos destacados</h2>
     
   </section>
-</div>
+</div> -->

@@ -28,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatRadioModule } from '@angular/material/radio';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatDividerModule,
     MatTooltipModule,
     ReactiveFormsModule,
+    TranslateModule,
     ProductRoutingModule
 
   ]

@@ -6,45 +6,52 @@
   </button>
    
   
-  <img class="logo" src="/images/logoUltimaVersion.png" alt="Logo Valssi" />
+  <img class="logo" src="public/images/logoUltimaVersion.png" alt="Logo Valssi" />
 
   <span class="example-spacer2"></span>
 
   <!-- MANTENIMIENTO -->
-<span class="menu-text" [matMenuTriggerFor]="menu2" matTooltip="Mantenimientos">Mantenimiento</span>
+<span class="menu-text" [matMenuTriggerFor]="menu2" matTooltip="Mantenimientos">{{ 'header.mantenimientos' | translate }}</span>
 <mat-menu #menu2="matMenu">
-    <button mat-menu-item [routerLink]="['/product']" routerLinkActive="active-link">Productos</button>
-  <button mat-menu-item [routerLink]="['/promotion']" routerLinkActive="active-link">Promociones</button>
+    <button mat-menu-item [routerLink]="['/product']" routerLinkActive="active-link">{{ 'header.productos' | translate }}</button>
+  <button mat-menu-item [routerLink]="['/promotion']" routerLinkActive="active-link">{{ 'header.promociones' | translate }}</button>
 </mat-menu>
 
 <!-- REPORTES -->
-  <span class="menu-text" [matMenuTriggerFor]="menu4" matTooltip="Reportes">Reportes</span>
+  <span class="menu-text" [matMenuTriggerFor]="menu4" matTooltip="Reportes">{{ 'header.reportes' | translate }}</span>
 <mat-menu #menu4="matMenu">
   <button mat-menu-item [routerLink]="['/promotion']" routerLinkActive="active-link">Opción de reporte 1</button>
   <button mat-menu-item>Opción de reporte 2</button>
 </mat-menu>
 
-<span class="menu-text" [matMenuTriggerFor]="menu5" matTooltip="Listados">Listados</span>
+<span class="menu-text" [matMenuTriggerFor]="menu5" matTooltip="Listados">{{ 'header.listados' | translate }}</span>
 <mat-menu #menu5="matMenu">
-  <button mat-menu-item [routerLink]="['/review']" routerLinkActive="active-link">Reseñas</button>
+  <button mat-menu-item [routerLink]="['/review']" routerLinkActive="active-link">{{ 'header.reseñas' | translate }}</button>
     
-    <button mat-menu-item [routerLink]="['/order']" routerLinkActive="active-link">Pedidos</button>
+    <button mat-menu-item [routerLink]="['/order']" routerLinkActive="active-link">{{ 'header.pedidos' | translate }}</button>
 </mat-menu>
 
   <div class="example-spacer2"></div>
 
 
   <mat-menu #menu1="matMenu">
-    <button mat-menu-item [routerLink]="['/inicio']" routerLinkActive="active-link">Inicio</button>
-    <button mat-menu-item [routerLink]="['/aboutus']" routerLinkActive="active-link">Acerca de</button>
-    <button mat-menu-item [routerLink]="['/product/list']" routerLinkActive="active-link">Productos</button>
+    <button mat-menu-item [routerLink]="['/inicio']" routerLinkActive="active-link">{{ 'header.inicio' | translate }}</button>
+    <button mat-menu-item [routerLink]="['/aboutus']" routerLinkActive="active-link">{{ 'header.acercaDe' | translate }}</button>
+    <button mat-menu-item [routerLink]="['/product/list']" routerLinkActive="active-link">{{ 'header.productos' | translate }}</button>
     
   </mat-menu>
 
 
+<span class="menu-text" [matMenuTriggerFor]="menu6"  >{{ 'header.idioma' | translate }}</span>
+  <mat-menu #menu6="matMenu">
+    <button mat-menu-item (click)="switchLanguage('es')">Español</button>
+    <button mat-menu-item (click)="switchLanguage('en')">English</button>
+    
+  </mat-menu>
     <button matIconButton matBadgeColor="accent" [matBadge]="qtyItems.toString()" class="small-text">
       <mat-icon [ngClass]="isAutenticated ? 'cart': ''">shopping_cart</mat-icon>
     </button>
+   
     <!-- Menu de Usuario-->
     <!-- <span class="small-text">{{ currentUser?.email}}</span> -->
     <button matIconButton [matMenuTriggerFor]="menu3">
