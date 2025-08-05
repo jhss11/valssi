@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { PromotionModel } from '../../share/models/PromotionModel';
 import { ActivatedRoute } from '@angular/router';
 
+
+
 @Component({
   selector: 'app-promotion-index',
   standalone: false,

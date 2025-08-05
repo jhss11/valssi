@@ -12,6 +12,7 @@ import { UserModule } from './user/user-module';
 import { ReviewModule } from './review/review-module';
 import { OrderModule } from './order/order-module';
 import { PromotionModule } from './promotion/promotion-module';
+import { CustomProductModule } from './custom-product/custom-product-module';
 
 
 import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/common/http';
@@ -19,6 +20,8 @@ import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/commo
 // i18n imports
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+
 
 // Función para el loader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -28,6 +31,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     App,
+
   ],
   imports: [
     BrowserModule,
@@ -39,6 +43,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReviewModule,
     OrderModule,
     PromotionModule,
+    CustomProductModule,
+
 
     // Módulo de traducción configurado
     TranslateModule.forRoot({
@@ -50,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       defaultLanguage: 'es', // opcional
     }),
     AppRoutingModule,
-
+   
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

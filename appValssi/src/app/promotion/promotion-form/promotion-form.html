@@ -1,108 +1,104 @@
 <form [formGroup]="promotionForm" (ngSubmit)="submitPromotion()" novalidate>
   <div class="contenedor">
-  <h2>{{ titleForm }} promoción</h2></div>
+  <h2>{{ titleForm }} {{ 'promotion-form.titulo' | translate }}</h2></div>
+  
   <input type="hidden" formControlName="id" />
 
   <div class="field">
-    <label for="name">Nombre</label>
+    <label for="name">{{ 'promotion-form.nombre' | translate }}</label>
     <input id="name" type="text" formControlName="name" />
     @if (errorHandling('name')) {
-    <small class="text-danger">{{ errorHandling('name') }}</small>
+      <small class="text-danger">{{ 'promotion-form.errores.name' | translate }}</small>
     }
   </div>
 
   <div class="field">
-    <label for="type">Tipo de descuento</label>
+    <label for="type">{{ 'promotion-form.tipoDescuento' | translate }}</label>
     <select id="type" formControlName="type">
       @for (t of promoTypes; track t.id) {
-      <option [value]="t.id">{{ t.name }}</option>
+        <option [value]="t.id">{{ t.name }}</option>
       }
     </select>
     @if (errorHandling('type')) {
-    <small class="text-danger">{{ errorHandling('type') }}</small>
+      <small class="text-danger">{{ 'promotion-form.errores.type' | translate }}</small>
     }
   </div>
 
   <div class="field">
-    <label for="amount">Valor del descuento</label>
-    <input
-      id="amount"
-      type="number"
-      formControlName="amount"
-      step="0.01"
-      min="0.01"
-    />
+    <label for="amount">{{ 'promotion-form.valorDescuento' | translate }}</label>
+    <input id="amount" type="number" formControlName="amount" step="0.01" min="0.01" />
     @if (errorHandling('amount')) {
-    <small class="text-danger">{{ errorHandling('amount') }}</small>
+      <small class="text-danger">{{ 'promotion-form.errores.amount' | translate }}</small>
     }
   </div>
 
   <fieldset>
-    <legend>Aplica a</legend>
+    <legend>{{ 'promotion-form.aplicaA' | translate }}</legend>
     <label>
       <input type="radio" value="CATEGORY" formControlName="applyTo" />
-      Categoría
+      {{ 'promotion-form.categoria' | translate }}
     </label>
     <label>
       <input type="radio" value="PRODUCT" formControlName="applyTo" />
-      Producto
+      {{ 'promotion-form.producto' | translate }}
     </label>
   </fieldset>
 
   @if (promotionForm.value.applyTo === 'CATEGORY') {
-  <div class="field">
-    <label for="categoryId">Categoría</label>
-    <select id="categoryId" formControlName="categoryId">
-      <option [ngValue]="null">-- Seleccione --</option>
-      @for (c of categories; track c.id) {
-      <option [value]="c.id">{{ c.name }}</option>
+    <div class="field">
+      <label for="categoryId">{{ 'promotion-form.categoria' | translate }}</label>
+      <select id="categoryId" formControlName="categoryId">
+        <option [ngValue]="null">{{ 'promotion-form.seleccione' | translate }}</option>
+        @for (c of categories; track c.id) {
+          <option [value]="c.id">{{ c.name }}</option>
+        }
+      </select>
+      @if (promotionForm.errors?.['target']) {
+        <small class="text-danger">{{ 'promotion-form.errores.targetCategoria' | translate }}</small>
       }
-    </select>
-    @if ( promotionForm.errors?.['target']) {
-    <small class="text-danger">Debe elegir una categoría</small>
-    }
-  </div>
-  } @if (promotionForm.value.applyTo === 'PRODUCT') {
-  <div class="field">
-    <label for="productId">Producto</label>
-    <select id="productId" formControlName="productId">
-      <option [ngValue]="null">-- Seleccione --</option>
-      @for (p of products; track p.id) {
-      <option [value]="p.id">{{ p.name }}</option>
+    </div>
+  }
+
+  @if (promotionForm.value.applyTo === 'PRODUCT') {
+    <div class="field">
+      <label for="productId">{{ 'promotion-form.producto' | translate }}</label>
+      <select id="productId" formControlName="productId">
+        <option [ngValue]="null">{{ 'promotion-form.seleccione' | translate }}</option>
+        @for (p of products; track p.id) {
+          <option [value]="p.id">{{ p.name }}</option>
+        }
+      </select>
+      @if (errorHandling('productId') || promotionForm.errors?.['target']) {
+        <small class="text-danger">{{ 'promotion-form.errores.targetProducto' | translate }}</small>
       }
-    </select>
-    @if (errorHandling('productId') || promotionForm.errors?.['target']) {
-    <small class="text-danger">Debe elegir un producto</small>
-    }
-  </div>
+    </div>
   }
 
   <div class="field">
-    <label for="startDate">Fecha inicio</label>
+    <label for="startDate">{{ 'promotion-form.fechaInicio' | translate }}</label>
     <input id="startDate" type="date" formControlName="startDate" />
   </div>
 
   <div class="field">
-    <label for="endDate">Fecha fin</label>
+    <label for="endDate">{{ 'promotion-form.fechaFin' | translate }}</label>
     <input id="endDate" type="date" formControlName="endDate" />
   </div>
 
   @if (promotionForm.errors?.['faltaFechaInicio']) {
-  <small class="text-danger"> Selecciona la fecha de inicio </small>
-  } @if (promotionForm.errors?.['faltaFechaFin']) {
-  <small class="text-danger"> Selecciona la fecha de fin </small>
-  } @if (promotionForm.errors?.['fechaInicioPasada']) {
-  <small class="text-danger">
-    La fecha de inicio no puede ser anterior a hoy
-  </small>
-  } @if (promotionForm.errors?.['rangoInvalido']) {
-  <small class="text-danger">
-    La fecha de fin no puede ser anterior a la de inicio
-  </small>
+    <small class="text-danger">{{ 'promotion-form.errores.faltaFechaInicio' | translate }}</small>
+  }
+  @if (promotionForm.errors?.['faltaFechaFin']) {
+    <small class="text-danger">{{ 'promotion-form.errores.faltaFechaFin' | translate }}</small>
+  }
+  @if (promotionForm.errors?.['fechaInicioPasada']) {
+    <small class="text-danger">{{ 'promotion-form.errores.fechaInicioPasada' | translate }}</small>
+  }
+  @if (promotionForm.errors?.['rangoInvalido']) {
+    <small class="text-danger">{{ 'promotion-form.errores.rangoInvalido' | translate }}</small>
   }
 
   <div class="actions">
-    <button type="submit" [disabled]="promotionForm.invalid">Guardar</button>
-    <button type="button" (click)="onBack()">Regresar</button>
+    <button type="submit" [disabled]="promotionForm.invalid">{{ 'promotion-form.guardar' | translate }}</button>
+    <button type="button" (click)="onBack()">{{ 'promotion-form.regresar' | translate }}</button>
   </div>
 </form>

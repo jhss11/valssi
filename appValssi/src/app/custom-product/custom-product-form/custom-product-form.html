@@ -1,0 +1,16 @@
+<h2>Personaliza tu edredón</h2>
+
+<form (ngSubmit)="enviar()">
+  <div class="grupo" *ngFor="let grupo of ['Color', 'Tamaño', 'Diseño']">
+    <h3>{{ grupo }}</h3>
+    <mat-radio-group [(ngModel)]="selectedOptions[grupo]" name="{{grupo}}" required>
+      <mat-radio-button *ngFor="let opt of groupedOptions[grupo]" [value]="opt">
+        {{ opt.value }} (+₡{{ opt.price }})
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <button mat-flat-button color="primary" type="submit">
+    Continuar
+  </button>
+</form>

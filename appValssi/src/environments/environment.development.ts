@@ -8,6 +8,7 @@ export const environment = {
     endPointTag: 'tag',
     endPointPromoType: 'promotypes',
     endPointUser: 'users',
+    endPointOptionValue: 'optionsValues',
 
 
 };

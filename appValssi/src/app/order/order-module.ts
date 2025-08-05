@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { OrderDetail } from './order-detail/order-detail';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -25,6 +25,7 @@ import { MatDividerModule } from '@angular/material/divider';
     CommonModule,
     MatTableModule,
     MatDividerModule,
+    TranslateModule,
     OrderRoutingModule
   ]
 })

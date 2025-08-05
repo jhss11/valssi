@@ -1,5 +1,5 @@
-<h2 class="titulo">Reseñas</h2>
-<h3 class="subtitulo">Historial de reseñas</h3>
+<h2 class="titulo">{{'review-index.titulo'  | translate}}</h2>
+<h3 class="subtitulo">{{'review-index.subtitulo'  | translate}}</h3>
 <div class="reviews-container">
   <div class="tarjetas-grid">
     @if(datos){ @for(data of datos; track data.id){
@@ -7,8 +7,8 @@
         <div class="fecha">{{ getFechaEnEspanol(data.date)}}</div>
 
       <div class="contenido">
-        <p class="usuario" >Usuario: {{ data.user.username }}</p>
-        <p>Producto: {{ data.product.name }}</p>
+        <p class="usuario" >{{'review-index.usuario'  | translate}} {{ data.user.username }}</p>
+        <p>{{'review-index.producto'  | translate}} {{ data.product.name }}</p>
 
         <div class="estrellas">
           <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
@@ -20,7 +20,7 @@
         </div>
 
        <div class="btn-contenedor">
-              <button mat-flat-button color="primary" (click)="verDetalle(data.id)">Ver detalle</button>
+              <button mat-flat-button color="primary" (click)="verDetalle(data.id)">{{'review-index.detalle' | translate}}</button>
             </div>
       </div>
     </mat-card>

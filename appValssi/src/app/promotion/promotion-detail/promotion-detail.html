@@ -1,5 +1,5 @@
 <div class="boton">
-  <button mat-flat-button (click)="goBack()"> <mat-icon>arrow_back</mat-icon>Regresar</button>
+  <button mat-flat-button (click)="goBack()"> <mat-icon>arrow_back</mat-icon>{{'promotion-detail.volver' | translate}}</button>
 </div>
 
 @if (promo) {
@@ -19,27 +19,27 @@
     <div class="promo-datos">
       <div class="col">
         <div class="dato">
-          <strong>Tipo de promoción:</strong>
+          <strong>{{'promotion-detail.tipoPromo' | translate}}</strong>
           {{ promo.product ? 'Producto' : promo.category ? 'Categoría' : 'General' }}
           <hr class="divisor2" />
         </div>
 
         @if (promo.product) {
           <div class="dato">
-            <strong>Aplica:</strong> {{ promo.product.name }}
+            <strong>{{'promotion-detail.aplica' | translate}}</strong> {{ promo.product.name }}
             <hr class="divisor2" />
           </div>
         }
 
         @if (promo.category) {
           <div class="dato">
-            <strong>Aplica:</strong> {{ promo.category.name }}
+            <strong>{{'promotion-detail.aplica' | translate}}</strong> {{ promo.category.name }}
             <hr class="divisor2" />
           </div>
         }
 
         <div class="dato">
-          <strong>Descuento:</strong>
+          <strong>{{'promotion-detail.descuento' | translate}}</strong>
           {{ promo.type === 'PERCENTAGE' ? promo.amount + '%' : '₡' + promo.amount }}
           <hr class="divisor2" />
         </div>
@@ -47,13 +47,13 @@
 
       <div class="col">
         <div class="dato">
-          <strong>Fecha de inicio:</strong>
+          <strong>{{'promotion-detail.fechaInicio' | translate}}</strong>
           {{ getFechaEnEspanol( promo.startDate ) }}
           <hr class="divisor2" />
         </div>
 
         <div class="dato">
-          <strong>Fecha de finalización:</strong>
+          <strong>{{'promotion-detail.fechaFin' | translate}}</strong>
           {{ getFechaEnEspanol(promo.endDate) }}
           <hr class="divisor2" />
         </div>

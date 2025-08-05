@@ -56,7 +56,8 @@
       <h2 class="nombre">{{ datos.name }}</h2>
 
       <div class="categoria">
-        {{ 'product-detail.categoria' | translate }} <span class="categoria-tag">{{ datos.category.name }}</span>
+        {{ 'product-detail.categoria' | translate }}
+        <span class="categoria-tag">{{ datos.category.name }}</span>
       </div>
 
       <div class="precio">
@@ -87,6 +88,13 @@
       {{ 'product-detail.agregarCarrito' | translate }}
     </button>
 
+    @if(datos.name == 'Edredón personalizable'){
+      <button mat-flat-button (click)="personalizar(datos.id)" style="background-color: rgb(124, 60, 31); color: azure;">
+        Personalizar
+      </button>
+
+      }
+
     <!-- Formulario-->
     <form
       class="review-form"
@@ -100,7 +108,7 @@
         </div>
 
         <div class="field">
-          <label >{{ 'product-detail.valoracion' | translate }}</label>
+          <label>{{ 'product-detail.valoracion' | translate }}</label>
           <div class="estrellas-input">
             @for (i of [].constructor(5); track $index) {
             <mat-icon
@@ -120,7 +128,9 @@
       </div>
 
       <div class="field" style="grid-column: span 2">
-        <label for="comment">{{ 'product-detail.comentario' | translate }}</label>
+        <label for="comment"
+          >{{ 'product-detail.comentario' | translate }}</label
+        >
         <textarea
           matInput
           id="comment"
@@ -133,7 +143,9 @@
       </div>
 
       <div class="actions">
-        <button type="submit">{{ 'product-detail.publicar' | translate }}</button>
+        <button type="submit">
+          {{ 'product-detail.publicar' | translate }}
+        </button>
       </div>
     </form>
   </div>

@@ -1,5 +1,5 @@
-<h2 class="titulo">Promociones</h2>
-<h3 class="subtitulo">Historial de promociones</h3>
+<h2 class="titulo">{{'promotion-index.titulo' | translate}}</h2>
+<h3 class="subtitulo">{{'promotion-index.subtitulo' | translate}}</h3>
 
 <div class="btn-crear-container">
   <button
@@ -8,7 +8,7 @@
     class="crear-btn"
     (click)="createPromo()"
   >
-    Agregar
+    {{'promotion-index.crear' | translate}}
   </button>
 </div>
 
@@ -17,21 +17,23 @@
   <table class="tabla-pedidos">
     <thead>
       <tr>
-        <th class="col-fecha">Fecha</th>
-        <th>Nombre</th>
-        <th>Monto</th>
-        <th>Estado</th>
-        <th>Producto / Categoría</th>
-        <th class="col-acciones">Acciones</th>
+        <th class="col-fecha">{{'promotion-index.fecha' | translate}}</th>
+        <th>{{'promotion-index.nombre' | translate}}</th>
+        <th>{{'promotion-index.descuento' | translate}}</th>
+        <th>{{'promotion-index.estado' | translate}}</th>
+        <th>{{'promotion-index.aplica' | translate}}</th>
+        <th class="col-acciones">{{'promotion-index.acciones'| translate}}</th>
       </tr>
     </thead>
     <tbody>
       @for (promo of datos; track promo.id) {
       <tr>
         <td class="col-fecha">
-          Válido del {{ getFechaEnEspanol(promo.startDate) }} al {{
-          getFechaEnEspanol(promo.endDate) }}
+          {{ 'promotion-index.vigencia' | translate:{ start:
+          getFechaEnEspanol(promo.startDate), end:
+          getFechaEnEspanol(promo.endDate) } }}
         </td>
+
         <td>{{ promo.name }}</td>
         <td>
           {{ promo.type === 'PERCENTAGE' ? promo.amount + '%' : '₡' +
@@ -48,30 +50,29 @@
         </td>
         <td>
           @if (promo.product) {
-          <strong>Producto:</strong> {{ promo.product.name }} } @else if
-          (promo.category) { <strong>Categoría:</strong> {{ promo.category.name
-          }} }
+          <strong>{{'promotion-index.producto' | translate}}</strong> {{
+          promo.product.name }} } @else if (promo.category) {
+          <strong>{{'promotion-index.categoria' | translate}}:</strong> {{
+          promo.category.name }} }
         </td>
         <td class="col-acciones">
-          
-          <div >
+          <div>
             <a [routerLink]="['/promotion', promo.id]" class="link-accion">
-              Ver detalle
+              {{'promotion-index.detalle' | translate}}
             </a>
           </div>
-          @if (getPromotionStatus(promo.startDate, promo.endDate) !== 'Aplicada') {
-            <div>
-              <a
-                [routerLink]="['/promotion/update', promo.id]"
-                class="link-accion link-editar"
-              >
-                Editar
-              </a>
-            </div>
+          @if (getPromotionStatus(promo.startDate, promo.endDate) !==
+          'Aplicada') {
+          <div>
+            <a
+              [routerLink]="['/promotion/update', promo.id]"
+              class="link-accion link-editar"
+            >
+              {{'promotion-index.editar' | translate}}
+            </a>
+          </div>
           }
         </td>
-
-
       </tr>
       }
     </tbody>

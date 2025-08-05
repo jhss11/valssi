@@ -5,10 +5,9 @@
     "agregar": "Agregar",
     "editar": "Editar",
     "detalle": "Ver detalle"
-    
   },
 
-"product-list": {
+  "product-list": {
     "titulo": "Productos con promociones",
     "subtitulo": "Historial de promociones",
     "detalle": "Ver detalle"
@@ -44,6 +43,109 @@
     "update": "Actualizar"
   },
 
+  "order-index": {
+    "titulo": "Listado de Pedidos",
+    "subtitulo": "Historial de pedidos",
+    "fecha": "Fecha",
+    "usuario": "Usuario",
+    "total": "Total",
+    "estado": "Estado",
+    "detalles": "Detalle",
+    "verDetalles": "Ver detalle"
+  },
+
+  "order-detail": {
+    "volver": "Regresar",
+    "titulo": "Factura - Pedido #{{id}}",
+    "cliente": "Cliente:",
+    "nombre": "Nombre:",
+    "direccionEnvio": "Dirección de Envío:",
+    "fechaEmision": "Fecha de Emisión:",
+    "detalleProductos": "Detalle Productos:",
+    "detalleProductosPersonalizados": "Detalle Productos Personalizados:",
+    "nombreColumna": "Nombre",
+    "cantidadColumna": "Cantidad",
+    "precioUnitario": "Precio Unitario",
+    "precioBase": "Precio Base",
+    "criterios": "Criterios",
+    "promocion": "Promoción",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "subtotalSinIVA": "Subtotal sin IVA",
+    "impuestos": "Impuestos (13%)",
+    "totalFinal": "Total",
+    "metodoPago": "Método de Pago:",
+    "pagoUtilizado": "El método de pago utilizado es pago en {{method}}"
+  },
+
+  "review-index": {
+    "titulo": "Reseñas",
+    "subtitulo": "Historial de reseñas",
+    "usuario": "Usuario:",
+    "producto": "Producto:",
+    "detalle": "Ver detalle"
+  },
+
+  "review-detail": {
+    "volver": "Regresar",
+    "fechaPub": "Fecha de publicación:",
+    "producto": "Producto:",
+    "usuario": "Usuario:"
+  },
+
+  "promotion-index": {
+    "titulo": "Promociones",
+    "subtitulo": "Historial de promociones",
+    "crear": "Agregar",
+    "fecha": "Fecha",
+    "nombre": "Nombre",
+    "descuento": "Descuento",
+    "estado": "Estado",
+    "aplica": "Aplica",
+    "acciones": "Acciones",
+    "detalle": "Ver detalle",
+    "editar": "Editar",
+    "producto": "Producto",
+    "categoria": "Categoría",
+    "vigencia": "Válido del {{start}} al {{end}}"
+  },
+
+  "promotion-detail": {
+    "volver": "Regresar",
+    "tipoPromo": "Tipo de promoción: ",
+    "aplica": "Aplica:",
+    "descuento": "Descuento:",
+    "fechaInicio": "Fecha de inicio: ",
+    "fechaFin": "Fecha de finalización:"
+  },
+
+  "promotion-form": {
+    "titulo": "Promoción",
+    "nombre": "Nombre",
+    "tipoDescuento": "Tipo de descuento",
+    "valorDescuento": "Valor del descuento",
+    "aplicaA": "Aplica a",
+    "categoria": "Categoría",
+    "producto": "Producto",
+    "seleccione": "-- Seleccione --",
+    "fechaInicio": "Fecha inicio",
+    "fechaFin": "Fecha fin",
+    "errores": {
+      "name": "Debe ingresar un nombre",
+      "type": "Debe seleccionar un tipo de descuento",
+      "amount": "Debe ingresar un valor",
+      "targetCategoria": "Debe elegir una categoría",
+      "targetProducto": "Debe elegir un producto",
+      "faltaFechaInicio": "Selecciona la fecha de inicio",
+      "faltaFechaFin": "Selecciona la fecha de fin",
+      "fechaInicioPasada": "La fecha de inicio no puede ser anterior a hoy",
+      "rangoInvalido": "La fecha de fin no puede ser anterior a la de inicio"
+    },
+    "guardar": "Guardar",
+    "regresar": "Regresar",
+    "create": "Crear",
+    "update": "Actualizar"
+  },
 
   "header": {
     "mantenimientos": "Mantenimientos",
@@ -56,9 +158,5 @@
     "inicio": "Inicio",
     "acercaDe": "Acerca de",
     "idioma": "Idioma"
-
   }
-
-
-
 }
