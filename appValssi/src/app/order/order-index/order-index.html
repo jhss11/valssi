@@ -1,15 +1,15 @@
-<h2 class="titulo">Listado de Pedidos</h2>
-<h3 class="subtitulo">Historial de pedidos</h3>
+<h2 class="titulo">{{'order-index.titulo' | translate}}</h2>
+<h3 class="subtitulo">{{'order-index.subtitulo' | translate}}</h3>
 <div class="reviews-container">
   @if (datos) {
     <table class="tabla-pedidos">
       <thead>
         <tr>
-          <th>Fecha</th>
-          <th>Usuario</th>
-          <th>Total</th>
-          <th>Estado</th>
-          <th>Detalle</th>
+          <th>{{'order-index.fecha' | translate}}</th>
+          <th>{{'order-index.usuario' | translate}}</th>
+          <th>{{'order-index.total' | translate}}</th>
+          <th>{{'order-index.estado' | translate}}</th>
+          <th>{{'order-index.detalles' | translate}}</th>
         </tr>
       </thead>
       <tbody>
@@ -50,7 +50,7 @@
                 Ver detalle
               </button> -->
               <a [routerLink]="['/orders', pedido.id]" class="link-detalle">
-                Ver detalle
+                {{'order-index.verDetalles' | translate}}
               </a>
             </td>
           </tr>

@@ -20,6 +20,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { PromotionIndex } from './promotion-index/promotion-index';
 import { PromotionDetail } from './promotion-detail/promotion-detail';
 import { PromotionForm } from './promotion-form/promotion-form';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { PromotionForm } from './promotion-form/promotion-form';
     MatSelectModule,
     MatRadioModule,
     ReactiveFormsModule,
+    TranslateModule,
     FormsModule,
     
   ]

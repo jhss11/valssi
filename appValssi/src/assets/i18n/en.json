@@ -43,6 +43,113 @@
     "update": "Update"
 
   },
+
+
+  "order-index":{
+    "titulo": "Orders",
+    "subtitulo": "Order history",
+    "fecha": "Date",
+    "usuario": "User",
+    "total": "Total amount",
+    "estado": "Status",
+    "detalles": "Details",
+    "verDetalles": "Details"
+  },
+
+   "order-detail": {
+    "volver": "Back",
+    "titulo": "Invoice - Order #{{id}}",
+    "cliente": "Client:",
+    "nombre": "Name:",
+    "direccionEnvio": "Shipping Address:",
+    "fechaEmision": "Issue Date:",
+    "detalleProductos": "Product Details:",
+    "detalleProductosPersonalizados": "Customized Product Details:",
+    "nombreColumna": "Name",
+    "cantidadColumna": "Quantity",
+    "precioUnitario": "Unit Price",
+    "precioBase" : "Base Price",
+    "criterios": "Criteria",
+    "promocion": "Promotion",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "subtotalSinIVA": "Subtotal (excl. VAT)",
+    "impuestos": "Taxes (13%)",
+    "totalFinal": "Total",
+    "metodoPago": "Payment Method:",
+    "pagoUtilizado": "The payment method used is payment in {{method}}"
+  },
+
+    "review-index":{
+    "titulo": "Reviews",
+    "subtitulo": "Review history",
+    "usuario": "User:",
+    "producto": "Product:",
+    "detalle":"Details"
+  },
+
+  "review-detail":{
+    "volver": "Back",
+    "fechaPub": "Publication date:",
+    "producto": "Product:",
+    "usuario": "User:"
+  },
+
+    "promotion-index":{
+    "titulo": "Promotions",
+    "subtitulo": "Promotion history",
+    "crear": "Add",
+    "fecha":"Date",
+    "nombre":"Name",
+    "descuento": "Discount",
+    "estado": "Status",
+    "aplica":"Applies to",
+    "acciones":"Actions",
+    "detalle":"Details",
+    "editar":"Edit",
+    "producto":"Product",
+    "categoria":"Category",
+     "vigencia": "Valid from {{start}} to {{end}}"
+  },
+
+  "promotion-detail": {
+  "volver": "Back",
+  "tipoPromo": "Promotion type:",
+  "aplica": "Applies to:",
+  "descuento": "Discount:",
+  "fechaInicio": "Start date:",
+  "fechaFin": "End date:"
+},
+
+"promotion-form": {
+  "titulo":"Promotion",
+  "nombre": "Name",
+  "tipoDescuento": "Discount type",
+  "valorDescuento": "Discount value",
+  "aplicaA": "Applies to",
+  "categoria": "Category",
+  "producto": "Product",
+  "seleccione": "-- Select --",
+  "fechaInicio": "Start date",
+  "fechaFin": "End date",
+  "errores": {
+    "name": "Name is required",
+    "type": "Discount type is required",
+    "amount": "Value is required",
+    "targetCategoria": "You must choose a category",
+    "targetProducto": "You must choose a product",
+    "faltaFechaInicio": "Select a start date",
+    "faltaFechaFin": "Select an end date",
+    "fechaInicioPasada": "The start date cannot be earlier than today",
+    "rangoInvalido": "The end date cannot be earlier than the start date"
+  },
+  "guardar": "Save",
+  "regresar": "Back",
+  "create": "Crear",
+  "update": "Actualizar"
+},
+
+
   "header": {
     "mantenimientos": "Maintenance",
     "productos": "Products",

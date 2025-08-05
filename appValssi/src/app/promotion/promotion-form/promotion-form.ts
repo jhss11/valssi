@@ -15,6 +15,7 @@ import { PromoTypeService } from '../../share/services/promo-type.service';
 import { PromotionService } from '../../share/services/promotion.service';
 import { NotificationService } from '../../share/notification-service';
 import { getFormValidationErrorMessage } from '../../share/form-validation';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-promotion-form',
@@ -45,7 +46,8 @@ export class PromotionForm implements OnInit, OnDestroy {
     private categoryService: CategoryService,
     private productService: ProductService,
     private promotionService: PromotionService,
-    private noti: NotificationService
+    private noti: NotificationService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +60,9 @@ export class PromotionForm implements OnInit, OnDestroy {
     this.route.params.subscribe((params: Params) => {
       this.idPromotion = params['id'];
       this.isCreate = this.idPromotion === undefined;
-      this.titleForm = this.isCreate ? 'Crear' : 'Actualizar';
+      //this.titleForm = this.isCreate ? 'Crear' : 'Actualizar';
+
+       this.setTranslatedTitle();
 
       //Si no es verdadero (es falso), entonces es para actualizar
       if (!this.isCreate) {
@@ -70,6 +74,19 @@ export class PromotionForm implements OnInit, OnDestroy {
             this.patchFormValues(data);
           });
       }
+    });
+
+     this.translate.onLangChange
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.setTranslatedTitle();
+      });
+  }
+
+  private setTranslatedTitle(): void {
+    const key = this.isCreate ? 'product-form.create' : 'product-form.update';
+    this.translate.get(key).subscribe((value) => {
+      this.titleForm = value;
     });
   }
 

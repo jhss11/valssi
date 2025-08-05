@@ -156,4 +156,7 @@ private getUser(id: number): void {
       });
   }
 
+   personalizar(id: Number) {
+    this.router.navigate(['/customProduct', id]);
+  }
 }

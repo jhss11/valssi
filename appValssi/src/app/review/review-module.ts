@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReviewDetail } from './review-detail/review-detail';
 import { ReviewForm } from './review-form/review-form';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     ReactiveFormsModule,
     MatIconModule,
+    TranslateModule,
     ReviewRoutingModule
   ]
 })
