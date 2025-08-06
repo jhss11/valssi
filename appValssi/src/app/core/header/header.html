@@ -48,8 +48,10 @@
     <button mat-menu-item (click)="switchLanguage('en')">English</button>
     
   </mat-menu>
-    <button matIconButton matBadgeColor="accent" [matBadge]="qtyItems.toString()" class="small-text">
-      <mat-icon [ngClass]="isAutenticated ? 'cart': ''">shopping_cart</mat-icon>
+    <button matIconButton matBadgeColor="accent"  class="small-text number-cart" [matBadge]="qtyItems().toString()"
+   [routerLink]="'/orden'"  
+   [routerLinkActive]="'active-link'">
+      <mat-icon >shopping_cart</mat-icon>
     </button>
    
     <!-- Menu de Usuario-->

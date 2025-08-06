@@ -47,4 +47,6 @@ export class ProductIndex {
       relativeTo: this.route,
     });
   }
+
+  
 }

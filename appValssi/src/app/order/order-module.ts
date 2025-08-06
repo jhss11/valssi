@@ -11,11 +11,13 @@ import { OrderDetail } from './order-detail/order-detail';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule } from '@ngx-translate/core';
+import { OrderCart } from './order-cart/order-cart';
 
 @NgModule({
   declarations: [
     OrderIndex,
-    OrderDetail
+    OrderDetail,
+    OrderCart
   ],
   imports: [
     CommonModule,
