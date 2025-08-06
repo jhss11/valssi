@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { CartService } from '../../share/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './header.css'
 })
 export class Header {
+  private cartService =inject(CartService)
+  qtyItems: Signal<Number>=this.cartService.qtyItems;
 
-
-qtyItems:Number=0
   isAutenticated:boolean=false
   currentUser:any
 
@@ -20,7 +21,7 @@ qtyItems:Number=0
     }
     
 
-    
+    console.log("cantidad", this.qtyItems)
   }
   switchLanguage(lang: string) {
     this.translate.use(lang);

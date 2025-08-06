@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl,ValidatorFn} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -10,6 +10,9 @@ import { ReviewService } from '../../share/services/review.service';
 import { NotificationService } from '../../share/notification-service';
 import { getFormValidationErrorMessage } from '../../share/form-validation';
 import { minWordsValidator } from '../../share/validators/min-words-validator';
+import { CartService } from '../../share/cart.service';
+import { ProductModule } from '../product-module';
+import { ProductModel } from '../../share/models/ProductModel';
 
 @Component({
   selector: 'app-product-detail',
@@ -27,6 +30,7 @@ export class ProductDetail implements OnInit, OnDestroy {
   username = '';
 
   destroy$ = new Subject<void>();
+   private cartService = inject(CartService);
 
   constructor(
     private userService: UserService,
@@ -158,5 +162,15 @@ private getUser(id: number): void {
 
    personalizar(id: Number) {
     this.router.navigate(['/customProduct', id]);
+  }
+  
+  comprar(product: ProductModel) {
+    console.log(product);
+    this.noti.success(
+      'Compra',
+      'Producto comprado: ' + product.name,
+      3000
+    );
+    this.cartService.addToCart(product)
   }
 }

@@ -53,7 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
-      defaultLanguage: 'es', // opcional
+      defaultLanguage: 'es', 
     }),
     AppRoutingModule,
    
@@ -61,7 +61,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(),
-    //  <-- no usar si ya usás HttpClientModule
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,
