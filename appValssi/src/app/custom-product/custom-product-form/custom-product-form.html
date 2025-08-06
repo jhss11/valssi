@@ -1,16 +1,82 @@
-<h2>Personaliza tu edredón</h2>
+<div class="container">
+  <div class="main-section">
+    <div class="image-preview">
+      <img [src]="imagenSeleccionada" alt="Producto seleccionado" />
+      <div class="thumbnails">
+        <img
+          *ngFor="let img of datos?.images"
+          [src]="'http://localhost:3000/images/' + img.url"
+          (click)="cambiarImagen(img.url)"
+        />
+      </div>
+    </div>
 
-<form (ngSubmit)="enviar()">
-  <div class="grupo" *ngFor="let grupo of ['Color', 'Tamaño', 'Diseño']">
-    <h3>{{ grupo }}</h3>
-    <mat-radio-group [(ngModel)]="selectedOptions[grupo]" name="{{grupo}}" required>
-      <mat-radio-button *ngFor="let opt of groupedOptions[grupo]" [value]="opt">
-        {{ opt.value }} (+₡{{ opt.price }})
-      </mat-radio-button>
-    </mat-radio-group>
+    <div class="summary-box">
+      <h3>Resumen</h3>
+      <p>Precio base: ₡{{ basePrice }}</p>
+      <p *ngIf="selectedOptions['Color']">
+        Color: {{ selectedOptions['Color'].value }} (+₡{{
+          selectedOptions['Color'].price
+        }})
+      </p>
+      <p *ngIf="selectedOptions['Tamano']">
+        Tamaño: {{ selectedOptions['Tamano'].value }} (+₡{{
+          selectedOptions['Tamano'].price
+        }})
+      </p>
+      <p *ngIf="selectedOptions['Diseño']">
+        Diseño: {{ selectedOptions['Diseño'].value }} (+₡{{
+          selectedOptions['Diseño'].price
+        }})
+      </p>
+      <h4>Total: ₡{{ getTotal() }}</h4>
+
+      <button mat-raised-button color="primary">Agregar al carrito</button>
+    </div>
   </div>
 
-  <button mat-flat-button color="primary" type="submit">
-    Continuar
-  </button>
-</form>
+  <div class="options-section">
+    <div class="option-category">
+      <h4>Elige el color</h4>
+      <div class="options-grid">
+        <div
+          class="option-card"
+          *ngFor="let opt of groupedOptions['Color']"
+          (click)="selectOption('Color', opt)"
+        >
+          <img [src]="getOptionImage(opt.value)" alt="{{ opt.value }}" />
+          <p>{{ opt.value }} - ₡{{ opt.price }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="option-category">
+  <h4>Elige el tamaño</h4>
+  <div class="options-grid">
+    <div
+      class="option-card"
+      *ngFor="let opt of groupedOptions['Tamano']"
+      (click)="selectOption('Tamano', opt)"
+    >
+      <img [src]="getOptionImage(opt.value)" alt="{{ opt.value }}" />
+      <p>{{ opt.value }} - ₡{{ opt.price }}</p>
+    </div>
+  </div>
+</div>
+
+
+    <div class="option-category">
+      <h4>Elige el diseño</h4>
+      <div class="options-grid">
+        <div
+          class="option-card"
+          *ngFor="let opt of groupedOptions['Diseno']"
+          (click)="selectOption('Diseno', opt)"
+        >
+          <img [src]="getOptionImage(opt.value)" alt="{{ opt.value }}" />
+          <p>{{ opt.value }} - ₡{{ opt.price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
