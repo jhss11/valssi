@@ -1,6 +1,7 @@
 import { Injectable, signal, computed, effect } from '@angular/core';
 import { OrderItemModel} from './models/OrderItemModel';
 import { ProductModel } from './models/ProductModel';
+import { ItemCartModel } from './models/ItemCartModel';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { ProductModel } from './models/ProductModel';
 export class CartService {
   // El signal principal para el estado del carrito
   // Se inicializa cargando desde localStorage
-  private cart = signal<OrderItemModel[]>(this.loadCartFromStorage());
+  private cart = signal<ItemCartModel[]>(this.loadCartFromStorage());
 
   public readonly itemsCart = computed(() => this.cart());
 
@@ -18,10 +19,17 @@ export class CartService {
     this.cart().reduce((sum, item) => sum + item.quantity, 0)
   );
 
-//no esoty segura si el precio es en individual por ese tipo de producto o si es por la cantidad de productos
-  public total = computed(() =>
-    this.cart().reduce((total, item) => total + item.price, 0)
-  );
+  // public total = computed(() =>
+  //   this.cart().reduce((total, item) => total + item.subtotal, 0)
+  // );
+
+public total = computed(() =>
+  this.cart().reduce((total, item) => {
+    const discount = this.calculatePromotions(item.product, item.quantity);
+    return total + item.subtotal - discount;
+  }, 0)
+);
+
 
   constructor() {
     // Un efecto para guardar el carrito en localStorage cada vez que 'cart' cambia
@@ -33,7 +41,7 @@ export class CartService {
   }
 
   // Cargar el carrito de localStorage
-  private loadCartFromStorage(): OrderItemModel[] {
+  private loadCartFromStorage(): ItemCartModel[] {
     if (typeof localStorage !== 'undefined') { // Verificar que localStorage esté disponible
       const cartData = localStorage.getItem('orden');
       return cartData ? JSON.parse(cartData) : [];
@@ -46,7 +54,38 @@ export class CartService {
     return producto.price * cantidad;
   }
 
+private calculatePromotions(product: ProductModel, cantidad: number): number {
+  let discount = 0;
+  const today = new Date();
+
+  const promos = [
+    ...(product.category?.promotions || []),
+    ...(product.promotions || []),
+  ];
+
+  promos.forEach((promo) => {
+    const start = new Date(promo.startDate);
+    const end = new Date(promo.endDate);
+
+    if (today >= start && today <= end) {
+      if (promo.type === 'PERCENTAGE') {
+        discount += (product.price * promo.amount) / 100;
+      } else {
+        discount += promo.amount;
+      }
+    }
+  });
+
+  return discount * cantidad; // total descuento aplicado por cantidad
+}
+
+
+
+
   // --- Métodos del Carrito ---
+
+
+
 
   /**
    * Agrega un producto al carrito.
@@ -82,7 +121,7 @@ export class CartService {
           listCart[existingItemIndex] = {
             ...existingItem,
             quantity: newQuantity,
-            // subtotal: this.calculateSubtotal(existingItem.product, newQuantity),
+             subtotal: this.calculateSubtotal(existingItem.product, newQuantity),
           };
         }
       } else {
@@ -90,9 +129,9 @@ export class CartService {
         listCart.push({
           product,
           quantity: quantity ? Number(quantity) : 1,
-          price: 0
+          subtotal: this.calculateSubtotal(product, quantity ? Number(quantity) : 1),
+          // promotions:
         });
-          // subtotal: this.calculateSubtotal(producto, quantity ? Number(quantity) : 1),
 
       }
       return listCart;
