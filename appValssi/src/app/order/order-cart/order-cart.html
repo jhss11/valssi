@@ -1,0 +1,181 @@
+<div class="boton">
+  <button mat-flat-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>{{'order-cart.volver' | translate}}
+  </button>
+</div>
+<div class="invoice-container" style="width: 1050px">
+  <div class="header">
+    <h2>Pedido</h2>
+  </div>
+
+  <div class="header-row">
+    <div>
+      <h3>{{ 'order-cart.cliente' | translate}}</h3>
+      <p><strong> {{ 'order-cart.nombre' | translate}}</strong> ff</p>
+      <p><strong>{{ 'order-cart.direccionEnvio' | translate}}</strong> ff</p>
+    </div>
+    <div>
+      <p>
+        <strong>{{ 'order-cart.fecha' | translate}}</strong> {{fecha | date: 'dd/MM/yyyy'}}
+      </p>
+      
+    </div>
+  </div>
+  <hr class="divisor" />
+
+  <!-- Detalle Productos -->
+  @if (productItems().length > 0) {
+  <div>
+    <h3>{{ 'order-cart.detalleProductos' | translate}}</h3>
+    <table
+      mat-table
+      [dataSource]="productItems()"
+      class="mat-elevation-z8 full-width-table"
+    >
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-cart.nombreColumna' | translate}}</th>
+        <td mat-cell *matCellDef="let item">{{ item.product.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-cart.cantidadColumna' | translate}}</th>
+        <td mat-cell *matCellDef="let item">
+          <button mat-icon-button (click)="disminuirCantidad(item)">
+            <mat-icon>remove</mat-icon>
+          </button>
+          {{ item.quantity }}
+          <button mat-icon-button (click)="aumentarCantidad(item)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-cart.precioUnitario' | translate}}</th>
+        <td mat-cell *matCellDef="let item">₡{{ item.product.price | number}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="promotion">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-detail.promocion' | translate}}</th>
+        <td mat-cell *matCellDef="let item">
+          {{ getPromotions(item) || '0' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="subtotal">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-cart.subtotal' | translate}}</th>
+        <td mat-cell *matCellDef="let item">
+          ₡{{ item.subtotal | number}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-detail.total' | translate}}</th>
+        <td mat-cell *matCellDef="let item">
+          ₡{{ totalCompra() | number }}
+        </td>
+      </ng-container>
+<ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-cart.acciones' | translate }}</th>
+        <td mat-cell *matCellDef="let item">
+          <button mat-icon-button color="warn" (click)="eliminarItem(item.product.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnasProducto"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnasProducto"></tr>
+    </table>
+  </div>
+  <hr class="divisor" />
+  }
+
+  <!-- Detalle Productos Personalizados -->
+  <!-- @if (customItems.length > 0) {
+  <div>
+    <h3>{{ 'order-detail.detalleProductosPersonalizados' | translate}}</h3> -->
+    <!-- <table
+      mat-table
+      [dataSource]="customItems"
+      class="mat-elevation-z8 full-width-table custom-table"
+    >
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-detail.nombreColumna' | translate}}</th>
+        <td mat-cell *matCellDef="let item">
+          {{ item.customProduct.baseProduct.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-detail.cantidadColumna' | translate}}</th>
+        <td mat-cell *matCellDef="let item">{{ item.quantity }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="basePrice">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-detail.precioBase' | translate}}</th>
+        <td mat-cell *matCellDef="let item">₡{{ item.price | number}}</td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="criteria">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-detail.criterios' | translate}}</th>
+        <td mat-cell *matCellDef="let item"> -->
+          <!-- Iterar cada criterio -->
+          <!-- @for (opt of item.customProduct.customProducts; track
+          opt.optionValue.option.name) {
+          <div style="margin-bottom: 3%; margin-top: 2%">
+            <strong>{{ opt.optionValue.option.name }}</strong> - {{
+            opt.optionValue.value }}: ₡{{ opt.optionValue.price | number }}
+          </div>
+          }
+        </td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="promotion">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-detail.promocion' | translate}}</th>
+        <td mat-cell *matCellDef="let item">
+          {{ getPromotions(item) || '0' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef>{{ 'order-detail.total' | translate}}</th>
+        <td mat-cell *matCellDef="let item">
+          ₡{{ item.customProduct.totalPrice | number }}
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="['name', 'quantity', 'basePrice', 'criteria', 'promotion', 'total']"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['name', 'quantity', 'basePrice', 'criteria', 'promotion', 'total']"
+      ></tr>
+    </table> -->
+  <!-- </div>
+  <hr class="divisor" />
+  } -->
+
+  <!-- <div class="summary-table-container">
+    <table class="summary-table">
+      <tr>
+        <td>{{ 'order-detail.subtotalSinIVA' | translate}}</td>
+        <td>₡{{ pedido.subtotal | number }}</td>
+      </tr>
+      <tr>
+        <td>{{ 'order-detail.impuestos' | translate}}</td>
+        <td>₡{{ pedido.subtotal * 0.13 | number }}</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>{{ 'order-detail.totalFinal' | translate}}</strong></td>
+        <td><strong>₡{{ pedido.total | number }}</strong></td>
+      </tr>
+    </table>
+  </div> -->
+
+  <!-- Método de Pago -->
+  <!-- <div class="payment-method invoice-style">
+    <h3>{{ 'order-detail.metodoPago' | translate}}</h3>
+      <p>{{ 'order-detail.pagoUtilizado' | translate: { method: pedido.paymentMethod } }}</p>
+  </div> -->
+</div>
