@@ -1,74 +1,270 @@
+/* Contenedor principal */
 .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 2rem;
 }
 
+/* Título centrado */
+.page-title {
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #365953;
+  font-weight: 600;
+  margin-bottom: 0;
+  font-size: 1.5rem;
+}
+
+/* Sección principal: imagen + resumen */
 .main-section {
   display: flex;
-  justify-content: space-between;
-  gap: 2rem;
+  gap: 10rem;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-.image-preview img {
-  width: 300px;
+/* Previsualización de la imagen */
+.image-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Imagen principal */
+.image-frame img {
+  display: block;
+  width: 360px;
+  height: 300px;
+  object-fit: cover;
   border-radius: 8px;
 }
 
+/* Miniaturas centradas debajo */
 .thumbnails {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo de cada miniatura */
+.thumb {
+  width: 64px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+/* miniatura activa */
+.thumb.active {
+  border-color: #333;
+  transform: scale(1.04);
+}
+
+/* Caja de resumen */
+.summary-box {
+  width: 360px;
+  min-height: 220px;
+  background: #fff;
+  padding: 1.4rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 14px;
+}
+
+.summary-box h3 {
+  margin: 0 0 0.6rem 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2b2b2b;
+}
+
+/* Filas de resumen */
+.summary-row,
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #444;
+  line-height: 1.2;
+  margin: 0.15rem 0;
+}
+
+.summary-total {
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid #eee;
+  font-weight: 700;
+}
+
+.total-amount {
+  font-size: 1.1rem;
+  color: #1a1a1a;
+}
+
+/* Contenedor del botón */
+.boton {
+  display: flex;
+  justify-content: flex-end;
+  width: 360px;
   margin-top: 1rem;
 }
 
-.thumbnails img {
-  width: 60px;
-  cursor: pointer;
-  border: 2px solid transparent;
-  border-radius: 6px;
-}
-
-.summary-box {
-  background: #f4f4f4;
-  padding: 1rem;
+/* Botón comprar */
+.comprar {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 16px;
+  background-color: #c2661b;
+  color: white;
+  font-weight: bold;
+  border: none;
   border-radius: 8px;
-  width: 300px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.summary-box p,
-.summary-box h4 {
-  margin: 0.5rem 0;
+.comprar:hover {
+  background-color: #ad4910;
+  transform: translateY(-2px);
 }
 
+/* Opciones - sección inferior */
 .options-section {
-  display: flex;
-  gap: 2rem;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  
 }
 
-.option-category {
-  flex: 1;
+.option-category{
+ padding: 2px;
+ box-shadow:0 8px 24px rgba(0,0,0,0.08) ;
 }
 
+
+/* Categoría de opción */
+.option-category h4 {
+  padding: 10px;
+  margin: 0 0 0.6rem 0;
+  font-size: 18px;
+}
+
+/* Grid de tarjetas de opciones */
 .options-grid {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
+/* Tarjeta individual */
 .option-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 0.5rem;
-  cursor: pointer;
-  width: 120px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.8rem;
+  width: 140px;
   text-align: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
 }
 
+.option-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+}
+
+/* Imagen en tarjeta */
 .option-card img {
-  width: 100%;
-  height: 70px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   border-radius: 6px;
+}
+
+.option-card.selected {
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2); /* sombra más intensa */
+  border: 1px solid ;
+}
+
+
+/* Texto de etiqueta */
+.option-label {
+  margin: 0.5rem 0 0 0;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Texto de precio */
+.option-price {
+  margin: 0.2rem 0 0 0;
+  font-size: 18px;
+  color: #3d3c3c;
+  font-weight: 500;
+}
+
+/* Responsive: apilar en pantallas pequeñas */
+@media (max-width: 880px) {
+  .main-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .summary-box,
+  .image-frame img {
+    width: 320px;
+  }
+
+  .options-section {
+    grid-template-columns: 1fr;
+  }
+
+  .option-card {
+    width: 46%;
+  }
+
+  .thumb {
+    width: 56px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.25rem;
+  }
+
+  .image-frame img {
+    width: 280px;
+    height: 240px;
+  }
+
+  .summary-box {
+    width: 280px;
+  }
+
+  .option-card {
+    width: 48%;
+  }
+}
+
+/* Columna de resumen alineada a la derecha */
+.summary-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
 }

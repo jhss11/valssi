@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { CustomProductRoutingModule } from './custom-product-routing-module';
 import { CustomProductForm } from './custom-product-form/custom-product-form';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CustomProductForm } from './custom-product-form/custom-product-form';
     MatCardModule,
     MatRadioModule,
     MatButtonModule,
+    TranslateModule,
     CustomProductRoutingModule
   ]
 })
