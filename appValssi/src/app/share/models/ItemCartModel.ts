@@ -6,5 +6,10 @@ export interface ItemCartModel {
     product: ProductModel;
     quantity: number;
     subtotal: number;
+    
+    customizations?: {
+    totalPrice: number;
+    selectedOptions: { optionValueId: number; name?: string }[];
+  };
     // price: number;
   }

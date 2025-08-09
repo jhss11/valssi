@@ -9,6 +9,7 @@ export const environment = {
     endPointPromoType: 'promotypes',
     endPointUser: 'users',
     endPointOptionValue: 'optionsValues',
+    endPointCustomProduct: 'customProducts'
 
 
 };

@@ -1,10 +1,13 @@
 // custom-product-form.ts
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { NotificationService } from '../../share/notification-service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OptionValueService } from '../../share/services/option-value.service';
 import { ProductService } from '../../share/services/product.service';
+import { CustomProductService } from '../../share/services/custom-product.service';
 import { Subject, takeUntil } from 'rxjs';
+import { ProductModel } from '../../share/models/ProductModel';
+import { CartService } from '../../share/cart.service';
 
 @Component({
   selector: 'app-custom-product-form',
@@ -18,13 +21,14 @@ export class CustomProductForm implements OnInit, OnDestroy {
   selectedOptions: { [key: string]: any } = {};
   destroy$ = new Subject<void>();
   imagenSeleccionada = '';
-  basePrice = 22000;
+
+  private cartService = inject(CartService);
 
   imageMap: { [key: string]: string } = {
     Lila: 'color-lila.jpg',
     Verde: 'color-verde.png',
-    'Grande': 'grande.jpg',
-    'Peque': 'peque.jpg',
+    '135cm x 200cm': 'grande.png',
+    '52cm x 125cm': 'peque.png',
     'Cuadrados cosidos': 'cuadrados-cosidos.jpg',
     'Rayas horizontales': 'rayas.jpg',
   };
@@ -34,6 +38,7 @@ export class CustomProductForm implements OnInit, OnDestroy {
     private noti: NotificationService,
     private router: Router,
     private prodService: ProductService,
+    private customProd: CustomProductService,
     private route: ActivatedRoute
   ) {}
 
@@ -83,7 +88,7 @@ export class CustomProductForm implements OnInit, OnDestroy {
   }
 
   getTotal(): number {
-    let total = this.basePrice;
+    let total = this.datos.price;
     Object.values(this.selectedOptions).forEach((opt: any) => {
       if (opt?.price) total += opt.price;
     });
@@ -91,11 +96,69 @@ export class CustomProductForm implements OnInit, OnDestroy {
   }
 
   getOptionImage(value: string): string {
-    return `public/images/${this.imageMap[value] || 'image-not-found.png'}`;
+    const imageName = this.imageMap[value] || 'image-not-found.png';
+    const fullPath = `http://localhost:3000/images/${imageName}`;
+    return fullPath;
   }
+
+  // comprar(product: ProductModel) {
+  //   console.log(product);
+  //   this.noti.success('Compra', 'Producto comprado: ' + product.name, 3000);
+  //   this.cartService.addToCart(product);
+  // }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+//   comprar(): void {
+//   const payload= {
+//     baseProductId: this.datos.id,
+//     totalPrice: this.getTotal(),
+//     selections: Object.values(this.selectedOptions).map((opt: any) => ({
+//       optionValueId: opt.id
+//     }))
+//   };
+
+//   console.log('Payload:', payload);
+
+//   this.customProd.create(payload).subscribe({
+//     next: () => {
+//       this.noti.success('Compra', 'Producto personalizado creado', 3000);
+//     },
+//     error: (err) => {
+//       console.error(err);
+//       this.noti.error('Error', 'No se pudo crear el producto personalizado');
+//     }
+//   });
+// }
+
+comprar() {
+  const selectedOptionsArray = Object.entries(this.selectedOptions).map(([category, opt]: [string, any]) => ({
+  optionName: category,     // ej: "Color", "Tamaño"
+  optionValueId: opt.id,
+  optionValueName: opt.value // ej: "Lila", "135cm x 200cm"
+}));
+
+console.log('opciones seleccionadas',selectedOptionsArray)
+
+  this.noti.success(
+    'Compra',
+    'Producto personalizado agregado al carrito',
+    3000
+  );
+
+  this.cartService.addToCart(
+    this.datos,
+    1,
+    {
+      totalPrice: this.getTotal(),
+      selectedOptions: selectedOptionsArray
+    }
+  );
+}
+
+
+
 }
