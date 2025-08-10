@@ -48,15 +48,24 @@ export class CustomProductForm implements OnInit, OnDestroy {
     this.getOptionsValues();
   }
 
-  getProduct(id: number): void {
+  private getProduct(id: number): void {
     this.prodService
       .getById(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.datos = data;
-        if (data?.images?.length) {
+
+        console.log('images', this.datos.images);
+        const nonCustomImages = data.images.filter((img) =>
+          img.url.includes('edredon')
+        );
+
+        this.datos.images = nonCustomImages;
+        console.log('sin personalizar', nonCustomImages);
+
+        if (nonCustomImages?.length) {
           this.imagenSeleccionada =
-            'http://localhost:3000/images/' + data.images[0].url;
+            'http://localhost:3000/images/' + nonCustomImages[0].url;
         } else {
           this.imagenSeleccionada =
             'http://localhost:3000/images/image-not-found.png';
@@ -79,6 +88,7 @@ export class CustomProductForm implements OnInit, OnDestroy {
     });
   }
 
+  //Guarda la selección del usuario de cada criterio.
   selectOption(category: string, option: any): void {
     this.selectedOptions[category] = option;
   }
@@ -87,6 +97,7 @@ export class CustomProductForm implements OnInit, OnDestroy {
     this.imagenSeleccionada = 'http://localhost:3000/images/' + url;
   }
 
+  //Se ejecuta cada que cambia algo en el componente
   getTotal(): number {
     let total = this.datos.price;
     Object.values(this.selectedOptions).forEach((opt: any) => {
@@ -101,6 +112,58 @@ export class CustomProductForm implements OnInit, OnDestroy {
     return fullPath;
   }
 
+  goBack(): void {
+    this.router.navigate(['/product/4']);
+  }
+
+  comprar() {
+    // Valida que cada criterio tenga una opción seleccionada
+    const requiredCategories = ['Color', 'Tamano', 'Diseno'];
+    const categoryLabels: { [key: string]: string } = {
+      Color: 'Color',
+      Tamano: 'Tamaño',
+      Diseno: 'Diseño',
+    };
+
+    const missingCategories = requiredCategories.filter(
+      (cat) => !this.selectedOptions[cat]
+    );
+
+    if (missingCategories.length > 0) {
+      this.noti.error(
+        'Faltan opciones',
+        `Debes seleccionar: ${missingCategories
+          .map((cat) => categoryLabels[cat])
+          .join(', ')}`,
+        3000
+      );
+      return;
+    }
+
+    // Si pasa la validación, construir el arreglo de opciones
+    const selectedOptionsArray = Object.entries(this.selectedOptions).map(
+      ([category, opt]: [string, any]) => ({
+        optionName: category,
+        optionValueId: opt.id,
+        optionValueName: opt.value,
+        optionPrice: opt.price,
+      })
+    );
+
+    // Mensaje de éxito
+    this.noti.success(
+      'Compra',
+      'Producto personalizado agregado al carrito',
+      3000
+    );
+
+    // Agregar al carrito
+    this.cartService.addToCart(this.datos, 1, {
+      totalPrice: this.getTotal(),
+      selectedOptions: selectedOptionsArray,
+    });
+  }
+
   // comprar(product: ProductModel) {
   //   console.log(product);
   //   this.noti.success('Compra', 'Producto comprado: ' + product.name, 3000);
@@ -112,54 +175,25 @@ export class CustomProductForm implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-//   comprar(): void {
-//   const payload= {
-//     baseProductId: this.datos.id,
-//     totalPrice: this.getTotal(),
-//     selections: Object.values(this.selectedOptions).map((opt: any) => ({
-//       optionValueId: opt.id
-//     }))
-//   };
+  //   comprar(): void {
+  //   const payload= {
+  //     baseProductId: this.datos.id,
+  //     totalPrice: this.getTotal(),
+  //     selections: Object.values(this.selectedOptions).map((opt: any) => ({
+  //       optionValueId: opt.id
+  //     }))
+  //   };
 
-//   console.log('Payload:', payload);
+  //   console.log('Payload:', payload);
 
-//   this.customProd.create(payload).subscribe({
-//     next: () => {
-//       this.noti.success('Compra', 'Producto personalizado creado', 3000);
-//     },
-//     error: (err) => {
-//       console.error(err);
-//       this.noti.error('Error', 'No se pudo crear el producto personalizado');
-//     }
-//   });
-// }
-
-comprar() {
-  const selectedOptionsArray = Object.entries(this.selectedOptions).map(([category, opt]: [string, any]) => ({
-  optionName: category,     // ej: "Color", "Tamaño"
-  optionValueId: opt.id,
-  optionValueName: opt.value, // ej: "Lila", "135cm x 200cm"
-  optionPrice: opt.price
-}));
-
-console.log('opciones seleccionadas',selectedOptionsArray)
-
-  this.noti.success(
-    'Compra',
-    'Producto personalizado agregado al carrito',
-    3000
-  );
-
-  this.cartService.addToCart(
-    this.datos,
-    1,
-    {
-      totalPrice: this.getTotal(),
-      selectedOptions: selectedOptionsArray
-    }
-  );
-}
-
-
-
+  //   this.customProd.create(payload).subscribe({
+  //     next: () => {
+  //       this.noti.success('Compra', 'Producto personalizado creado', 3000);
+  //     },
+  //     error: (err) => {
+  //       console.error(err);
+  //       this.noti.error('Error', 'No se pudo crear el producto personalizado');
+  //     }
+  //   });
+  // }
 }

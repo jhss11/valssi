@@ -196,11 +196,18 @@ addToCart(product: ProductModel, quantity?: number, customizations?: any): void 
    * Elimina un producto del carrito por su ID.
    * @param productId El ID del producto a eliminar.
    */
-  removeFromCart(productId: number): void {
-    this.cart.update((currentCart) =>
-      currentCart.filter((item) => item.product?.id !== productId)
-    );
-  }
+  removeFromCart(productId: number, customizations?: any): void {
+  this.cart.update((currentCart) =>
+    currentCart.filter(
+      (item) =>
+        !(
+          item.product?.id === productId &&
+          JSON.stringify(item.customizations) === JSON.stringify(customizations)
+        )
+    )
+  );
+}
+
 
 
   /**

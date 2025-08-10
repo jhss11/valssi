@@ -182,7 +182,7 @@
           <button class="delete-btn"
             mat-icon-button
             color="warn"
-            (click)="eliminarItem(item.product.id)"
+            (click)="eliminarItem(item.product.id, item.customizations)"
           >
             <mat-icon>delete</mat-icon>
           </button>
@@ -213,7 +213,7 @@
       </tr>
       <tr class="total-row">
         <td><strong>{{ 'order-detail.totalFinal' | translate}}</strong></td>
-        <td><strong>₡{{ totalCompra()-(totalCompra()*0.13) | number }}</strong></td>
+        <td><strong>₡{{ totalCompra()+(totalCompra()*0.13) | number }}</strong></td>
       </tr>
     </table>
   </div>
