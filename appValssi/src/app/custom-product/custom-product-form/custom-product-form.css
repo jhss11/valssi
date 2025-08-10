@@ -121,11 +121,29 @@
   margin-top: 1rem;
 }
 
+.boton button[mat-flat-button] {
+  margin: 1rem 0 0 1rem;
+  padding: 0.6rem 1.4rem;
+ border: 2px solid #355753;;
+  background-color: #f0f4f1;
+  color: #355753;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  gap: 0.5rem;
+  font-weight: 500;
+  font-size: 15px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
 /* Botón comprar */
 .comprar {
   width: 100%;
   padding: 0.8rem;
-  font-size: 16px;
+  font-size: 18px;
   background-color: #c2661b;
   color: white;
   font-weight: bold;

@@ -1,5 +1,11 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl,ValidatorFn} from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidatorFn,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -30,7 +36,7 @@ export class ProductDetail implements OnInit, OnDestroy {
   username = '';
 
   destroy$ = new Subject<void>();
-   private cartService = inject(CartService);
+  private cartService = inject(CartService);
 
   constructor(
     private userService: UserService,
@@ -49,8 +55,10 @@ export class ProductDetail implements OnInit, OnDestroy {
 
     this.reviewForm = this.fb.group({
       comment: [null, [Validators.required, minWordsValidator(1)]],
-      rating: [null, [Validators.required, Validators.min(1), Validators.max(5)],
-      ], 
+      rating: [
+        null,
+        [Validators.required, Validators.min(1), Validators.max(5)],
+      ],
     });
   }
 
@@ -61,12 +69,31 @@ export class ProductDetail implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.datos = data;
 
-        if (data?.images?.length) {
-          this.imagenSeleccionada =
-            'http://localhost:3000/images/' + data.images[0].url;
+        console.log('images', this.datos.images)
+
+        if (data.name.includes('Edredón personalizable')) {
+          const nonCustomImages = data.images.filter((img) =>
+            img.url.includes('product')
+          );
+
+          this.datos.images = nonCustomImages;
+          console.log('sin personalizar', nonCustomImages);
+
+          if (nonCustomImages?.length) {
+            this.imagenSeleccionada =
+              'http://localhost:3000/images/' + nonCustomImages[0].url;
+          } else {
+            this.imagenSeleccionada =
+              'http://localhost:3000/images/image-not-found.png';
+          }
         } else {
-          this.imagenSeleccionada =
-            'http://localhost:3000/images/image-not-found.png';
+          if (data?.images?.length) {
+            this.imagenSeleccionada =
+              'http://localhost:3000/images/' + data.images[0].url;
+          } else {
+            this.imagenSeleccionada =
+              'http://localhost:3000/images/image-not-found.png';
+          }
         }
       });
   }
@@ -128,30 +155,30 @@ export class ProductDetail implements OnInit, OnDestroy {
   }
 
   getPromotion(item: any): any | null {
-  if (item.promotions?.length > 0) {
-    console.log('primer if', item.promotions?.length > 0)
-    return item.promotions[0];
+    if (item.promotions?.length > 0) {
+      console.log('primer if', item.promotions?.length > 0);
+      return item.promotions[0];
+    }
+    if (item.category?.promotions?.length > 0) {
+      console.log('segundo if', item.category?.promotions?.length > 0);
+      return item.category.promotions[0];
+    }
+    return null;
   }
-  if (item.category?.promotions?.length > 0) {
-    console.log('segundo if', item.category?.promotions?.length > 0)
-    return item.category.promotions[0];
+
+  getDiscountedPrice(item: any): number {
+    const promo = this.getPromotion(item);
+    if (!promo) return item.price;
+
+    if (promo.type === 'PERCENTAGE') {
+      return item.price * (1 - promo.amount / 100);
+    } else if (promo.type === 'FIXED') {
+      return item.price - promo.amount;
+    }
+    return item.price;
   }
-  return null;
-}
 
-getDiscountedPrice(item: any): number {
-  const promo = this.getPromotion(item);
-  if (!promo) return item.price;
-
-  if (promo.type === 'PERCENTAGE') {
-    return item.price * (1 - promo.amount / 100);
-  } else if (promo.type === 'FIXED') {
-    return item.price - promo.amount;
-  }
-  return item.price;
-}
-
-private getUser(id: number): void {
+  private getUser(id: number): void {
     this.userService
       .getById(id)
       .pipe(takeUntil(this.destroy$))
@@ -160,17 +187,13 @@ private getUser(id: number): void {
       });
   }
 
-   personalizar(id: Number) {
+  personalizar(id: Number) {
     this.router.navigate(['/customProduct', id]);
   }
-  
+
   comprar(product: ProductModel) {
     console.log(product);
-    this.noti.success(
-      'Compra',
-      'Producto comprado: ' + product.name,
-      3000
-    );
-    this.cartService.addToCart(product)
+    this.noti.success('Compra', 'Producto comprado: ' + product.name, 3000);
+    this.cartService.addToCart(product);
   }
 }

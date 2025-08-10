@@ -110,6 +110,7 @@ const main = async () => {
             { url: "edredon-2.jpg" },
             { url: "edredon-3.jpg" },
             { url: "edredon-4.jpg" },
+          
           ],
         },
         tags: { connect: [{ id: 1 }, { id: 2 }] },

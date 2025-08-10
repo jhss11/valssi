@@ -145,8 +145,8 @@ cambiarCantidad(element: ItemCartModel, event: Event) {
 // }
 
 
-  eliminarItem(productoId: number) {
-    this.cartService.removeFromCart(productoId);
+  eliminarItem(productoId: number,customizations?: any) {
+    this.cartService.removeFromCart(productoId, customizations);
   }
 
 
