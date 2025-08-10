@@ -111,6 +111,14 @@ button[mat-flat-button]:hover {
 }
 
 
+.delete-btn:hover {
+  background-color: rgba(255, 0, 0, 0.1); 
+}
+
+.delete-btn:hover mat-icon {
+  color: #c62828; 
+}
+
 
 /* button[mat-flat-button]:hover {
   background-color: #e8e4cf;

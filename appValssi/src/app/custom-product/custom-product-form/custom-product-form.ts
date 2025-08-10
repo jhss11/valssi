@@ -138,7 +138,8 @@ comprar() {
   const selectedOptionsArray = Object.entries(this.selectedOptions).map(([category, opt]: [string, any]) => ({
   optionName: category,     // ej: "Color", "Tamaño"
   optionValueId: opt.id,
-  optionValueName: opt.value // ej: "Lila", "135cm x 200cm"
+  optionValueName: opt.value, // ej: "Lila", "135cm x 200cm"
+  optionPrice: opt.price
 }));
 
 console.log('opciones seleccionadas',selectedOptionsArray)

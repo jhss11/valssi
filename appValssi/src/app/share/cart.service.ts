@@ -19,16 +19,16 @@ export class CartService {
     this.cart().reduce((sum, item) => sum + item.quantity, 0)
   );
 
-  // public total = computed(() =>
-  //   this.cart().reduce((total, item) => total + item.subtotal, 0)
-  // );
+  public total = computed(() =>
+    this.cart().reduce((total, item) => total + item.subtotal, 0)
+  );
 
-public total = computed(() =>
-  this.cart().reduce((total, item) => {
-    const discount = this.calculatePromotions(item.product, item.quantity);
-    return total + item.subtotal - discount;
-  }, 0)
-);
+// public total = computed(() =>
+//   this.cart().reduce((total, item) => {
+//     const discount = this.calculatePromotions(item.product, item.quantity);
+//     return total + item.subtotal - discount;
+//   }, 0)
+// );
 
 
   constructor() {
@@ -53,6 +53,11 @@ public total = computed(() =>
   private calculateSubtotal(producto: ProductModel, cantidad: number): number {
     return producto.price * cantidad;
   }
+
+  private calculateTotal(producto: ProductModel, subtotal:number, cantidad: number): number {
+  const discount = this.calculatePromotions(producto, cantidad);
+  return subtotal - discount;
+}
 
 private calculatePromotions(product: ProductModel, cantidad: number): number {
   let discount = 0;
@@ -158,22 +163,27 @@ addToCart(product: ProductModel, quantity?: number, customizations?: any): void 
       if (newQuantity <= 0) {
         listCart.splice(existingItemIndex, 1);
       } else {
+         const subtotal = customizations
+          ? customizations.totalPrice * newQuantity
+          : this.calculateSubtotal(existingItem.product, newQuantity);
         listCart[existingItemIndex] = {
           ...existingItem,
           quantity: newQuantity,
-          subtotal: customizations
-            ? customizations.totalPrice * newQuantity
-            : this.calculateSubtotal(existingItem.product, newQuantity),
+          subtotal: subtotal,
+        total: this.calculateTotal(product, subtotal, quantity ?? 1)
+
         };
       }
     } else {
+       const subtotal = customizations
+          ? customizations.totalPrice * (quantity ?? 1)
+          : this.calculateSubtotal(product, quantity ?? 1);
       listCart.push({
         product,
         quantity: quantity ? Number(quantity) : 1,
-        subtotal: customizations
-          ? customizations.totalPrice * (quantity ?? 1)
-          : this.calculateSubtotal(product, quantity ?? 1),
+        subtotal: subtotal,
         customizations,
+        total: this.calculateTotal(product, subtotal, quantity ?? 1)
       });
     }
 
