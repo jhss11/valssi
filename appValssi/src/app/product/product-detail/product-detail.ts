@@ -187,13 +187,22 @@ export class ProductDetail implements OnInit, OnDestroy {
       });
   }
 
-  personalizar(id: Number) {
-    this.router.navigate(['/customProduct', id]);
+  personalizar(product: ProductModel) {
+     if(product.stock==0){
+      this.noti.error('Error', 'No hay suficientes productos en el inventario', 3000);
+    }else{
+    this.router.navigate(['/customProduct', product.id]);
+    }
   }
 
   comprar(product: ProductModel) {
     console.log(product);
+    if(product.stock==0){
+      this.noti.error('Error', 'No hay suficientes productos en el inventario', 3000);
+    }else{
     this.noti.success('Compra', 'Producto comprado: ' + product.name, 3000);
     this.cartService.addToCart(product);
+
+    }
   }
 }

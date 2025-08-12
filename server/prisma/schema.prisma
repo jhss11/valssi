@@ -187,7 +187,7 @@ model OrderStatusLog {
   order     Order       @relation(fields: [orderId], references: [id])
   orderId   Int
   status    OrderStatus
-  changedBy User        @relation("AdminChanges", fields: [adminId], references: [id])
-  adminId   Int
+  changedBy User?        @relation("AdminChanges", fields: [adminId], references: [id])
+  adminId   Int?
   changedAt DateTime    @default(now())
 }

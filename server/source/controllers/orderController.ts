@@ -117,41 +117,218 @@ export class orderController {
   };
 
   //Crear
-  create = async (request: Request, response: Response, next: NextFunction) => {
-    try {
-      let infoOrden = request.body;
-      const nuevoProducto = await this.prisma.order.create({
-        data: {
-          // : infoOrden.fechaOrden,    NO SÉ SI GUARDARLO PORQUE EN EL
-          userId: infoOrden.userId,
-          address: infoOrden.address,
-          status: infoOrden.status,
-          paymentMethod: infoOrden.paymentMethod,
-          subtotal: infoOrden.subtotal,
-          total: infoOrden.total,
-          items: {
-            create: infoOrden.productos.map((item: any) => ({
-              productId: item.productId,
-              price: item.price,
-              quantity: item.quantity,
-            })),
-          },
+  // create = async (request: Request, response: Response, next: NextFunction) => {
+  //   try {
+  //     let infoOrden = request.body;
+  //     const nuevoProducto = await this.prisma.order.create({
+  //       data: {
+  //         // : infoOrden.fechaOrden,    NO SÉ SI GUARDARLO PORQUE EN EL
+  //         userId: infoOrden.userId,
+  //         address: infoOrden.address,
+  //         status: infoOrden.status,
+  //         paymentMethod: infoOrden.paymentMethod,
+  //         subtotal: infoOrden.subtotal,
+  //         total: infoOrden.total,
+  //         items: {
+  //           create: infoOrden.items.map((item: any) => ({
+  //             productId: item.productId || null,
+  //             price: item.price,
+  //             quantity: item.quantity,
+  //           })),
+  //         },
+          
+  //         statusLogs: {
+  //         create: [
+  //           {
+  //             status: infoOrden.status, 
+              
+  //             changedAt: new Date() // opcional, Prisma lo hace
+  //           },
+  //         ],
+  //       },
+  //     }
+        
+  //     });
+  //      await Promise.all(
+  //     infoOrden.items.map((item: any) =>
+  //       this.prisma.product.update({
+  //         where: { id: item.productId },
+  //         data: {
+  //           stock: {
+  //             decrement: item.quantity, 
+  //           },
+  //         },
+  //       })
+  //     )
+  //   );
+  //     response.status(201).json(nuevoProducto);
+  //   } catch (error: any) {
+  //     next(error);
+  //   }
+  // };
 
-          statusLogs: {
+//   create = async (request: Request, response: Response, next: NextFunction) => {
+//   try {
+//     let infoOrden = request.body;
+
+//     // Primero, procesar items para que estén listos para crear en order
+//     const itemsProcesados = await Promise.all(
+//       infoOrden.items.map(async (item: any) => {
+//         // Si tiene customizaciones ⇒ crear producto custom
+// console.log("Cusotm", item.customizations)
+
+//         if (item.customizations && item.customizations.length > 0) {
+//           const customProduct = await this.prisma.customProduct.create({
+//             data: {
+//               baseProductId: item.productId, // producto base
+//               totalPrice: item.price,
+//               customProducts: {
+//                 create: item.customizations.map((c: { optionValueId: number }) => ({
+//                   optionValue: { connect: { id: c.optionValueId } }
+//                 })),
+//               },
+//             },
+//           });
+// console.log("entró")
+//           return {
+//             customProductId: customProduct.id,
+//             price: item.price,
+//             quantity: item.quantity
+//           };
+//         } 
+        
+//         // Si es un producto normal
+//         await this.prisma.product.update({
+//           where: { id: item.productId },
+//           data: { stock: { decrement: item.quantity } }
+//         });
+
+//         return {
+//           productId: item.productId,
+//           price: item.price,
+//           quantity: item.quantity
+//         };
+//       })
+//     );
+
+//     // Crear la orden con los items ya procesados
+//     const nuevaOrden = await this.prisma.order.create({
+//       data: {
+//         userId: infoOrden.userId,
+//         address: infoOrden.address,
+//         status: infoOrden.status,
+//         paymentMethod: infoOrden.paymentMethod,
+//         subtotal: infoOrden.subtotal,
+//         total: infoOrden.total,
+//         items: { create: itemsProcesados },
+//         statusLogs: {
+//           create: [
+//             {
+//               status: infoOrden.status,
+//               changedAt: new Date()
+//             },
+//           ],
+//         },
+//       }
+//     });
+
+//     response.status(201).json(nuevaOrden);
+
+//   } catch (error: any) {
+//     next(error);
+//   }
+// };
+
+
+
+create = async (request: Request, response: Response, next: NextFunction) => {
+  try {
+    const infoOrden = request.body;
+
+    // Primero creamos la orden
+    const nuevoProducto = await this.prisma.order.create({
+      data: {
+        userId: infoOrden.userId,
+        address: infoOrden.address,
+        status: infoOrden.status,
+        paymentMethod: infoOrden.paymentMethod,
+        subtotal: infoOrden.subtotal,
+        total: infoOrden.total,
+        items: {
+          create: [], // los crearemos después manualmente para diferenciar
+        },
+        statusLogs: {
           create: [
             {
-              status: infoOrden.status, 
-              adminId: infoOrden.adminId, 
-              // changedAt: nuevo Date() // opcional, Prisma lo hace
+              status: infoOrden.status,
+              changedAt: new Date(),
             },
           ],
         },
+      },
+    });
+
+    // Procesamos cada item
+    for (const item of infoOrden.items) {
+      if (item.customizations && item.customizations.selectedOptions?.length > 0) {
+        // Producto customizado
+        const customProduct = await this.prisma.customProduct.create({
+          data: {
+            baseProductId: item.productId,
+            totalPrice: item.customizations.totalPrice,
+            customProducts: {
+              create: item.customizations.selectedOptions.map((opt: any) => ({
+                optionValue: { connect: { id: opt.optionValueId } },
+              })),
+            },
+          },
+        });
+
+        await this.prisma.orderItem.create({
+          data: {
+            orderId: nuevoProducto.id,
+            customProductId: customProduct.id,
+            price: item.price,
+            quantity: item.quantity,
+          },
+        });
+         await this.prisma.product.update({
+          where: { id: item.productId },
+          data: {
+            stock: {
+              decrement: item.quantity,
+            },
+          },
+        });
+
+      } else {
+        // Producto normal
+        await this.prisma.orderItem.create({
+          data: {
+            orderId: nuevoProducto.id,
+            productId: item.productId,
+            price: item.price,
+            quantity: item.quantity,
+          },
+        });
+
+        // Descontar stock
+        await this.prisma.product.update({
+          where: { id: item.productId },
+          data: {
+            stock: {
+              decrement: item.quantity,
+            },
+          },
+        });
       }
-        
-      });
-      response.status(201).json(nuevoProducto);
-    } catch (error: any) {
-      next(error);
     }
-  };
+
+    response.status(201).json(nuevoProducto);
+
+  } catch (error: any) {
+    next(error);
+  }
+};
+
 }
