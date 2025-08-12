@@ -1,9 +1,0 @@
-2025-07-20 16:14:05.633 error: 	Jhass--Se produjo un error interno del servidor 
-Invalid `tx.review.create()` invocation in
-C:\Users\Jhass\valssi\server\source\controllers\reviewController.ts:73:40
-
-  70 
-  71 // Crea la reseña y actualiza el promedio en una transacción
-  72 const nuevaReseña = await this.prisma.$transaction(async (tx) => {
-→ 73   const review = await tx.review.create(
-An operation failed because it depends on one or more records that were required but not found. No 'User' record (needed to inline the relation on 'Review' record(s)) was found for a nested connect on one-to-many relation 'ReviewToUser'.
