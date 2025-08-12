@@ -16851,7 +16851,7 @@ export namespace Prisma {
     id: number
     orderId: number
     status: $Enums.OrderStatus
-    adminId: number
+    adminId: number | null
     changedAt: Date
     _count: OrderStatusLogCountAggregateOutputType | null
     _avg: OrderStatusLogAvgAggregateOutputType | null
@@ -16881,7 +16881,7 @@ export namespace Prisma {
     adminId?: boolean
     changedAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    changedBy?: boolean | OrderStatusLog$changedByArgs<ExtArgs>
   }, ExtArgs["result"]["orderStatusLog"]>
 
 
@@ -16897,20 +16897,20 @@ export namespace Prisma {
   export type OrderStatusLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderId" | "status" | "adminId" | "changedAt", ExtArgs["result"]["orderStatusLog"]>
   export type OrderStatusLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    changedBy?: boolean | OrderStatusLog$changedByArgs<ExtArgs>
   }
 
   export type $OrderStatusLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "OrderStatusLog"
     objects: {
       order: Prisma.$OrderPayload<ExtArgs>
-      changedBy: Prisma.$UserPayload<ExtArgs>
+      changedBy: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       orderId: number
       status: $Enums.OrderStatus
-      adminId: number
+      adminId: number | null
       changedAt: Date
     }, ExtArgs["result"]["orderStatusLog"]>
     composites: {}
@@ -17253,7 +17253,7 @@ export namespace Prisma {
   export interface Prisma__OrderStatusLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     order<T extends OrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderDefaultArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    changedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    changedBy<T extends OrderStatusLog$changedByArgs<ExtArgs> = {}>(args?: Subset<T, OrderStatusLog$changedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17628,6 +17628,25 @@ export namespace Prisma {
      * Limit how many OrderStatusLogs to delete.
      */
     limit?: number
+  }
+
+  /**
+   * OrderStatusLog.changedBy
+   */
+  export type OrderStatusLog$changedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -18859,17 +18878,17 @@ export namespace Prisma {
     id?: IntFilter<"OrderStatusLog"> | number
     orderId?: IntFilter<"OrderStatusLog"> | number
     status?: EnumOrderStatusFilter<"OrderStatusLog"> | $Enums.OrderStatus
-    adminId?: IntFilter<"OrderStatusLog"> | number
+    adminId?: IntNullableFilter<"OrderStatusLog"> | number | null
     changedAt?: DateTimeFilter<"OrderStatusLog"> | Date | string
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
-    changedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    changedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type OrderStatusLogOrderByWithRelationInput = {
     id?: SortOrder
     orderId?: SortOrder
     status?: SortOrder
-    adminId?: SortOrder
+    adminId?: SortOrderInput | SortOrder
     changedAt?: SortOrder
     order?: OrderOrderByWithRelationInput
     changedBy?: UserOrderByWithRelationInput
@@ -18882,17 +18901,17 @@ export namespace Prisma {
     NOT?: OrderStatusLogWhereInput | OrderStatusLogWhereInput[]
     orderId?: IntFilter<"OrderStatusLog"> | number
     status?: EnumOrderStatusFilter<"OrderStatusLog"> | $Enums.OrderStatus
-    adminId?: IntFilter<"OrderStatusLog"> | number
+    adminId?: IntNullableFilter<"OrderStatusLog"> | number | null
     changedAt?: DateTimeFilter<"OrderStatusLog"> | Date | string
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
-    changedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    changedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type OrderStatusLogOrderByWithAggregationInput = {
     id?: SortOrder
     orderId?: SortOrder
     status?: SortOrder
-    adminId?: SortOrder
+    adminId?: SortOrderInput | SortOrder
     changedAt?: SortOrder
     _count?: OrderStatusLogCountOrderByAggregateInput
     _avg?: OrderStatusLogAvgOrderByAggregateInput
@@ -18908,7 +18927,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"OrderStatusLog"> | number
     orderId?: IntWithAggregatesFilter<"OrderStatusLog"> | number
     status?: EnumOrderStatusWithAggregatesFilter<"OrderStatusLog"> | $Enums.OrderStatus
-    adminId?: IntWithAggregatesFilter<"OrderStatusLog"> | number
+    adminId?: IntNullableWithAggregatesFilter<"OrderStatusLog"> | number | null
     changedAt?: DateTimeWithAggregatesFilter<"OrderStatusLog"> | Date | string
   }
 
@@ -19709,14 +19728,14 @@ export namespace Prisma {
     status: $Enums.OrderStatus
     changedAt?: Date | string
     order: OrderCreateNestedOneWithoutStatusLogsInput
-    changedBy: UserCreateNestedOneWithoutStatusChangesInput
+    changedBy?: UserCreateNestedOneWithoutStatusChangesInput
   }
 
   export type OrderStatusLogUncheckedCreateInput = {
     id?: number
     orderId: number
     status: $Enums.OrderStatus
-    adminId: number
+    adminId?: number | null
     changedAt?: Date | string
   }
 
@@ -19724,14 +19743,14 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutStatusLogsNestedInput
-    changedBy?: UserUpdateOneRequiredWithoutStatusChangesNestedInput
+    changedBy?: UserUpdateOneWithoutStatusChangesNestedInput
   }
 
   export type OrderStatusLogUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    adminId?: IntFieldUpdateOperationsInput | number
+    adminId?: NullableIntFieldUpdateOperationsInput | number | null
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19739,7 +19758,7 @@ export namespace Prisma {
     id?: number
     orderId: number
     status: $Enums.OrderStatus
-    adminId: number
+    adminId?: number | null
     changedAt?: Date | string
   }
 
@@ -19752,7 +19771,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    adminId?: IntFieldUpdateOperationsInput | number
+    adminId?: NullableIntFieldUpdateOperationsInput | number | null
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20724,6 +20743,11 @@ export namespace Prisma {
     customProductId?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
   export type OrderStatusLogCountOrderByAggregateInput = {
@@ -21898,10 +21922,12 @@ export namespace Prisma {
     update?: XOR<XOR<OrderUpdateToOneWithWhereWithoutStatusLogsInput, OrderUpdateWithoutStatusLogsInput>, OrderUncheckedUpdateWithoutStatusLogsInput>
   }
 
-  export type UserUpdateOneRequiredWithoutStatusChangesNestedInput = {
+  export type UserUpdateOneWithoutStatusChangesNestedInput = {
     create?: XOR<UserCreateWithoutStatusChangesInput, UserUncheckedCreateWithoutStatusChangesInput>
     connectOrCreate?: UserCreateOrConnectWithoutStatusChangesInput
     upsert?: UserUpsertWithoutStatusChangesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStatusChangesInput, UserUpdateWithoutStatusChangesInput>, UserUncheckedUpdateWithoutStatusChangesInput>
   }
@@ -22336,7 +22362,7 @@ export namespace Prisma {
     id?: IntFilter<"OrderStatusLog"> | number
     orderId?: IntFilter<"OrderStatusLog"> | number
     status?: EnumOrderStatusFilter<"OrderStatusLog"> | $Enums.OrderStatus
-    adminId?: IntFilter<"OrderStatusLog"> | number
+    adminId?: IntNullableFilter<"OrderStatusLog"> | number | null
     changedAt?: DateTimeFilter<"OrderStatusLog"> | Date | string
   }
 
@@ -23794,13 +23820,13 @@ export namespace Prisma {
   export type OrderStatusLogCreateWithoutOrderInput = {
     status: $Enums.OrderStatus
     changedAt?: Date | string
-    changedBy: UserCreateNestedOneWithoutStatusChangesInput
+    changedBy?: UserCreateNestedOneWithoutStatusChangesInput
   }
 
   export type OrderStatusLogUncheckedCreateWithoutOrderInput = {
     id?: number
     status: $Enums.OrderStatus
-    adminId: number
+    adminId?: number | null
     changedAt?: Date | string
   }
 
@@ -24758,7 +24784,7 @@ export namespace Prisma {
   export type OrderStatusLogCreateManyOrderInput = {
     id?: number
     status: $Enums.OrderStatus
-    adminId: number
+    adminId?: number | null
     changedAt?: Date | string
   }
 
@@ -24788,20 +24814,20 @@ export namespace Prisma {
   export type OrderStatusLogUpdateWithoutOrderInput = {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    changedBy?: UserUpdateOneRequiredWithoutStatusChangesNestedInput
+    changedBy?: UserUpdateOneWithoutStatusChangesNestedInput
   }
 
   export type OrderStatusLogUncheckedUpdateWithoutOrderInput = {
     id?: IntFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    adminId?: IntFieldUpdateOperationsInput | number
+    adminId?: NullableIntFieldUpdateOperationsInput | number | null
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderStatusLogUncheckedUpdateManyWithoutOrderInput = {
     id?: IntFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    adminId?: IntFieldUpdateOperationsInput | number
+    adminId?: NullableIntFieldUpdateOperationsInput | number | null
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

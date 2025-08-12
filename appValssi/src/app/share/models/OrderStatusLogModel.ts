@@ -7,7 +7,7 @@ export interface OrderStatusLogModel {
   order: OrderModel;
   orderId: number;
   status: OrderStatusModel;
-  changedBy: UserModel;
-  adminId: number;
+  changedBy?: UserModel;
+  adminId?: number;
   changedAt: Date;
 }

@@ -11,10 +11,21 @@
   <div class="header-row">
     <div>
       <h3>{{ 'order-cart.cliente' | translate}}</h3>
-      <p><strong> {{ 'order-cart.nombre' | translate}}</strong> ff</p>
+      <p><strong> {{ 'order-cart.nombre' | translate}}</strong> {{username}}</p>
       <p><strong>{{ 'order-cart.direccionEnvio' | translate}}</strong> ff</p>
+      <!-- <div class="form-group">
+  <label for="address">Dirección de envío</label>
+  <input
+    type="text"
+    id="address"
+    class="form-control"
+    [(ngModel)]="address"
+    placeholder="Escribe tu dirección"
+    required
+  />
+</div>
     </div>
-    <div>
+    <div> -->
       <p>
         <strong>{{ 'order-cart.fecha' | translate}}</strong> {{fecha | date:
         'dd/MM/yyyy'}}
@@ -217,6 +228,12 @@
       </tr>
     </table>
   </div>
+    <mat-card-actions align="end">
+        <button matFab extended class="btn-primary" (click)="crearOrden()">
+            Comprar
+            <mat-icon>shopping_bag</mat-icon>
+        </button>
+    </mat-card-actions>
 
   <!-- Método de Pago -->
   <!-- <div class="payment-method invoice-style">
