@@ -1,9 +1,0 @@
-2025-06-29 12:46:18.745 error: 	Jhass--Se produjo un error interno del servidor 
-Invalid `this.prisma.order.findUnique()` invocation in
-C:\Users\Jhass\valssi\server\source\controllers\orderController.ts:38:44
-
-  35 try {
-  36   let idOrder = parseInt(request.params.id);
-  37 
-→ 38   const pedido = await this.prisma.order.findUnique(
-The column `valssi.OrderItem.price` does not exist in the current database.

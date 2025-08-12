@@ -45,6 +45,7 @@ export class OrderCart implements OnInit {
     'quantity',
     'price',
     'subtotal',
+    'impuesto',
     'promotion',
     'total',
     'acciones',

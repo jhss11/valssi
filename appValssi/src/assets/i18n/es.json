@@ -18,12 +18,27 @@
     "opiniones": "Opiniones de clientes",
     "categoria": "Categoría:",
     "agregarCarrito": "Agregar al carrito",
+    "personaliza": "Personalizar",
     "agregarReseña": "Agregar reseña",
     "usuario": "Usuario",
     "valoracion": "Valoración",
     "comentario": "Comentario",
     "publicar": "Publicar"
   },
+
+  "custom-product":{
+    "titulo": "Personaliza tu edredón",
+    "resumen": "Resumen",
+    "precioBase": "Precio base",
+    "color": "Color",
+    "tamano": "Tamaño",
+    "diseno": "Diseño",
+    "total": "Total",
+    "eligeColor": "Elige el color",
+    "eligeTamano": "Elige el tamaño",
+    "eligeDiseno": "Elige el diseño"
+  },
+
   "product-form": {
     "titulo": "Producto",
     "nombre": "Nombre",
@@ -69,6 +84,7 @@
     "precioBase": "Precio Base",
     "criterios": "Criterios",
     "promocion": "Promoción",
+     "impuesto": "Impuesto",
     "subtotal": "Subtotal",
     "total": "Total",
     "subtotalSinIVA": "Subtotal sin IVA",

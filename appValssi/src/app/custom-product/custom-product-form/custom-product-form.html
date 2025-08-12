@@ -1,6 +1,6 @@
 
 <div class="container">
-  <h2 class="page-title">Personaliza tu edredón</h2>
+  <h2 class="page-title">{{'custom-product.titulo' | translate}}</h2>
   <div class="main-section">
     <div class="image-preview">
       <div class="image-frame">
@@ -22,16 +22,16 @@
 
     <div class="summary-column">
       <div class="summary-box">
-        <h3>Resumen</h3>
+        <h3>{{'custom-product.resumen' | translate}}</h3>
 
         <div class="summary-row">
-          <span>Precio base</span>
+          <span>{{'custom-product.precioBase' | translate}}</span>
           <span>₡{{ datos?.price }}</span>
         </div>
 
         @if (selectedOptions['Color']) {
         <div class="summary-row">
-          <span>Color:</span>
+          <span>{{'custom-product.color' | translate}}</span>
           <span
             >{{ selectedOptions['Color'].value }} (+₡{{
             selectedOptions['Color'].price }})</span
@@ -39,7 +39,7 @@
         </div>
         } @if (selectedOptions['Tamano']) {
         <div class="summary-row">
-          <span>Tamaño:</span>
+          <span>{{'custom-product.tamano' | translate}}</span>
           <span
             >{{ selectedOptions['Tamano'].value }} (+₡{{
             selectedOptions['Tamano'].price }})</span
@@ -47,7 +47,7 @@
         </div>
         } @if (selectedOptions['Diseno']) {
         <div class="summary-row">
-          <span>Diseño:</span>
+          <span>{{'custom-product.diseno' | translate}}</span>
           <span
             >{{ selectedOptions['Diseno'].value }} (+₡{{
             selectedOptions['Diseno'].price }})</span
@@ -56,7 +56,7 @@
         }
 
         <div class="summary-total">
-          <span>Total</span>
+          <span>{{'custom-product.total' | translate}}</span>
           <span class="total-amount">₡{{ getTotal() | number}}</span>
         </div>
       </div>
@@ -71,7 +71,7 @@
   <!-- Opciones debajo -->
   <div class="options-section">
     <div class="option-category">
-      <h4>Elige el color</h4>
+      <h4>{{'custom-product.eligeColor' | translate}}</h4>
       <div class="options-grid">
         @for (opt of groupedOptions['Color']; track opt) {
         <div
@@ -88,7 +88,7 @@
     </div>
 
     <div class="option-category">
-      <h4>Elige el tamaño</h4>
+      <h4>{{'custom-product.eligeTamano' | translate}}</h4>
       <div class="options-grid">
         @for (opt of groupedOptions['Tamano']; track opt) {
         <div
@@ -105,7 +105,7 @@
     </div>
 
     <div class="option-category">
-      <h4>Elige el diseño</h4>
+      <h4>{{'custom-product.eligeDiseno' | translate}}</h4>
       <div class="options-grid">
         @for (opt of groupedOptions['Diseno']; track opt) {
         <div
