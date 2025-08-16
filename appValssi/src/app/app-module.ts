@@ -13,6 +13,7 @@ import { ReviewModule } from './review/review-module';
 import { OrderModule } from './order/order-module';
 import { PromotionModule } from './promotion/promotion-module';
 import { CustomProductModule } from './custom-product/custom-product-module';
+import { PaymentModule } from './payment/payment-module';
 
 
 import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/common/http';
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrderModule,
     PromotionModule,
     CustomProductModule,
+    PaymentModule,
 
 
     // Módulo de traducción configurado

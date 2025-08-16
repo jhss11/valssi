@@ -8,10 +8,13 @@ export class OrderRoutes {
 
     //localhost:3000/reviews/
     router.get("/", controller.get);
+    router.get("/pending", controller.getByUserPendingP);
+
 
     router.get("/:id", controller.getById);
     
     router.post("/", controller.create);
+
 
 
     return router;

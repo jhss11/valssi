@@ -1,0 +1,264 @@
+2025-08-15 22:10:56.865 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findUnique()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:46:46
+
+  43 try {
+  44   let idOrder = parseInt(request.params.id);
+  45 
+→ 46   const pedido = await this.prisma.order.findUnique({
+         where: {
+       +   id: Int
+         },
+         select: {
+           id: true,
+           createdAt: true,
+           paymentMethod: true,
+           subtotal: true,
+           total: true,
+           address: true,
+           user: {
+             select: {
+               username: true
+             }
+           },
+           statusLogs: {
+             where: {
+               status: "PENDING_PAYMENT"
+             },
+             select: {
+               changedAt: true
+             },
+             orderBy: {
+               changedAt: "asc"
+             },
+             take: 1
+           },
+           items: {
+             select: {
+               quantity: true,
+               price: true,
+               product: {
+                 select: {
+                   name: true,
+                   promotions: {},
+                   category: {
+                     select: {
+                       promotions: {}
+                     }
+                   }
+                 }
+               },
+               customProduct: {
+                 select: {
+                   totalPrice: true,
+                   baseProduct: {
+                     select: {
+                       name: true,
+                       price: true,
+                       promotions: {},
+                       category: {
+                         select: {
+                           promotions: {}
+                         }
+                       }
+                     }
+                   },
+                   customProducts: {
+                     select: {
+                       optionValue: {
+                         select: {
+                           value: true,
+                           price: true,
+                           option: {
+                             select: {
+                               name: true
+                             }
+                           }
+                         }
+                       }
+                     }
+                   }
+                 }
+               }
+             }
+           }
+         }
+       })
+
+Argument `id` is missing.
+2025-08-15 22:11:06.607 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findUnique()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:46:46
+
+  43 try {
+  44   let idOrder = parseInt(request.params.id);
+  45 
+→ 46   const pedido = await this.prisma.order.findUnique({
+         where: {
+       +   id: Int
+         },
+         select: {
+           id: true,
+           createdAt: true,
+           paymentMethod: true,
+           subtotal: true,
+           total: true,
+           address: true,
+           user: {
+             select: {
+               username: true
+             }
+           },
+           statusLogs: {
+             where: {
+               status: "PENDING_PAYMENT"
+             },
+             select: {
+               changedAt: true
+             },
+             orderBy: {
+               changedAt: "asc"
+             },
+             take: 1
+           },
+           items: {
+             select: {
+               quantity: true,
+               price: true,
+               product: {
+                 select: {
+                   name: true,
+                   promotions: {},
+                   category: {
+                     select: {
+                       promotions: {}
+                     }
+                   }
+                 }
+               },
+               customProduct: {
+                 select: {
+                   totalPrice: true,
+                   baseProduct: {
+                     select: {
+                       name: true,
+                       price: true,
+                       promotions: {},
+                       category: {
+                         select: {
+                           promotions: {}
+                         }
+                       }
+                     }
+                   },
+                   customProducts: {
+                     select: {
+                       optionValue: {
+                         select: {
+                           value: true,
+                           price: true,
+                           option: {
+                             select: {
+                               name: true
+                             }
+                           }
+                         }
+                       }
+                     }
+                   }
+                 }
+               }
+             }
+           }
+         }
+       })
+
+Argument `id` is missing.
+2025-08-15 22:11:57.884 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findUnique()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:46:46
+
+  43 try {
+  44   let idOrder = parseInt(request.params.id);
+  45 
+→ 46   const pedido = await this.prisma.order.findUnique({
+         where: {
+       +   id: Int
+         },
+         select: {
+           id: true,
+           createdAt: true,
+           paymentMethod: true,
+           subtotal: true,
+           total: true,
+           address: true,
+           user: {
+             select: {
+               username: true
+             }
+           },
+           statusLogs: {
+             where: {
+               status: "PENDING_PAYMENT"
+             },
+             select: {
+               changedAt: true
+             },
+             orderBy: {
+               changedAt: "asc"
+             },
+             take: 1
+           },
+           items: {
+             select: {
+               quantity: true,
+               price: true,
+               product: {
+                 select: {
+                   name: true,
+                   promotions: {},
+                   category: {
+                     select: {
+                       promotions: {}
+                     }
+                   }
+                 }
+               },
+               customProduct: {
+                 select: {
+                   totalPrice: true,
+                   baseProduct: {
+                     select: {
+                       name: true,
+                       price: true,
+                       promotions: {},
+                       category: {
+                         select: {
+                           promotions: {}
+                         }
+                       }
+                     }
+                   },
+                   customProducts: {
+                     select: {
+                       optionValue: {
+                         select: {
+                           value: true,
+                           price: true,
+                           option: {
+                             select: {
+                               name: true
+                             }
+                           }
+                         }
+                       }
+                     }
+                   }
+                 }
+               }
+             }
+           }
+         }
+       })
+
+Argument `id` is missing.

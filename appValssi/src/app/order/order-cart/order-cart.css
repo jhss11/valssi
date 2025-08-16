@@ -80,6 +80,30 @@ th {
   margin: 1rem auto 0 auto;
 }
 
+.btn-comprar {
+  background-color: #2e7d32; /* verde intenso */
+  color: white;
+  font-weight: 600;
+  padding: 0.6rem 1.6rem;
+  border-radius: 10px;
+  font-size: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease;
+  gap: 0.5rem;
+}
+
+.btn-comprar mat-icon {
+  font-size: 20px;
+}
+
+.btn-comprar:hover {
+  background-color: #1b5e20; /* verde más oscuro */
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+}
+
+
+
 button[mat-flat-button] {
   margin: 1rem 0 1rem 0;
   padding: 0.6rem 1.4rem;
@@ -111,6 +135,9 @@ button[mat-flat-button]:hover {
 .delete-btn:hover mat-icon {
   color: #c62828;
 }
+
+
+
 
 /* button[mat-flat-button]:hover {
   background-color: #e8e4cf;

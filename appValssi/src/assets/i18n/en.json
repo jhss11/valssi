@@ -94,6 +94,16 @@
     "pagoUtilizado": "The payment method used is payment in {{method}}"
   },
 
+   "order-pending-payment":{
+      "titulo": "Pending Payment Orders",
+      "subtitulo": "List of your pending payment orders",
+      "pedido": "Order #",
+      "total": "Total:",
+      "pagar": "Pay",
+      "noPendientes": "You do not have any pending payment orders"
+
+  },
+
   "review-index": {
     "titulo": "Reviews",
     "subtitulo": "Review history",

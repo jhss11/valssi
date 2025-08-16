@@ -9,6 +9,7 @@ import { OrderModel } from '../../share/models/OrderModel';
 import { OrderStatusModel } from '../../share/models/OrderStatusModel';
 import { UserModel } from '../../share/models/UserModel';
 import { UserService } from '../../share/services/user.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-order-cart',
@@ -20,6 +21,7 @@ export class OrderCart implements OnInit {
   fecha = Date.now();
   userId = 5;
   username = '';
+  form!: FormGroup;
 
   private cartService = inject(CartService);
   //Lista de items de la compra
@@ -45,13 +47,13 @@ export class OrderCart implements OnInit {
     'quantity',
     'price',
     'subtotal',
-    'impuesto',
     'promotion',
     'total',
     'acciones',
   ];
 
   constructor(
+    private fb: FormBuilder,
     private orderService: OrderService,
     private userService: UserService,
     private noti: NotificationService,
@@ -60,6 +62,9 @@ export class OrderCart implements OnInit {
 
   ngOnInit(): void {
     this.getUser(this.userId);
+    this.form = this.fb.group({
+      comment: [''], // valor inicial vacío
+    });
   }
 
   private getUser(id: number): void {
@@ -71,86 +76,29 @@ export class OrderCart implements OnInit {
       });
   }
 
-  aumentarCantidad(element: ItemCartModel) {
-    this.cartService.addToCart(element.product, element.quantity + 1);
+  // aumentarCantidad(element: ItemCartModel) {
+  //   this.cartService.addToCart(element.product, element.quantity + 1);
+  // }
+
+  // disminuirCantidad(element: ItemCartModel) {
+  //   this.cartService.addToCart(element.product, element.quantity - 1);
+  // }
+
+  
+cambiarCantidad(element: ItemCartModel, event: Event) {
+  const input = event.target as HTMLInputElement;
+  let nuevaCantidad = parseInt(input.value, 10);
+
+  if (isNaN(nuevaCantidad) || nuevaCantidad < 0) {
+    nuevaCantidad = 1; // evita valores inválidos
+  }
+  if (nuevaCantidad === 0) {
+    this.eliminarItem(element.product.id, element.customizations);
+    return; 
   }
 
-  disminuirCantidad(element: ItemCartModel) {
-    this.cartService.addToCart(element.product, element.quantity - 1);
-  }
-
-  // cambiarCantidad(element: ItemCartModel, event: Event) {
-  //   const input = event.target as HTMLInputElement;
-  //   const valorTexto = input.value.trim();
-
-  //   // Si está vacío, no hacemos nada todavía
-  //   if (valorTexto === '') {
-  //     return;
-  //   }
-
-  //   const valor = Number(valorTexto);
-
-  //   if (isNaN(valor) || valor < 0) {
-  //     // Si meten algo inválido, regresamos al valor original
-  //     input.value = String(element.quantity);
-  //     return;
-  //   }
-
-  //   if (valor === 0) {
-  //     // Si ponen 0, eliminamos el producto
-  //     this.eliminarItem(element.product.id);
-  //   } else {
-  //     // Si es positivo, actualizamos
-  //     this.cartService.addToCart(element.product, valor);
-  //   }
-  // }
-
-  // ultimoValorValido: number = 1;
-
-  // cambiarCantidadInput(element: ItemCartModel, event: Event) {
-  //   // Solo actualizamos el valor en memoria, no cambiamos el input visual
-  //   const input = event.target as HTMLInputElement;
-  //   const valorTexto = input.value;
-
-  //   // Permitimos que el input quede vacío para que el usuario edite
-  //   if (valorTexto === '') {
-  //     // No hacer nada, dejamos que siga editando
-  //     return;
-  //   }
-
-  //   const valor = Number(valorTexto);
-  //   if (!isNaN(valor) && valor >= 0) {
-  //     // Guardamos el último valor válido para usarlo luego
-  //     this.ultimoValorValido = valor;
-  //   }
-  // }
-
-  // cambiarCantidadFinal(element: ItemCartModel, event: Event) {
-  //   const input = event.target as HTMLInputElement;
-  //   const valorTexto = input.value.trim();
-
-  //   if (valorTexto === '') {
-  //     // Si queda vacío, restauramos el último valor válido
-  //     input.value = String(this.ultimoValorValido);
-  //     return;
-  //   }
-
-  //   const valor = Number(valorTexto);
-
-  //   if (isNaN(valor) || valor < 0) {
-  //     // Valor inválido, restauramos el último válido
-  //     input.value = String(this.ultimoValorValido);
-  //     return;
-  //   }
-
-  //   if (valor === 0) {
-  //     this.eliminarItem(element.product.id);
-  //   } else {
-  //     // Actualizamos cantidad y guardamos como último valor válido
-  //     this.cartService.addToCart(element.product, valor);
-  //     this.ultimoValorValido = valor;
-  //   }
-  // }
+  this.cartService.addToCart(element.product, nuevaCantidad);
+}
 
   eliminarItem(productoId: number, customizations?: any) {
     this.cartService.removeFromCart(productoId, customizations);
@@ -199,8 +147,12 @@ export class OrderCart implements OnInit {
     }
 
     if (sinStock.length > 0) {
-      const productosSinStock = sinStock.map((p) =>
-            `${p.name} (Disponible: ${p.available}, Solicitado: ${p.requested})`).join('\n');
+      const productosSinStock = sinStock
+        .map(
+          (p) =>
+            `${p.name} (Disponible: ${p.available}, Solicitado: ${p.requested})`
+        )
+        .join('\n');
       this.noti.warning('Stock insuficiente', productosSinStock, 3000);
       return false;
     }
@@ -209,6 +161,17 @@ export class OrderCart implements OnInit {
   }
 
   crearOrden() {
+    this.form.markAllAsTouched();
+
+    const direccion = this.form?.get('comment')?.value?.trim(); // O el nombre que uses en tu FormGroup
+    if (!direccion) {
+      this.noti.warning(
+        'Crear Orden',
+        'Debe ingresar la dirección de envío',
+        3000
+      );
+      return;
+    }
     //VERIFICAR EL STOCK
     if (this.cartService.itemsCart().length > 0) {
       const valido = this.validarStockAntesDeComprar();
@@ -240,8 +203,8 @@ export class OrderCart implements OnInit {
         createdAt: new Date(), // O lo maneja el backend
         status: 'PENDING_PAYMENT' as OrderStatusModel, // Estado inicial
         items,
-        address: 'Dirección de ejemplo', // Desde formulario o sesión
-        paymentMethod: 'Tarjeta', // Desde formulario
+        address: direccion, // Desde formulario o sesión
+        // paymentMethod: 'Tarjeta', // Desde formulario
         subtotal: subtotal,
         total: this.cartService.total() * 1.13,
         statusLogs: [], // El backend puede llenarlo después
@@ -249,6 +212,7 @@ export class OrderCart implements OnInit {
 
       this.orderService.create(orden).subscribe((respuesta) => {
         this.cartService.deleteCart();
+
         this.noti.success(
           'Crear Orden',
           'Orden creada #' + respuesta.id,

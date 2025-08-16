@@ -14,5 +14,7 @@ export class OrderService extends BaseAPI<OrderModel>{
       httpClient,
       environment.endPointOrder
     )
+    
   }
+  
 }
