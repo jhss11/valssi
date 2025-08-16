@@ -19,7 +19,9 @@ export class orderController {
           total: true,
           createdAt: true,
           user: {
-            select: { username: true },
+            select: { username: true,
+              id: true
+             },
           },
           statusLogs: {
             where: { status: "PENDING_PAYMENT" },
@@ -116,129 +118,37 @@ export class orderController {
     }
   };
 
-  //Crear
-  // create = async (request: Request, response: Response, next: NextFunction) => {
-  //   try {
-  //     let infoOrden = request.body;
-  //     const nuevoProducto = await this.prisma.order.create({
-  //       data: {
-  //         // : infoOrden.fechaOrden,    NO SÉ SI GUARDARLO PORQUE EN EL
-  //         userId: infoOrden.userId,
-  //         address: infoOrden.address,
-  //         status: infoOrden.status,
-  //         paymentMethod: infoOrden.paymentMethod,
-  //         subtotal: infoOrden.subtotal,
-  //         total: infoOrden.total,
-  //         items: {
-  //           create: infoOrden.items.map((item: any) => ({
-  //             productId: item.productId || null,
-  //             price: item.price,
-  //             quantity: item.quantity,
-  //           })),
-  //         },
-          
-  //         statusLogs: {
-  //         create: [
-  //           {
-  //             status: infoOrden.status, 
-              
-  //             changedAt: new Date() // opcional, Prisma lo hace
-  //           },
-  //         ],
-  //       },
-  //     }
-        
-  //     });
-  //      await Promise.all(
-  //     infoOrden.items.map((item: any) =>
-  //       this.prisma.product.update({
-  //         where: { id: item.productId },
-  //         data: {
-  //           stock: {
-  //             decrement: item.quantity, 
-  //           },
-  //         },
-  //       })
-  //     )
-  //   );
-  //     response.status(201).json(nuevoProducto);
-  //   } catch (error: any) {
-  //     next(error);
-  //   }
-  // };
+   getByUserPendingP = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const userId = Number(request.query.userId);
+      //Obtener lista de pedidos
+      const orders = await this.prisma.order.findMany({
+        where: {
+          userId: userId,
+            status: "PENDING_PAYMENT",
+        },
+        select: {
+          id: true,
+          status: true,
+          total: true,
+          // user: {
+          //   select: { username: true },
+          // },
+          statusLogs: {
+            where: { status: "PENDING_PAYMENT" },
+            select: { changedAt: true },
+            orderBy: { changedAt: "asc" },
+            take: 1,
+          },
+        },
+      });
+      response.json(orders);
+    } catch (error) {
+      next(error);
+    }
+  };
 
-//   create = async (request: Request, response: Response, next: NextFunction) => {
-//   try {
-//     let infoOrden = request.body;
-
-//     // Primero, procesar items para que estén listos para crear en order
-//     const itemsProcesados = await Promise.all(
-//       infoOrden.items.map(async (item: any) => {
-//         // Si tiene customizaciones ⇒ crear producto custom
-// console.log("Cusotm", item.customizations)
-
-//         if (item.customizations && item.customizations.length > 0) {
-//           const customProduct = await this.prisma.customProduct.create({
-//             data: {
-//               baseProductId: item.productId, // producto base
-//               totalPrice: item.price,
-//               customProducts: {
-//                 create: item.customizations.map((c: { optionValueId: number }) => ({
-//                   optionValue: { connect: { id: c.optionValueId } }
-//                 })),
-//               },
-//             },
-//           });
-// console.log("entró")
-//           return {
-//             customProductId: customProduct.id,
-//             price: item.price,
-//             quantity: item.quantity
-//           };
-//         } 
-        
-//         // Si es un producto normal
-//         await this.prisma.product.update({
-//           where: { id: item.productId },
-//           data: { stock: { decrement: item.quantity } }
-//         });
-
-//         return {
-//           productId: item.productId,
-//           price: item.price,
-//           quantity: item.quantity
-//         };
-//       })
-//     );
-
-//     // Crear la orden con los items ya procesados
-//     const nuevaOrden = await this.prisma.order.create({
-//       data: {
-//         userId: infoOrden.userId,
-//         address: infoOrden.address,
-//         status: infoOrden.status,
-//         paymentMethod: infoOrden.paymentMethod,
-//         subtotal: infoOrden.subtotal,
-//         total: infoOrden.total,
-//         items: { create: itemsProcesados },
-//         statusLogs: {
-//           create: [
-//             {
-//               status: infoOrden.status,
-//               changedAt: new Date()
-//             },
-//           ],
-//         },
-//       }
-//     });
-
-//     response.status(201).json(nuevaOrden);
-
-//   } catch (error: any) {
-//     next(error);
-//   }
-// };
-
+  
 
 
 create = async (request: Request, response: Response, next: NextFunction) => {

@@ -156,7 +156,7 @@ model Order {
   status        OrderStatus      @default(PENDING_PAYMENT)
   items         OrderItem[]
   address       String
-  paymentMethod String
+  paymentMethod String?
   subtotal      Float
   total         Float
   statusLogs    OrderStatusLog[]

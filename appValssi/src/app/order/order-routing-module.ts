@@ -3,9 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrderIndex } from './order-index/order-index';
 import { OrderDetail } from './order-detail/order-detail';
 import { OrderCart } from './order-cart/order-cart';
+import { OrderPendingPayment } from './order-pending-payment/order-pending-payment';
 
 const routes: Routes = [
   {path:'order',component: OrderIndex},
+{ path: 'orders/pending', component: OrderPendingPayment },
+
     {path:'orders/:id',component: OrderDetail},
     {path:'orderCart',component: OrderCart},
 

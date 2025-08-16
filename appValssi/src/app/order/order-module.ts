@@ -12,12 +12,16 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule } from '@ngx-translate/core';
 import { OrderCart } from './order-cart/order-cart';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { OrderPendingPayment } from './order-pending-payment/order-pending-payment';
 
 @NgModule({
   declarations: [
     OrderIndex,
     OrderDetail,
-    OrderCart
+    OrderCart,
+    OrderPendingPayment
   ],
   imports: [
     CommonModule,
@@ -28,6 +32,9 @@ import { OrderCart } from './order-cart/order-cart';
     MatTableModule,
     MatDividerModule,
     TranslateModule,
+    ReactiveFormsModule,
+    MatInputModule,
+
     OrderRoutingModule
   ]
 })

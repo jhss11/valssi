@@ -11,7 +11,7 @@ export interface OrderModel {
   status: OrderStatusModel;
   items: OrderItemModel[];
   address: string;
-  paymentMethod: string;
+  paymentMethod?: string;
   subtotal: number;
   total: number;
   statusLogs: OrderStatusLogModel[];

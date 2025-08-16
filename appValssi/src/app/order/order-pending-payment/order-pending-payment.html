@@ -1,0 +1,31 @@
+<h2 class="titulo">{{'order-pending-payment.titulo'| translate}}</h2>
+<h3 class="subtitulo">{{'order-pending-payment.subtitulo'| translate}}</h3>
+   <div class="orders-container">
+  @if(pendingOrders && pendingOrders.length > 0) {
+    <div class="tarjetas-grid">
+      @for(order of pendingOrders; track order.id) {
+        <mat-card class="tarjeta-order">
+          
+          <div class="fecha">
+            {{ order.statusLogs[0]?.changedAt | date:'short' }}
+          </div>
+          
+          <div class="contenido">
+            <p class="pedido"><strong>{{'order-pending-payment.pedido'| translate}}:</strong> {{ order.id }}</p>
+            <p class="total"><strong>{{'order-pending-payment.total'| translate}}</strong> ₡ {{ order.total | number }}</p>
+
+            <!-- <div class="btn-contenedor">
+              <button mat-flat-button color="primary" (click)="verDetalle(order.id)">
+                {{ 'order-pending-payment.pagar' | translate }}
+              </button>
+            </div> -->
+          </div>
+
+        </mat-card>
+      } 
+    </div>
+  } @else {
+    <p class="no-pendientes">{{'order-pending-payment.noPendientes'| translate}} </p>
+    
+  }
+</div>
