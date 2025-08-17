@@ -116,6 +116,67 @@ export const FormErrorMessage: FormValidatorMessage[] = [
     forValidator: 'required',
     text: 'Debe indicar si aplica a producto o categoría',
   },
+
+{
+    forControl: 'paymentType',
+    forValidator: 'required',
+    text: 'Debe seleccionar un método de pago',
+  },
+
+  // TARJETA
+  {
+    forControl: 'cardNumber',
+    forValidator: 'required',
+    text: 'El número de tarjeta es obligatorio',
+  },
+  {
+    forControl: 'cardNumber',
+    forValidator: 'pattern',
+    text: 'El número de tarjeta debe tener 16 dígitos',
+  },
+  {
+    forControl: 'expiryDate',
+    forValidator: 'required',
+    text: 'La fecha de expiración es obligatoria',
+  },
+  {
+    forControl: 'expiryDate',
+    forValidator: 'pattern',
+    text: 'La fecha de expiración debe tener el formato MM/AA',
+  },
+  {
+    forControl: 'cvv',
+    forValidator: 'required',
+    text: 'El CVV es obligatorio',
+  },
+  {
+    forControl: 'cvv',
+    forValidator: 'pattern',
+    text: 'El CVV debe tener 3 o 4 dígitos',
+  },
+  {
+    forControl: 'cardHolder',
+    forValidator: 'required',
+    text: 'El nombre del titular es obligatorio',
+  },
+
+  // EFECTIVO
+  {
+    forControl: 'cashAmount',
+    forValidator: 'required',
+    text: 'Debe ingresar el monto recibido en efectivo',
+  },
+  {
+    forControl: 'cashAmount',
+    forValidator: 'min',
+    text: 'El monto recibido debe ser igual o mayor al total del pedido',
+  },
+  {
+    forControl: 'cashAmount',
+    forValidator: 'pattern',
+    text: 'El monto recibido debe ser un número válido',
+  },
+
 ];
 
 /**

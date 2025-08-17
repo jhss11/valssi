@@ -15,13 +15,18 @@ import { OrderCart } from './order-cart/order-cart';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { OrderPendingPayment } from './order-pending-payment/order-pending-payment';
+import { OrderPaymentDiag } from './order-payment-diag/order-payment-diag';
+import { MatDialogContent } from '@angular/material/dialog';
+import { MatOption, MatSelect } from '@angular/material/select';
+import { MatRadioButton } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
     OrderIndex,
     OrderDetail,
     OrderCart,
-    OrderPendingPayment
+    OrderPendingPayment,
+    OrderPaymentDiag
   ],
   imports: [
     CommonModule,
@@ -34,6 +39,10 @@ import { OrderPendingPayment } from './order-pending-payment/order-pending-payme
     TranslateModule,
     ReactiveFormsModule,
     MatInputModule,
+MatDialogContent,
+MatSelect,
+MatOption,
+MatRadioButton,
 
     OrderRoutingModule
   ]

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { OrderService } from '../../share/services/order.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { OrderPaymentDiag } from '../order-payment-diag/order-payment-diag';
 
 @Component({
   selector: 'app-order-pending-payment',
@@ -9,6 +11,8 @@ import { OrderService } from '../../share/services/order.service';
 })
 export class OrderPendingPayment {
  pendingOrders: any[] = [];
+
+  readonly dialog = inject(MatDialog);
 
   constructor(private orderService: OrderService) {}
 
@@ -28,4 +32,16 @@ export class OrderPendingPayment {
     });
 
   }
+
+    pagar(id: number, total: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '50%';
+    dialogConfig.disableClose = false;
+    dialogConfig.data = {
+      id: id,
+      total: total
+    };
+    const dialogRef = this.dialog.open(OrderPaymentDiag, dialogConfig);
+  }
+  
 }

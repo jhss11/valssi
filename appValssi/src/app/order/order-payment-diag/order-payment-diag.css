@@ -1,0 +1,77 @@
+.payment-container {
+  width: 100%;
+  max-width: 520px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+h2 {
+  margin: 0 0 1rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.total-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f6f8fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-form, .cash-form {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.vuelto {
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.vuelto.negativo {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.close-button {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+}
+
+.close-icon {
+  font-size: 20px;
+}
+
+
+/* Mensajes de error */
+.text-danger {
+  color: #b30000;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
