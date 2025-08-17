@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,29 +6,25 @@ import { Router } from '@angular/router';
 import { NotificationService } from '../../share/notification-service';
 import { getFormValidationErrorMessage } from '../../share/form-validation';
 import { OrderService } from '../../share/services/order.service';
-// Si tu Angular es 16+ y quieres signals, puedes usar toSignal en vez de getter.
-
-type PaymentKind = 'card' | 'cash';
+import { OrderStatusModel } from '../../share/models/OrderStatusModel';
 
 @Component({
   selector: 'app-order-payment-diag',
   standalone: false,
   templateUrl: './order-payment-diag.html',
-  styleUrls: ['./order-payment-diag.css'] // <- importante: styleUrls (en plural)
+  styleUrls: ['./order-payment-diag.css'],
 })
 export class OrderPaymentDiag implements OnInit, OnDestroy {
   private destroy$ = new Subject<boolean>();
 
-  // Lo que llega al diálogo
-  // Espera algo como: { id: 123, total: 15000, defaultMethod?: 'card' | 'cash' }
-  datosDialog: { id: number; total: number; defaultMethod?: PaymentKind };
+  paymentMethodSignal = signal<'CARD' | 'CASH'>('CARD');
 
-  // Form + estado
+  datosDialog: { id: number; total: number };
   paymentForm!: FormGroup;
   vuelto: number | null = null;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: { id: number; total: number; defaultMethod?: PaymentKind },
+    @Inject(MAT_DIALOG_DATA) data: { id: number; total: number },
     private dialogRef: MatDialogRef<OrderPaymentDiag>,
     private pService: OrderService,
     private fb: FormBuilder,
@@ -39,18 +35,15 @@ export class OrderPaymentDiag implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.initForm();            // crea el form con el método por defecto
-    this.applyValidators();     // aplica validaciones iniciales según el método
-    this.onPaymentTypeChanges();// re-aplica validaciones al cambiar método
-    this.onCashChanges();       // calcula vuelto en vivo si es efectivo
+    this.initForm();
+    this.onPaymentTypeChanges();
+    this.onCashChanges();
+    this.applyValidators(this.paymentMethodSignal());
   }
 
-  // --------- Inicialización del formulario ----------
   private initForm(): void {
-    const defaultMethod: PaymentKind = this.datosDialog.defaultMethod ?? 'card';
-
     this.paymentForm = this.fb.group({
-      paymentType: [defaultMethod, Validators.required], // 'card' | 'cash'
+      paymentMethod: [this.paymentMethodSignal(), Validators.required],
       cardNumber: [null],
       expiryDate: [null],
       cvv: [null],
@@ -59,113 +52,94 @@ export class OrderPaymentDiag implements OnInit, OnDestroy {
     });
   }
 
-  // --------- Validaciones dinámicas ----------
   private onPaymentTypeChanges(): void {
-    this.paymentForm.get('paymentType')!
-      .valueChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.applyValidators();
+    this.paymentForm
+      .get('paymentMethod')!
+      .valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe((val: 'CARD' | 'CASH') => {
+        this.paymentMethodSignal.set(val);
+        this.applyValidators(val);
       });
   }
 
-  private applyValidators(): void {
-    const type = this.paymentType; // getter de abajo
-
-    if (type === 'card') {
-      // Tarjeta
-      this.paymentForm.get('cardNumber')?.setValidators([
-        Validators.required,
-        Validators.pattern(/^\d{16}$/),
-      ]);
-      this.paymentForm.get('expiryDate')?.setValidators([
-        Validators.required,
-        Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/), // MM/AA
-      ]);
-      this.paymentForm.get('cvv')?.setValidators([
-        Validators.required,
-        Validators.pattern(/^\d{3,4}$/),
-      ]);
+  private applyValidators(type: 'CARD' | 'CASH'): void {
+    if (type === 'CARD') {
+      this.paymentForm
+        .get('cardNumber')
+        ?.setValidators([Validators.required, Validators.pattern(/^\d{16}$/)]);
+      this.paymentForm
+        .get('expiryDate')
+        ?.setValidators([
+          Validators.required,
+          Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/),
+        ]);
+      this.paymentForm
+        .get('cvv')
+        ?.setValidators([Validators.required, Validators.pattern(/^\d{3,4}$/)]);
       this.paymentForm.get('cardHolder')?.setValidators([Validators.required]);
-
-      // Limpia validaciones de efectivo
       this.paymentForm.get('cashAmount')?.clearValidators();
       this.vuelto = null;
     } else {
-      // Efectivo
-      this.paymentForm.get('cashAmount')?.setValidators([
-        Validators.required,
-        Validators.min(this.datosDialog.total),
-        Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/),
-      ]);
-
-      // Limpia validaciones de tarjeta
+      this.paymentForm
+        .get('cashAmount')
+        ?.setValidators([
+          Validators.required,
+          Validators.min(this.datosDialog.total),
+          Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/),
+        ]);
       this.paymentForm.get('cardNumber')?.clearValidators();
       this.paymentForm.get('expiryDate')?.clearValidators();
       this.paymentForm.get('cvv')?.clearValidators();
       this.paymentForm.get('cardHolder')?.clearValidators();
     }
 
-    // Actualiza estado de todos los controles
     Object.keys(this.paymentForm.controls).forEach((key) => {
-      this.paymentForm.get(key)?.updateValueAndValidity();
+      this.paymentForm.get(key)?.updateValueAndValidity({ emitEvent: false });
     });
   }
 
-  // Calcula vuelto cuando cambia el monto en efectivo
   private onCashChanges(): void {
-    this.paymentForm.get('cashAmount')?.valueChanges
-      .pipe(takeUntil(this.destroy$))
+    this.paymentForm
+      .get('cashAmount')
+      ?.valueChanges.pipe(takeUntil(this.destroy$))
       .subscribe((val) => {
         const num = typeof val === 'string' ? parseFloat(val) : val;
-        if (Number.isFinite(num)) {
-          this.vuelto = num - this.datosDialog.total;
-        } else {
-          this.vuelto = null;
-        }
+        this.vuelto = Number.isFinite(num)
+          ? num - this.datosDialog.total
+          : null;
       });
   }
 
-  // --------- Submit ----------
   submitPayment(): void {
     this.paymentForm.markAllAsTouched();
 
     if (this.paymentForm.invalid) {
-      this.noti.error('Pago inválido', 'Por favor revise los datos.', 5000);
+      this.noti.error('Pago inválido', 'Por favor revise los datos.', 2000);
       return;
     }
 
-    const type: PaymentKind = this.paymentType;
-// const status: 'PENDING_PAYMENT' as OrderStatusModel;
-    // Aquí solo enviamos el tipo de pago al backend para el pedido específico
-    // Ajusta el método según tu OrderService / API
-    // Ejemplo con PATCH: PATCH /orders/:id/payment { paymentMethod: 'card' | 'cash' }
-    // this.pService
-    //   .updatePaymentMethod(this.datosDialog.id, { paymentMethod: type, status })
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe({
-    //     next: () => {
-    //       if (type === 'cash') {
-    //         this.noti.success('Pago en efectivo', `Pago exitoso. Vuelto: ₡${this.vuelto ?? 0}`, 4000, '/order');
-    //       } else {
-    //         this.noti.success('Pago con tarjeta', 'Pago exitoso. Pedido procesado.', 4000, '/order');
-    //       }
-    //       this.dialogRef.close(true); // cierra y avisa éxito al padre
-    //     },
-    //     error: (e) => {
-    //       console.error(e);
-    //       this.noti.error('Error', 'No se pudo procesar el pago', 5000);
-    //     }
-    //   });
-  }
+    const body = {
+      id: this.datosDialog.id,
+      paymentMethod: this.paymentMethodSignal(),
+      status: 'PAID' as OrderStatusModel,
+    };
 
-  // --------- Utilidades ----------
+    // update() es público en BaseAPI
+    this.pService.updatePaymentMethod(body)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (res) => {
+        this.noti.success('Pago actualizado correctamente', '', 2000);
+        this.dialogRef.close(true);
+      },
+      error: (err) => {
+        this.noti.error('Error al actualizar el pago', '', 2000);
+      }
+    });
+}
+
   errorHandling(controlPath: string): string | false {
     return getFormValidationErrorMessage(this.paymentForm, controlPath);
-  }
-
-  get paymentType(): PaymentKind {
-    return this.paymentForm.get('paymentType')?.value as PaymentKind;
   }
 
   close(): void {

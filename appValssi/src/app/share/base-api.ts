@@ -21,6 +21,10 @@ export class BaseAPI<T extends BaseEntity> {
     return this.http.get<T[]>(`${this.urlAPI}/${this.endpoint}`);
   }
   
+updatePaymentMethod(body: { id: number; paymentMethod: 'CARD' | 'CASH' }): Observable<any> {
+  return this.http.put(`${this.urlAPI}/${this.endpoint}/`, body);
+}
+
   getMethod(
     action: string,
     options: { [param: string]: unknown } = {}

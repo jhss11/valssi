@@ -42,6 +42,12 @@ export class OrderPendingPayment {
       total: total
     };
     const dialogRef = this.dialog.open(OrderPaymentDiag, dialogConfig);
-  }
+
+  dialogRef.afterClosed().subscribe((updated: boolean) => {
+    if (updated) {
+      this.loadPendingOrders();
+    }
+  });
+}
   
 }

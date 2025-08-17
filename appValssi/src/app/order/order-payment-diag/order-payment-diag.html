@@ -12,13 +12,13 @@
       <strong>₡ {{ datosDialog.total }}</strong>
     </div>
 
-    <mat-radio-group formControlName="paymentType" class="radio-group">
-      <mat-radio-button value="card">Tarjeta</mat-radio-button>
-      <mat-radio-button value="cash">Efectivo</mat-radio-button>
+    <mat-radio-group formControlName="paymentMethod" class="radio-group">
+      <mat-radio-button value="CARD">Tarjeta</mat-radio-button>
+      <mat-radio-button value="CASH">Efectivo</mat-radio-button>
     </mat-radio-group>
 
     <!-- TARJETA -->
-    @if (paymentForm.get('paymentType')?.value === 'card') {
+    @if (paymentMethodSignal() === 'CARD') {
       <div class="card-form">
         <mat-form-field>
           <mat-label>Número de tarjeta</mat-label>
@@ -55,10 +55,10 @@
     }
 
     <!-- EFECTIVO -->
-    @if (paymentForm.get('paymentType')?.value === 'cash') {
+    @if (paymentMethodSignal() === 'CASH') {
       <div class="cash-form">
         <mat-form-field>
-          <mat-label>Monto recibido</mat-label>
+          <mat-label>Monto </mat-label>
           <input matInput formControlName="cashAmount" type="number" step="0.01" />
           @if (errorHandling('cashAmount')) {
             <mat-error class="text-danger">{{ errorHandling('cashAmount') }}</mat-error>
@@ -75,7 +75,7 @@
 
     <div class="actions">
       <button mat-stroked-button type="button" (click)="close()">Cancelar</button>
-      <button mat-raised-button color="primary" type="submit">
+      <button mat-stroked-button color="primary" type="submit">
         Pagar
       </button>
     </div>

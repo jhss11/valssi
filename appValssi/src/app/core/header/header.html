@@ -15,6 +15,7 @@
 <mat-menu #menu2="matMenu">
     <button mat-menu-item [routerLink]="['/product']" routerLinkActive="active-link">{{ 'header.productos' | translate }}</button>
   <button mat-menu-item [routerLink]="['/promotion']" routerLinkActive="active-link">{{ 'header.promociones' | translate }}</button>
+
 </mat-menu>
 
 <!-- REPORTES -->
@@ -38,6 +39,8 @@
     <button mat-menu-item [routerLink]="['/inicio']" routerLinkActive="active-link">{{ 'header.inicio' | translate }}</button>
     <button mat-menu-item [routerLink]="['/aboutus']" routerLinkActive="active-link">{{ 'header.acercaDe' | translate }}</button>
     <button mat-menu-item [routerLink]="['/product/list']" routerLinkActive="active-link">{{ 'header.productos' | translate }}</button>
+  <button mat-menu-item [routerLink]="['/orders/pending']" routerLinkActive="active-link">{{ 'header.pedidosPendientes' | translate }}</button>
+
     
   </mat-menu>
 
