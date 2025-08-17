@@ -18,7 +18,7 @@ import { OrderPendingPayment } from './order-pending-payment/order-pending-payme
 import { OrderPaymentDiag } from './order-payment-diag/order-payment-diag';
 import { MatDialogContent } from '@angular/material/dialog';
 import { MatOption, MatSelect } from '@angular/material/select';
-import { MatRadioButton } from '@angular/material/radio';
+import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -43,6 +43,8 @@ MatDialogContent,
 MatSelect,
 MatOption,
 MatRadioButton,
+ReactiveFormsModule,
+    MatRadioModule,
 
     OrderRoutingModule
   ]
