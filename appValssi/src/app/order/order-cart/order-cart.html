@@ -5,34 +5,32 @@
 </div>
 <div class="invoice-container" style="width: 1050px">
   <div class="header">
-    <h2>Pedido</h2>
+    <h2>{{ 'order-cart.titulo' | translate}}</h2>
   </div>
 
-  <div class="header-row">
+  <div class="header-row" style="margin-bottom: -15px;">
     <div>
+     <p style="position: relative; left: 890px; top: 40px;">
+  <strong>{{ 'order-cart.fecha' | translate }}</strong>
+  {{ fechaFormateada }}
+</p>
       <h3>{{ 'order-cart.cliente' | translate}}</h3>
       <p><strong> {{ 'order-cart.nombre' | translate}}</strong> {{username}}</p>
+      <p><strong> {{ 'order-cart.email' | translate}}</strong> {{email}}</p>
+      <h3 style="margin-top: 30px;">{{ 'order-cart.detalles' | translate}}</h3>
 
       <p>
-        <strong>{{ 'order-cart.fecha' | translate}}</strong> {{fecha | date:
-        'dd/MM/yyyy'}}
+        <strong>{{ 'order-cart.estadoPedido' | translate}}:</strong> Pendiente de
+        Pago
       </p>
-<p>
-        <strong>{{ 'order-cart.estadoPedido' | translate}}</strong> Pendiente de Pago
-      </p>
-      
     </div>
   </div>
-   <form [formGroup]="form">
-  <div class="field" style="flex: 1 1 100%">
-    <p><strong>{{ 'order-cart.direccionEnvio' | translate }}</strong></p>
-    <textarea
-      matInput
-      formControlName="comment"
-      rows="4">
-    </textarea>
-  </div>
-</form>
+  <form [formGroup]="form">
+    <div class="field" style="flex: 1 1 100%">
+      <p><strong>{{ 'order-cart.direccionEnvio' | translate }}</strong></p>
+      <textarea matInput formControlName="comment" rows="4"> </textarea>
+    </div>
+  </form>
   <hr class="divisor" />
 
   <!-- Detalle Productos -->
@@ -52,20 +50,19 @@
       </ng-container>
 
       <ng-container matColumnDef="quantity">
-  <th mat-header-cell *matHeaderCellDef>
-    {{ 'order-cart.cantidadColumna' | translate }}
-  </th>
-  <td mat-cell *matCellDef="let item">
-    <input
-      type="number"
-      min="0"
-      [value]="item.quantity"
-      (change)="cambiarCantidad(item, $event)"
-      style="width: 60px; text-align: center;"
-    />
-  </td>
-</ng-container>
-
+        <th mat-header-cell *matHeaderCellDef>
+          {{ 'order-cart.cantidadColumna' | translate }}
+        </th>
+        <td mat-cell *matCellDef="let item">
+          <input
+          class="input-cantidad"
+            type="number"
+            min="0"
+            [value]="item.quantity"
+            (change)="cambiarCantidad(item, $event)"
+          />
+        </td>
+      </ng-container>
 
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef>
@@ -78,20 +75,13 @@
 
       <ng-container matColumnDef="promotion">
         <th mat-header-cell *matHeaderCellDef>
-          {{ 'order-detail.promocion' | translate}}
+          {{ 'order-cart.promocion' | translate}}
         </th>
         <td mat-cell *matCellDef="let item">
           {{ getPromotions(item) || '0' }}
         </td>
       </ng-container>
-      <!-- <ng-container matColumnDef="impuesto">
-  <th mat-header-cell *matHeaderCellDef> {{ 'order-detail.impuesto' | translate}} </th>
-  <td mat-cell *matCellDef="let item"> -->
-    <!-- Aquí va el contenido que quieres mostrar -->
-    <!-- {{ item.newValue || 'N/A' }}
-  </td>
-</ng-container> -->
-
+      
 
       <ng-container matColumnDef="subtotal">
         <th mat-header-cell *matHeaderCellDef>
@@ -101,7 +91,7 @@
       </ng-container>
       <ng-container matColumnDef="total">
         <th mat-header-cell *matHeaderCellDef>
-          {{ 'order-detail.total' | translate}}
+          {{ 'order-cart.total' | translate}}
         </th>
         <td mat-cell *matCellDef="let item">₡{{ item.total | number }}</td>
       </ng-container>
@@ -130,7 +120,7 @@
   <!-- Detalle Productos Personalizados -->
   @if (customItems().length > 0) {
   <div>
-    <h3>{{ 'order-detail.detalleProductosPersonalizados' | translate}}</h3>
+    <h3>{{ 'order-cart.detalleProductosPersonalizados' | translate}}</h3>
     <table
       mat-table
       [dataSource]="customItems()"
@@ -138,19 +128,16 @@
     >
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>
-          {{ 'order-detail.nombreColumna' | translate}}
+          {{ 'order-cart.nombreColumna' | translate}}
         </th>
         <td mat-cell *matCellDef="let item">{{ item.product.name }}</td>
       </ng-container>
 
-      <!-- <ng-container matColumnDef="quantity">
-        <th mat-header-cell *matHeaderCellDef>{{ 'order-detail.cantidadColumna' | translate}}</th>
-        <td mat-cell *matCellDef="let item">{{ item.quantity }}</td>
-      </ng-container> -->
+     
 
       <ng-container matColumnDef="basePrice">
         <th mat-header-cell *matHeaderCellDef>
-          {{ 'order-detail.precioBase' | translate}}
+          {{ 'order-cart.precioBase' | translate}}
         </th>
         <td mat-cell *matCellDef="let item">
           ₡{{ item.product.price | number}}
@@ -159,7 +146,7 @@
 
       <ng-container matColumnDef="criteria">
         <th mat-header-cell *matHeaderCellDef>
-          {{ 'order-detail.criterios' | translate}}
+          {{ 'order-cart.criterios' | translate}}
         </th>
         <td mat-cell *matCellDef="let item">
           <!-- Iterar cada criterio -->
@@ -183,7 +170,7 @@
 
       <ng-container matColumnDef="promotion">
         <th mat-header-cell *matHeaderCellDef>
-          {{ 'order-detail.promocion' | translate}}
+          {{ 'order-cart.promocion' | translate}}
         </th>
         <td mat-cell *matCellDef="let item">
           {{ getPromotions(item) || '0' }}
@@ -192,7 +179,7 @@
 
       <ng-container matColumnDef="total">
         <th mat-header-cell *matHeaderCellDef>
-          {{ 'order-detail.total' | translate}}
+          {{ 'order-cart.total' | translate}}
         </th>
         <td mat-cell *matCellDef="let item">₡{{ item.total | number }}</td>
       </ng-container>
@@ -227,15 +214,15 @@
   <div class="summary-table-container">
     <table class="summary-table">
       <tr>
-        <td>{{ 'order-detail.subtotalSinIVA' | translate}}</td>
+        <td>{{ 'order-cart.subtotalSinIVA' | translate}}</td>
         <td>₡{{ totalCompra() | number }}</td>
       </tr>
       <tr>
-        <td>{{ 'order-detail.impuestos' | translate}}</td>
+        <td>{{ 'order-cart.impuestos' | translate}}</td>
         <td>₡{{ totalCompra() * 0.13 | number }}</td>
       </tr>
       <tr class="total-row">
-        <td><strong>{{ 'order-detail.totalFinal' | translate}}</strong></td>
+        <td><strong>{{ 'order-cart.totalFinal' | translate}}</strong></td>
         <td>
           <strong>₡{{ totalCompra()+(totalCompra()*0.13) | number }}</strong>
         </td>
@@ -243,16 +230,9 @@
     </table>
   </div>
   <mat-card-actions>
-  <button mat-fab extended class="btn-comprar" (click)="crearOrden()">
-    Comprar
-    <mat-icon>shopping_cart_checkout</mat-icon>
-  </button>
-</mat-card-actions>
-
-
-  <!-- Método de Pago -->
-  <!-- <div class="payment-method invoice-style">
-    <h3>{{ 'order-detail.metodoPago' | translate}}</h3>
-      <p>{{ 'order-detail.pagoUtilizado' | translate: { method: pedido.paymentMethod } }}</p>
-  </div> -->
+    <button  class="btn-comprar" mat-flat-button (click)="crearOrden()">
+      {{ 'order-cart.comprar' | translate}}
+      <mat-icon>shopping_cart_checkout</mat-icon>
+    </button>
+  </mat-card-actions>
 </div>

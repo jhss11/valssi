@@ -15,6 +15,7 @@ export class OrderRoutes {
     
     router.post("/", controller.create);
 
+    router.put("/", controller.updatePaymentMethod);
 
 
     return router;

@@ -1,4 +1,4 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { LOCALE_ID, NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -13,7 +13,6 @@ import { ReviewModule } from './review/review-module';
 import { OrderModule } from './order/order-module';
 import { PromotionModule } from './promotion/promotion-module';
 import { CustomProductModule } from './custom-product/custom-product-module';
-import { PaymentModule } from './payment/payment-module';
 
 
 import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/common/http';
@@ -21,8 +20,13 @@ import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/commo
 // i18n imports
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { registerLocaleData } from '@angular/common';
 
+import localeEs from '@angular/common/locales/es';
+import localeEn from '@angular/common/locales/en';
 
+registerLocaleData(localeEs);
+registerLocaleData(localeEn);
 
 // Función para el loader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -45,7 +49,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrderModule,
     PromotionModule,
     CustomProductModule,
-    PaymentModule,
 
 
     // Módulo de traducción configurado
@@ -63,6 +66,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(),
+     { provide: LOCALE_ID, useValue: 'es' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,

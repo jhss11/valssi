@@ -1,0 +1,83 @@
+<button mat-icon-button class="close-button" (click)="close()">
+  <mat-icon class="close-icon">close</mat-icon>
+</button>
+
+<div class="payment-container">
+  <h2>Proceso de Pago</h2>
+
+  <form [formGroup]="paymentForm" (ngSubmit)="submitPayment()">
+
+    <div class="total-box">
+      <span>Total del pedido:</span>
+      <strong>₡ {{ datosDialog.total }}</strong>
+    </div>
+
+    <mat-radio-group formControlName="paymentType" class="radio-group">
+      <mat-radio-button value="card">Tarjeta</mat-radio-button>
+      <mat-radio-button value="cash">Efectivo</mat-radio-button>
+    </mat-radio-group>
+
+    <!-- TARJETA -->
+    @if (paymentForm.get('paymentType')?.value === 'card') {
+      <div class="card-form">
+        <mat-form-field>
+          <mat-label>Número de tarjeta</mat-label>
+          <input matInput formControlName="cardNumber" maxlength="16" />
+          @if (errorHandling('cardNumber')) {
+            <mat-error class="text-danger">{{ errorHandling('cardNumber') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Fecha de expiración (MM/AA)</mat-label>
+          <input matInput formControlName="expiryDate" placeholder="MM/AA" />
+          @if (errorHandling('expiryDate')) {
+            <mat-error class="text-danger">{{ errorHandling('expiryDate') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>CVV</mat-label>
+          <input matInput formControlName="cvv" maxlength="4" />
+          @if (errorHandling('cvv')) {
+            <mat-error class="text-danger">{{ errorHandling('cvv') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Nombre del titular</mat-label>
+          <input matInput formControlName="cardHolder" />
+          @if (errorHandling('cardHolder')) {
+            <mat-error class="text-danger">{{ errorHandling('cardHolder') }}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    }
+
+    <!-- EFECTIVO -->
+    @if (paymentForm.get('paymentType')?.value === 'cash') {
+      <div class="cash-form">
+        <mat-form-field>
+          <mat-label>Monto recibido</mat-label>
+          <input matInput formControlName="cashAmount" type="number" step="0.01" />
+          @if (errorHandling('cashAmount')) {
+            <mat-error class="text-danger">{{ errorHandling('cashAmount') }}</mat-error>
+          }
+        </mat-form-field>
+
+        @if (vuelto !== null) {
+          <p class="vuelto" [class.negativo]="vuelto < 0">
+            Vuelto: <strong>₡ {{ vuelto }}</strong>
+          </p>
+        }
+      </div>
+    }
+
+    <div class="actions">
+      <button mat-stroked-button type="button" (click)="close()">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit">
+        Pagar
+      </button>
+    </div>
+  </form>
+</div>

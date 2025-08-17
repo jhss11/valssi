@@ -26,18 +26,18 @@
     "publicar": "Submit"
   },
 
-"custom-product": {
-  "titulo": "Customize your duvet",
-  "resumen": "Summary",
-  "precioBase": "Base price",
-  "color": "Color",
-  "tamano": "Size",
-  "diseno": "Design",
-  "total": "Total",
-  "eligeColor": "Choose a color",
-  "eligeTamano": "Choose a size",
-  "eligeDiseno": "Choose a design"
-},
+  "custom-product": {
+    "titulo": "Customize your duvet",
+    "resumen": "Summary",
+    "precioBase": "Base price",
+    "color": "Color",
+    "tamano": "Size",
+    "diseno": "Design",
+    "total": "Total",
+    "eligeColor": "Choose a color",
+    "eligeTamano": "Choose a size",
+    "eligeDiseno": "Choose a design"
+  },
 
   "product-form": {
     "titulo": "Product",
@@ -94,14 +94,49 @@
     "pagoUtilizado": "The payment method used is payment in {{method}}"
   },
 
-   "order-pending-payment":{
-      "titulo": "Pending Payment Orders",
-      "subtitulo": "List of your pending payment orders",
-      "pedido": "Order #",
-      "total": "Total:",
-      "pagar": "Pay",
-      "noPendientes": "You do not have any pending payment orders"
+  "order-cart": {
+    "volver": "Back",
+    "titulo": "Shopping Cart",
+    "estadoPedido": "Order status",
+    "cliente": "Client:",
+    "nombre": "Name:",
+    "email": "Email:",
+    "detalles": "Details:",
+    "direccionEnvio": "Shipping Address:",
+    "fecha": "Date:",
+    "detalleProductos": "Product Details:",
+    "detalleProductosPersonalizados": "Customized Product Details:",
+    "nombreColumna": "Name",
+    "cantidadColumna": "Quantity",
+    "precioUnitario": "Unit Price",
+    "acciones": "Actions",
+    "precioBase": "Base Price",
+    "criterios": "Criteria",
+    "promocion": "Promotion",
+    "impuesto": "Tax",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "subtotalSinIVA": "Subtotal (excl. VAT)",
+    "impuestos": "Taxes (13%)",
+    "totalFinal": "Total",
 
+    "stockInsuficiente": "Insufficient stock",
+    "stockMensaje": "{{nombre}} (Available: {{disponible}}, Requested: {{solicitado}})",
+
+    "comprar": "Buy cart",
+     "crearOrden": "Create Order",
+    "ingresarDireccion": "You must enter the shipping address",
+    "ordenCreada": "Order created #{{id}}",
+    "agregarProductos": "Add products to the order"
+  },
+
+  "order-pending-payment": {
+    "titulo": "Pending Payment Orders",
+    "subtitulo": "List of your pending payment orders",
+    "pedido": "Order #",
+    "total": "Total:",
+    "pagar": "Pay",
+    "noPendientes": "You do not have any pending payment orders"
   },
 
   "review-index": {

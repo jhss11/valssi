@@ -33,6 +33,8 @@ export class UserController {
         where: { id: idUser },
         select:{
             username:true,
+            email:true,
+
         }
       });
       if (obj) {

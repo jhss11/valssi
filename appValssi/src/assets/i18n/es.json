@@ -26,7 +26,7 @@
     "publicar": "Publicar"
   },
 
-  "custom-product":{
+  "custom-product": {
     "titulo": "Personaliza tu edredón",
     "resumen": "Resumen",
     "precioBase": "Precio base",
@@ -84,7 +84,7 @@
     "precioBase": "Precio Base",
     "criterios": "Criterios",
     "promocion": "Promoción",
-     "impuesto": "Impuesto",
+    "impuesto": "Impuesto",
     "subtotal": "Subtotal",
     "total": "Total",
     "subtotalSinIVA": "Subtotal sin IVA",
@@ -93,12 +93,14 @@
     "metodoPago": "Método de Pago:",
     "pagoUtilizado": "El método de pago utilizado es pago en {{method}}"
   },
-"order-cart": {
+  "order-cart": {
     "volver": "Regresar",
-    "titulo": "Pedido",
-    "estadoPedido":"Estado del Pedido",
+    "titulo": "Carrito de Compras",
+    "estadoPedido": "Estado del Pedido",
     "cliente": "Cliente:",
+    "detalles": "Detalles:",
     "nombre": "Nombre:",
+    "email": "Correo:",
     "direccionEnvio": "Dirección de Envío:",
     "fecha": "Fecha:",
     "detalleProductos": "Detalle Productos:",
@@ -116,16 +118,25 @@
     "impuestos": "Impuestos (13%)",
     "totalFinal": "Total",
     "metodoPago": "Método de Pago:",
-    "pagoUtilizado": "El método de pago utilizado es pago en {{method}}"
+    "pagoUtilizado": "El método de pago utilizado es pago en {{method}}",
+    "comprar": "Comprar",
+
+    "stockInsuficiente": "Stock insuficiente",
+    "stockMensaje": "{{nombre}} (Disponible: {{disponible}}, Solicitado: {{solicitado}})",
+
+    "crearOrden": "Crear Orden",
+    "ingresarDireccion": "Debe ingresar la dirección de envío",
+    "ordenCreada": "Orden creada #{{id}}",
+    "agregarProductos": "Agregue productos a la orden"
   },
 
-  "order-pending-payment":{
-      "titulo": "Pedidos Pendientes de Pago",
-      "subtitulo": "Listado de tus pedidos pendientes de pago",
-      "pedido": "Pedido #",
-      "total": "Total a pagar:",
-      "pagar": "Pagar",
-      "noPendientes": "No posee ningún pedido pendiente de pago"
+  "order-pending-payment": {
+    "titulo": "Pedidos Pendientes de Pago",
+    "subtitulo": "Listado de tus pedidos pendientes de pago",
+    "pedido": "Pedido #",
+    "total": "Total a pagar:",
+    "pagar": "Pagar",
+    "noPendientes": "No posee ningún pedido pendiente de pago"
   },
 
   "review-index": {

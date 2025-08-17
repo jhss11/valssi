@@ -14,11 +14,11 @@
             <p class="pedido"><strong>{{'order-pending-payment.pedido'| translate}}:</strong> {{ order.id }}</p>
             <p class="total"><strong>{{'order-pending-payment.total'| translate}}</strong> ₡ {{ order.total | number }}</p>
 
-            <!-- <div class="btn-contenedor">
-              <button mat-flat-button color="primary" (click)="verDetalle(order.id)">
+            <div class="btn-contenedor">
+              <button mat-flat-button color="primary" (click)="pagar(order.id, order.total)">
                 {{ 'order-pending-payment.pagar' | translate }}
               </button>
-            </div> -->
+            </div>
           </div>
 
         </mat-card>
