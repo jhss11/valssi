@@ -139,6 +139,21 @@
     "noPendientes": "No posee ningún pedido pendiente de pago"
   },
 
+  "order-payment-diag": {
+    "titulo": "Proceso de Pago",
+    "totalPedido": "Total del pedido:",
+    "tarjeta": "Tarjeta",
+    "efectivo": "Efectivo",
+    "numero": "Número de tarjeta",
+    "fechaExp": "Fecha de expiración (MM/AA)",
+    "cvv": "CVV",
+    "titular": "Nombre del titular",
+    "monto": "Monto",
+    "vuelto": "Vuelto",
+    "cancelar": "Cancelar",
+    "pagar": "Pagar"
+  },
+
   "review-index": {
     "titulo": "Reseñas",
     "subtitulo": "Historial de reseñas",
@@ -220,5 +235,20 @@
     "inicio": "Inicio",
     "acercaDe": "Acerca de",
     "idioma": "Idioma"
+  },
+
+  "footer": {
+    "contact": "Contacto",
+    "featuredProducts": "Productos Destacados",
+    "products": {
+      "kingBed": "Cama tamaño king",
+      "tvStand": "Soporte para TV",
+      "floorLamp": "Lámpara de piso"
+    },
+    "company": "Empresa",
+    "aboutUs": "Sobre Nosotros",
+    "terms": "Términos",
+    "followUs": "Síguenos",
+    "rights": "© 2025 Valssi. Todos los derechos reservados."
   }
 }

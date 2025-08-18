@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-footer',
@@ -8,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class Footer {
 
+
+
+  constructor(private translate: TranslateService) {
+      
+}
 }
