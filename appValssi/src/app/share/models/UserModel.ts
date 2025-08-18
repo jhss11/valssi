@@ -5,14 +5,14 @@ import { OrderStatusLogModel } from "./OrderStatusLogModel";
 import { ReviewModerationRequestModel } from "./ReviewModerationRequestModel";
 
 export interface UserModel {
-  id: number;
+  id?: number;
   username: string;
   email: string;
   password: string;
   role: RoleModel;
   lastLogin?: Date;
-  reviews: ReviewModel[];
-  orders: OrderModel[];
-  statusChanges: OrderStatusLogModel[];
-  moderationRequests: ReviewModerationRequestModel[];
+  reviews?: ReviewModel[];
+  orders?: OrderModel[];
+  statusChanges?: OrderStatusLogModel[];
+  moderationRequests?: ReviewModerationRequestModel[];
 }

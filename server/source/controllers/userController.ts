@@ -55,6 +55,7 @@ export class UserController {
   register = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { username, email, password, role } = req.body;
+console.log("Payload recibido:", { username, email, password, role });
 
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(password, salt);
@@ -78,30 +79,38 @@ export class UserController {
     }
   };
 
-  login = (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate(
-      "local",
-      { session: false },
-      (
-        err: Error | null,
-        user: Express.User | false | null,
-        info: { message?: string }
-      ) => {
-        if (err) return next(err);
-        if (!user) {
-          return res
-            .status(401)
-            .json({ success: false, message: info.message });
-        }
-        const token = generateToken(user as User);
+ login = (req: Request, res: Response, next: NextFunction) => {
+  passport.authenticate(
+    "local",
+    { session: false },
+    async (err: Error | null, user: Express.User | false | null, info: { message?: string }) => {
+      if (err) return next(err);
+      if (!user) {
+        return res.status(401).json({ success: false, message: info.message });
+      }
+
+      try {
+        // Actualizar último acceso
+        const updatedUser = await this.prisma.user.update({
+          where: { id: (user as any).id },
+          data: { lastLogin: new Date() }, // Asegúrate de tener el campo en la DB
+        });
+
+        const token = generateToken(updatedUser as User);
+
         return res.json({
           success: true,
           message: "Inicio de sesión exitoso",
           token,
+          user: updatedUser, // opcional: devolver usuario actualizado
         });
+      } catch (error) {
+        return next(error);
       }
-    )(req, res, next);
-  };
+    }
+  )(req, res, next);
+};
+
   
   userAuth = (req: Request, res: Response, next: NextFunction) => {
     try {

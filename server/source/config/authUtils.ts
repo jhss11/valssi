@@ -17,7 +17,7 @@ export function generateToken(user: {
   };
 
   const payload = {
-    id: user.id,
+    id: Number(user.id),
     email: user.email,
     role: user.role,
   };

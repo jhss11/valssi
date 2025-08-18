@@ -43,7 +43,7 @@ export class AuthenticationService {
 
   // Crear usuario
   createUser(usuario: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/usuario/register`, usuario);
+    return this.http.post(`${this.apiUrl}/users/register`, usuario);
   }
 
   // Listar roles
@@ -55,7 +55,7 @@ export class AuthenticationService {
   //tap es para efectos secundarios (obtener el dato, pero que no lo cambian ni lo transforman para el siguiente paso)
   loginUser(credentials: any): Observable<{ token: string }> {
     return this.http
-      .post<{ token: string }>(`${this.apiUrl}/usuario/login`, credentials)
+      .post<{ token: string }>(`${this.apiUrl}/users/login`, credentials)
       .pipe(
         tap((response) => {
           console.log(response);
@@ -71,7 +71,7 @@ export class AuthenticationService {
 
   // Obtener perfil desde backend del usuario
   getUserProfile(): Observable<UserModel | null> {
-    return this.http.get<UserModel>(`${this.apiUrl}/usuario/profile`).pipe(
+    return this.http.get<UserModel>(`${this.apiUrl}/users/profile`).pipe(
       tap((user) => this.usuario.set(user)),
       catchError(() => {
         this.logout();
