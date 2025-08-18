@@ -1,4 +1,8 @@
-import { LOCALE_ID, NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  LOCALE_ID,
+  NgModule,
+  provideBrowserGlobalErrorListeners,
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -14,8 +18,12 @@ import { OrderModule } from './order/order-module';
 import { PromotionModule } from './promotion/promotion-module';
 import { CustomProductModule } from './custom-product/custom-product-module';
 
-
-import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 // i18n imports
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -34,10 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [
-    App,
-
-  ],
+  declarations: [App],
   imports: [
     BrowserModule,
     CoreModule,
@@ -50,7 +55,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     PromotionModule,
     CustomProductModule,
 
-
     // Módulo de traducción configurado
     TranslateModule.forRoot({
       loader: {
@@ -58,21 +62,25 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
-      defaultLanguage: 'es', 
+      defaultLanguage: 'es',
     }),
     AppRoutingModule,
-   
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(),
-     { provide: LOCALE_ID, useValue: 'es' },
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: LOCALE_ID, useValue: 'es' },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptorService,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,
       multi: true,
     },
   ],
-  bootstrap: [App]
+  bootstrap: [App],
 })
 export class AppModule {}
