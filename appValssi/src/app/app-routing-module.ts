@@ -5,7 +5,7 @@ import { PageNotFound } from './share/page-not-found/page-not-found';
 
 const routes: Routes = [ 
 { path:'inicio',component: Inicio}, 
-{ path:'', redirectTo:'/inicio' ,pathMatch:'full'}, 
+{ path:'', redirectTo:'/usuario/login' ,pathMatch:'full'}, 
 {path:'**', component:PageNotFound} 
 ]
 
