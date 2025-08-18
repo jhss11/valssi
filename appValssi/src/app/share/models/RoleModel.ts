@@ -1,4 +1,4 @@
-export enum RoleModel {
-    USER = 'USER',
-    ADMIN = 'ADMIN',
+export interface  RoleModel {
+    id: number;
+    nombre: string
   }

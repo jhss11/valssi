@@ -11,6 +11,7 @@ import { OptionsRoutes } from "./option.routes";
 import { UserRoutes } from "./user.routes";
 import { OptionsValueRoutes} from "./optionsValue.routes";
 import { customProductRoutes } from "./customProduct.routes";
+import { RolRoutes } from "./rol.routes";
 
 export class AppRoutes {
   static get routes(): Router {
@@ -27,6 +28,7 @@ export class AppRoutes {
     router.use("/optionsValues", OptionsValueRoutes.routes)
     router.use("/file/", ImageRoutes.routes);
     router.use("/users", UserRoutes.routes);
+    router.use("/rol", RolRoutes.routes)
     router.use("/customProducts", customProductRoutes.routes);
 
     return router;

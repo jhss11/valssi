@@ -17,6 +17,7 @@ import { ReviewModule } from './review/review-module';
 import { OrderModule } from './order/order-module';
 import { PromotionModule } from './promotion/promotion-module';
 import { CustomProductModule } from './custom-product/custom-product-module';
+import { HttpAuthInterceptorService } from './share/http-auth-interceptor.service';
 
 import {
   HTTP_INTERCEPTORS,
@@ -77,7 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorInterceptorService,
+      useClass: HttpAuthInterceptorService,
       multi: true,
     },
   ],

@@ -1,0 +1,78 @@
+<div class="register-container">
+  <mat-card class="register-card">
+    <mat-card-title>Registro de Usuario</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="formCreate" (ngSubmit)="submitForm()">
+
+        <!-- Nombre de usuario -->
+        <div class="field">
+          <mat-form-field floatLabel="auto" hideRequiredMarker="true" class="full-width">
+            <mat-label>Nombre de usuario</mat-label>
+            <input matInput formControlName="username" placeholder="Ingrese su nombre de usuario" style="font-weight: 400" />
+            @if(errorHandling('username')){
+            <mat-error class="text-danger">{{ errorHandling('username') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+          <mat-form-field floatLabel="auto" hideRequiredMarker="true" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="usuario@correo.com" style="font-weight: 400" />
+            @if(errorHandling('email')){
+            <mat-error class="text-danger">{{ errorHandling('email') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+          <mat-form-field floatLabel="auto" hideRequiredMarker="true" class="full-width">
+            <mat-label>Contraseña</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" style="font-weight: 400" />
+            <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if(errorHandling('password')){
+            <mat-error class="text-danger">{{ errorHandling('password') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Confirmar contraseña -->
+        <div class="field">
+          <mat-form-field floatLabel="auto" hideRequiredMarker="true" class="full-width">
+            <mat-label>Confirmar Contraseña</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmpassword" style="font-weight: 400" />
+            @if(errorHandling('confirmpassword')){
+            <mat-error class="text-danger">{{ errorHandling('confirmpassword') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Rol -->
+        <div class="field">
+          <mat-form-field  floatLabel="auto" hideRequiredMarker="true" class="full-width">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="role">
+              @for (t of roles; track t.id) {
+                <mat-option [value]="t.id">{{ t.nombre }}</mat-option>
+              }
+            </mat-select>
+            @if(errorHandling('rol')){
+            <mat-error class="text-danger">{{ errorHandling('rol') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Botones -->
+        <div class="actions">
+          <button mat-flat-button color="primary" type="submit">Registrar</button>
+          <button mat-stroked-button color="warn" type="button" (click)="onReset()">Limpiar</button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
