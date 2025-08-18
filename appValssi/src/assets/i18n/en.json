@@ -139,6 +139,21 @@
     "noPendientes": "You do not have any pending payment orders"
   },
 
+ "order-payment-diag": { 
+  "titulo": "Payment Process",
+  "totalPedido": "Order Total:",
+  "tarjeta": "Card",
+  "efectivo": "Cash",
+  "numero": "Card Number",
+  "fechaExp": "Expiration Date (MM/YY)",
+  "cvv": "CVV",
+  "titular": "Cardholder Name",
+  "monto": "Amount",
+  "vuelto": "Change",
+  "cancelar": "Cancel",
+  "pagar": "Pay"
+},
+
   "review-index": {
     "titulo": "Reviews",
     "subtitulo": "Review history",
@@ -220,5 +235,20 @@
     "inicio": "Home",
     "acercaDe": "About us",
     "idioma": "Language"
+  },
+  "footer": {
+    "contact": "Contact",
+    "featuredProducts": "Featured Products",
+    "products": {
+      "kingBed": "King size bed",
+      "tvStand": "TV stand",
+      "floorLamp": "Floor lamp"
+    },
+    "company": "Company",
+    "aboutUs": "About Us",
+    "terms": "Terms",
+    "followUs": "Follow Us",
+    "rights": "© 2025 Valssi. All rights reserved."
   }
+
 }

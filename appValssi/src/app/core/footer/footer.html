@@ -2,29 +2,29 @@
   <div class="footer-content">
     <!-- Contacto -->
     <div class="footer-column" style="margin-left: 4%;">
-      <h4 class="footer-title">Contacto</h4>
+      <h4 class="footer-title">{{ 'footer.contact' | translate }}</h4>
       <p><mat-icon>call</mat-icon> +506 8479-4671</p>
       <p><mat-icon>email</mat-icon> valssi&#64;.com</p>
     </div>
 
-    
+    <!-- Productos destacados -->
     <div class="footer-column">
-      <h4 class="footer-title">Productos Destacados</h4>
-      <a routerLink="/products/5">Cama tamaño king</a>
-      <a routerLink="/products/">Soporte para TV</a>
-      <a routerLink="/products/">Lámpara de piso</a>
+      <h4 class="footer-title">{{ 'footer.featuredProducts' | translate }}</h4>
+      <a routerLink="/products/5">{{ 'footer.products.kingBed' | translate }}</a>
+      <a routerLink="/products/3">{{ 'footer.products.tvStand' | translate }}</a>
+      <a routerLink="/products/10">{{ 'footer.products.floorLamp' | translate }}</a>
     </div>
 
     <!-- Empresa -->
     <div class="footer-column">
-      <h4 class="footer-title">Empresa</h4>
-      <a routerLink="/aboutUs">Sobre Nosotros</a>
-      <a href="#">Términos</a>
+      <h4 class="footer-title">{{ 'footer.company' | translate }}</h4>
+      <a routerLink="/aboutUs">{{ 'footer.aboutUs' | translate }}</a>
+      <a href="#">{{ 'footer.terms' | translate }}</a>
     </div>
 
     <!-- Redes Sociales -->
     <div class="footer-column">
-      <h4 class="footer-title">Síguenos</h4>
+      <h4 class="footer-title">{{ 'footer.followUs' | translate }}</h4>
       <div class="footer-icons">
         <a href="https://facebook.com" target="_blank"><mat-icon>facebook</mat-icon></a>
         <a href="https://instagram.com" target="_blank"><mat-icon>photo_camera</mat-icon></a>
@@ -33,6 +33,6 @@
   </div>
 
   <div class="footer-bottom">
-    <span>© 2025 Valssi. Todos los derechos reservados.</span>
+    <span>{{ 'footer.rights' | translate }}</span>
   </div>
 </footer>
