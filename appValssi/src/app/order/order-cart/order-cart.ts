@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, Signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { CartService } from '../../share/cart.service';
 import { OrderItemModel } from '../../share/models/OrderItemModel';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { OrderStatusModel } from '../../share/models/OrderStatusModel';
 import { UserModel } from '../../share/models/UserModel';
 import { UserService } from '../../share/services/user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
 
@@ -21,13 +21,15 @@ import { DatePipe } from '@angular/common';
   styleUrl: './order-cart.css',
   providers: [DatePipe]
 })
-export class OrderCart implements OnInit {
+export class OrderCart implements OnInit, OnDestroy {
   fecha = Date.now();
   userId = 5;
   username = '';
   email = '';
   form!: FormGroup;
   fechaFormateada = '';
+  private destroy$ = new Subject<boolean>();
+
 
   private cartService = inject(CartService);
 
@@ -45,8 +47,8 @@ export class OrderCart implements OnInit {
   // Columnas de la tabla
   columnasProducto: string[] = [
     'name',
-    'quantity',
     'price',
+    'quantity',
     'subtotal',
     'promotion',
     'total',
@@ -64,17 +66,18 @@ export class OrderCart implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Inicializamos con el idioma en localStorage
+    // Se inicializa con el idioma del localStorage
     const lang = localStorage.getItem('lang') || 'es';
     this.formatearFecha(lang);
 
-    // Escuchamos cambios de idioma
+    // Cuando hay cambios de idioma
     this.translate.onLangChange.subscribe(event => {
       console.log("Idioma cambiado:", event.lang);
       this.formatearFecha(event.lang);
     });
 
     this.getUser(this.userId);
+
     this.form = this.fb.group({
       comment: [''], 
     });
@@ -89,7 +92,7 @@ export class OrderCart implements OnInit {
   private getUser(id: number): void {
     this.userService
       .getById(id)
-      // .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.username = data.username;
         this.email = data.email;
@@ -100,8 +103,9 @@ export class OrderCart implements OnInit {
     const input = event.target as HTMLInputElement;
     let nuevaCantidad = parseInt(input.value, 10);
 
+    // Si el usuario no digita nada o si pone un valor menor a 0 siempre se pone como cantidad 1
     if (isNaN(nuevaCantidad) || nuevaCantidad < 0) {
-      nuevaCantidad = 1; // evita valores inválidos
+      nuevaCantidad = 1; 
     }
     if (nuevaCantidad === 0) {
       this.eliminarItem(element.product.id, element.customizations);
@@ -235,4 +239,9 @@ export class OrderCart implements OnInit {
   goBack(): void {
     this.router.navigate(['/order/']);
   }
+   ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
 }

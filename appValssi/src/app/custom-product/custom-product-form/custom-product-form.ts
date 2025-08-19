@@ -8,6 +8,7 @@ import { CustomProductService } from '../../share/services/custom-product.servic
 import { Subject, takeUntil } from 'rxjs';
 import { ProductModel } from '../../share/models/ProductModel';
 import { CartService } from '../../share/cart.service';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-custom-product-form',
@@ -56,19 +57,20 @@ export class CustomProductForm implements OnInit, OnDestroy {
         this.datos = data;
 
         console.log('images', this.datos.images);
+
         const nonCustomImages = data.images.filter((img) =>
           img.url.includes('edredon')
         );
 
         this.datos.images = nonCustomImages;
-        console.log('sin personalizar', nonCustomImages);
-
+        console.log('imagen seleccionada quemado ', 'http://localhost:3000/images/' + nonCustomImages[0].url);
+         console.log('imagen seleccionada apiurl', environment.apiURL +'/images/' + nonCustomImages[0].url);
         if (nonCustomImages?.length) {
           this.imagenSeleccionada =
-            'http://localhost:3000/images/' + nonCustomImages[0].url;
+           environment.apiURL +'/images/'+ nonCustomImages[0].url;
         } else {
           this.imagenSeleccionada =
-            'http://localhost:3000/images/image-not-found.png';
+            environment.apiURL +'/images/' + 'image-not-found.jpg';
         }
       });
   }
@@ -94,7 +96,7 @@ export class CustomProductForm implements OnInit, OnDestroy {
   }
 
   cambiarImagen(url: string): void {
-    this.imagenSeleccionada = 'http://localhost:3000/images/' + url;
+    this.imagenSeleccionada = environment.apiURL +'/images/' + url;
   }
 
   //Se ejecuta cada que cambia algo en el componente
@@ -107,8 +109,8 @@ export class CustomProductForm implements OnInit, OnDestroy {
   }
 
   getOptionImage(value: string): string {
-    const imageName = this.imageMap[value] || 'image-not-found.png';
-    const fullPath = `http://localhost:3000/images/${imageName}`;
+    const imageName = this.imageMap[value] || 'image-not-found.jpg';
+    const fullPath = environment.apiURL +'/images/'+imageName;
     return fullPath;
   }
 
@@ -164,36 +166,9 @@ export class CustomProductForm implements OnInit, OnDestroy {
     });
   }
 
-  // comprar(product: ProductModel) {
-  //   console.log(product);
-  //   this.noti.success('Compra', 'Producto comprado: ' + product.name, 3000);
-  //   this.cartService.addToCart(product);
-  // }
-
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  //   comprar(): void {
-  //   const payload= {
-  //     baseProductId: this.datos.id,
-  //     totalPrice: this.getTotal(),
-  //     selections: Object.values(this.selectedOptions).map((opt: any) => ({
-  //       optionValueId: opt.id
-  //     }))
-  //   };
-
-  //   console.log('Payload:', payload);
-
-  //   this.customProd.create(payload).subscribe({
-  //     next: () => {
-  //       this.noti.success('Compra', 'Producto personalizado creado', 3000);
-  //     },
-  //     error: (err) => {
-  //       console.error(err);
-  //       this.noti.error('Error', 'No se pudo crear el producto personalizado');
-  //     }
-  //   });
-  // }
 }

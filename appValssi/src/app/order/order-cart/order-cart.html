@@ -49,6 +49,15 @@
         <td mat-cell *matCellDef="let item">{{ item.product.name }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ 'order-cart.precioUnitario' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let item">
+          ₡{{ item.product.price | number}}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="quantity">
         <th mat-header-cell *matHeaderCellDef>
           {{ 'order-cart.cantidadColumna' | translate }}
@@ -61,15 +70,6 @@
             [value]="item.quantity"
             (change)="cambiarCantidad(item, $event)"
           />
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ 'order-cart.precioUnitario' | translate}}
-        </th>
-        <td mat-cell *matCellDef="let item">
-          ₡{{ item.product.price | number}}
         </td>
       </ng-container>
 
