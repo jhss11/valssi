@@ -7,6 +7,8 @@ import { NotificationService } from '../../share/notification-service';
 import { getFormValidationErrorMessage } from '../../share/form-validation';
 import { OrderService } from '../../share/services/order.service';
 import { OrderStatusModel } from '../../share/models/OrderStatusModel';
+import { expiryDateValidator } from '../../share/expiry-date-validator';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-order-payment-diag',
@@ -29,7 +31,8 @@ export class OrderPaymentDiag implements OnInit, OnDestroy {
     private pService: OrderService,
     private fb: FormBuilder,
     private noti: NotificationService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {
     this.datosDialog = data;
   }
@@ -72,6 +75,8 @@ export class OrderPaymentDiag implements OnInit, OnDestroy {
         ?.setValidators([
           Validators.required,
           Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/),
+          expiryDateValidator(),
+
         ]);
       this.paymentForm
         .get('cvv')
@@ -98,6 +103,8 @@ export class OrderPaymentDiag implements OnInit, OnDestroy {
     });
   }
 
+  
+
   private onCashChanges(): void {
     this.paymentForm
       .get('cashAmount')
@@ -111,35 +118,48 @@ export class OrderPaymentDiag implements OnInit, OnDestroy {
   }
 
   submitPayment(): void {
-    this.paymentForm.markAllAsTouched();
+  this.paymentForm.markAllAsTouched();
 
-    if (this.paymentForm.invalid) {
-      this.noti.error('Pago inválido', 'Por favor revise los datos.', 2000);
-      return;
-    }
+  if (this.paymentForm.invalid) {
+    const titulo = this.translate.instant('order-payment-diag.pagoInvalido');
+    const mensaje = this.translate.instant('order-payment-diag.reviseDatos');
+    this.noti.error(titulo, mensaje, 2000);
+    return;
+  }
 
-    const body = {
-      id: this.datosDialog.id,
-      paymentMethod: this.paymentMethodSignal(),
-      status: 'PAID' as OrderStatusModel,
-    };
+  const body = {
+    id: this.datosDialog.id,
+    paymentMethod: this.paymentMethodSignal(),
+    status: 'PAID' as OrderStatusModel,
+  };
 
-    // update() es público en BaseAPI
-    this.pService.updatePaymentMethod(body)
+  this.pService.updatePaymentMethod(body)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
-      next: (res) => {
-        this.noti.success('Pago actualizado correctamente', '', 2000);
+      next: () => {
+        const titulo = this.translate.instant('order-payment-diag.pagoExito');
+        const mensaje = this.translate.instant('order-payment-diag.pagoExitoMsg');
+        this.noti.success(titulo, mensaje, 2000);
         this.dialogRef.close(true);
       },
-      error: (err) => {
-        this.noti.error('Error al actualizar el pago', '', 2000);
+      error: () => {
+        const titulo = this.translate.instant('order-payment-diag.pagoError');
+        const mensaje = this.translate.instant('order-payment-diag.pagoErrorMsg');
+        this.noti.error(titulo, mensaje, 2000);
       }
     });
 }
 
-  errorHandling(controlPath: string): string | false {
-    return getFormValidationErrorMessage(this.paymentForm, controlPath);
+
+   errorHandling(controlName: string): string | false {
+    const control = this.paymentForm.get(controlName);
+    if (!control || !control.errors || !control.touched) return false;
+
+    const firstErrorKey = Object.keys(control.errors)[0];
+
+    return this.translate.instant(
+      `order-payment-diag.validators.${controlName}.${firstErrorKey}`
+    );
   }
 
   close(): void {

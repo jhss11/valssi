@@ -145,6 +145,11 @@ export const FormErrorMessage: FormValidatorMessage[] = [
     text: 'La fecha de expiración debe tener el formato MM/AA',
   },
   {
+    forControl: 'expiryDate',
+    forValidator: 'expired',
+    text: 'La fecha de expiración es anterior a la fecha actual '
+  },
+  {
     forControl: 'cvv',
     forValidator: 'required',
     text: 'El CVV es obligatorio',

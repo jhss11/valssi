@@ -139,19 +139,50 @@
     "noPendientes": "You do not have any pending payment orders"
   },
 
- "order-payment-diag": { 
-  "titulo": "Payment Process",
-  "totalPedido": "Order Total:",
+"order-payment-diag": {
+  "titulo": "Payment Method",
+  "totalPedido": "Order total",
   "tarjeta": "Card",
   "efectivo": "Cash",
   "numero": "Card Number",
-  "fechaExp": "Expiration Date (MM/YY)",
+  "fechaExp": "Expiry Date",
   "cvv": "CVV",
-  "titular": "Cardholder Name",
-  "monto": "Amount",
+  "titular": "Card Holder",
+  "monto": "Cash Amount",
   "vuelto": "Change",
   "cancelar": "Cancel",
-  "pagar": "Pay"
+  "pagar": "Pay",
+
+  "pagoInvalido": "Invalid Payment",
+  "reviseDatos": "Please review the entered data.",
+  "pagoExito": "Payment updated successfully",
+  "pagoExitoMsg": "The payment has been registered successfully",
+  "pagoError": "Payment update error",
+  "pagoErrorMsg": "It was not possible to process the payment",
+
+  "validators": {
+    "cardNumber": {
+      "required": "Card number is required",
+      "pattern": "Card number must be 16 digits"
+    },
+    "expiryDate": {
+      "required": "Expiry date is required",
+      "pattern": "Expiry date must be in MM/YY format",
+      "expired": "Expiry date must be after the current date"
+    },
+    "cvv": {
+      "required": "CVV is required",
+      "pattern": "CVV must be 3 or 4 digits"
+    },
+    "cardHolder": {
+      "required": "Card holder name is required"
+    },
+    "cashAmount": {
+      "required": "You must enter the amount received in cash",
+      "min": "The received amount must be equal to or greater than the order total",
+      "pattern": "The received amount must be a valid number"
+    }
+  }
 },
 
   "review-index": {

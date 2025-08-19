@@ -76,7 +76,7 @@ export class OrderCart implements OnInit {
 
     this.getUser(this.userId);
     this.form = this.fb.group({
-      comment: [''], // valor inicial vacío
+      comment: [''], 
     });
   }
 
@@ -178,71 +178,6 @@ export class OrderCart implements OnInit {
 
   return true;
 }
-
-  // crearOrden() {
-  //   this.form.markAllAsTouched();
-
-  //   const direccion = this.form?.get('comment')?.value?.trim(); // O el nombre que uses en tu FormGroup
-  //   if (!direccion) {
-  //     this.noti.warning(
-  //       'Crear Orden',
-  //       'Debe ingresar la dirección de envío',
-  //       3000
-  //     );
-  //     return;
-  //   }
-  //   //VERIFICAR EL STOCK
-  //   if (this.cartService.itemsCart().length > 0) {
-  //     const valido = this.validarStockAntesDeComprar();
-  //     console.log('Resultado validación stock:', valido);
-  //     if (!valido) {
-  //       return;
-  //     }
-  //     // Mapeamos los ítems del carrito a OrderItemModel
-  //     const items: OrderItemModel[] = this.cartService.itemsCart().map(
-  //       (x: ItemCartModel) =>
-  //         ({
-  //           productId: x.product.id,
-  //           quantity: x.quantity,
-  //           price: x.product.price,
-  //           customizations: x.customizations || null,
-  //         } as OrderItemModel)
-  //     );
-
-  //     const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
-  //     console.log(' Fecha guardar', new Date());
-  //     console.log(' Fecha form', Date.now());
-
-  //     // Creamos el objeto orden con valores iniciales válidos
-  //     let orden: OrderModel = {
-  //       id: 0,
-  //       user: {} as UserModel,
-  //       userId: this.userId, // Aquí pones el ID del usuario logueado
-  //       createdAt: new Date(), // O lo maneja el backend
-  //       status: 'PENDING_PAYMENT' as OrderStatusModel, // Estado inicial
-  //       items,
-  //       address: direccion, // Desde formulario o sesión
-  //       // paymentMethod: 'Tarjeta', // Desde formulario
-  //       subtotal: subtotal,
-  //       total: this.cartService.total() * 1.13,
-  //       statusLogs: [], // El backend puede llenarlo después
-  //     } as OrderModel;
-
-  //     this.orderService.create(orden).subscribe((respuesta) => {
-  //       this.cartService.deleteCart();
-
-  //       this.noti.success(
-  //         'Crear Orden',
-  //         'Orden creada #' + respuesta.id,
-  //         3000,
-  //         '/order'
-  //       );
-  //     });
-  //   } else {
-  //     this.noti.warning('Crear Orden', 'Agregue productos a la orden', 3000);
-  //   }
-  // }
-
 
   crearOrden() {
   this.form.markAllAsTouched();
