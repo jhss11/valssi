@@ -140,19 +140,51 @@
   },
 
   "order-payment-diag": {
-    "titulo": "Proceso de Pago",
-    "totalPedido": "Total del pedido:",
-    "tarjeta": "Tarjeta",
-    "efectivo": "Efectivo",
-    "numero": "Número de tarjeta",
-    "fechaExp": "Fecha de expiración (MM/AA)",
-    "cvv": "CVV",
-    "titular": "Nombre del titular",
-    "monto": "Monto",
-    "vuelto": "Vuelto",
-    "cancelar": "Cancelar",
-    "pagar": "Pagar"
-  },
+  "titulo": "Método de Pago",
+  "totalPedido": "Total del pedido",
+  "tarjeta": "Tarjeta",
+  "efectivo": "Efectivo",
+  "numero": "Número de tarjeta",
+  "fechaExp": "Fecha de expiración",
+  "cvv": "CVV",
+  "titular": "Titular de la tarjeta",
+  "monto": "Monto recibido",
+  "vuelto": "Vuelto",
+  "cancelar": "Cancelar",
+  "pagar": "Pagar",
+
+  "pagoInvalido": "Pago inválido",
+  "reviseDatos": "Por favor revise los datos.",
+  "pagoExito": "Pago actualizado correctamente",
+  "pagoExitoMsg": "El pago ha sido registrado con éxito",
+  "pagoError": "Error al actualizar el pago",
+  "pagoErrorMsg": "No fue posible procesar el pago",
+
+  "validators": {
+    "cardNumber": {
+      "required": "El número de tarjeta es obligatorio",
+      "pattern": "El número de tarjeta debe tener 16 dígitos"
+    },
+    "expiryDate": {
+      "required": "La fecha de expiración es obligatoria",
+      "pattern": "La fecha de expiración debe tener el formato MM/AA",
+      "expired": "La fecha de expiración es anterior a la fecha actual"
+    },
+    "cvv": {
+      "required": "El CVV es obligatorio",
+      "pattern": "El CVV debe tener 3 o 4 dígitos"
+    },
+    "cardHolder": {
+      "required": "El nombre del titular es obligatorio"
+    },
+    "cashAmount": {
+      "required": "Debe ingresar el monto recibido en efectivo",
+      "min": "El monto recibido debe ser igual o mayor al total del pedido",
+      "pattern": "El monto recibido debe ser un número válido"
+    }
+  }
+},
+
 
   "review-index": {
     "titulo": "Reseñas",

@@ -19,11 +19,11 @@ export class Header {
     this.currentUser={
       email:'jhasimarias@gmail.com'
     }
-    
-
+  
     console.log("cantidad", this.qtyItems)
   }
-  switchLanguage(lang: string) {
+
+  cambiarIdioma(lang: string) {
     this.translate.use(lang);
     localStorage.setItem('lang', lang);
   }

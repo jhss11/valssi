@@ -23,12 +23,7 @@ export class CartService {
     this.cart().reduce((total, item) => total + item.subtotal, 0)
   );
 
-// public total = computed(() =>
-//   this.cart().reduce((total, item) => {
-//     const discount = this.calculatePromotions(item.product, item.quantity);
-//     return total + item.subtotal - discount;
-//   }, 0)
-// );
+
 
 
   constructor() {
@@ -99,55 +94,12 @@ private calculatePromotions(product: ProductModel, cantidad: number): number {
    * @param producto El videojuego a añadir.
    * @param quantity Cantidad opcional para establecer; si no se especifica, incrementa en 1.
    */
-// addToCart(product: ProductModel, quantity?: number): void {
-//     // `update` para modificar el signal de forma inmutable
-//     this.cart.update((currentCart) => {
-//       const listCart = [...currentCart]; // Crear una copia de la compra
-//       const existingItemIndex = listCart.findIndex(
-//         (item) => item.product?.id === product.id
-//       );
 
-//       if (existingItemIndex !== -1) {
-//         // Si el producto ya existe
-//         const existingItem = listCart[existingItemIndex];
-//         let newQuantity: number;
-
-//         if (quantity !== undefined) {
-//           newQuantity = Number(quantity);
-//         } else {
-//           newQuantity = existingItem.quantity + 1;
-//         }
-
-//         if (newQuantity <= 0) {
-//           // Si la cantidad llega a 0 o menos, eliminar el ítem
-//           listCart.splice(existingItemIndex, 1);
-//         } else {
-//           // Actualizar cantidad y subtotal del ítem existente
-//           listCart[existingItemIndex] = {
-//             ...existingItem,
-//             quantity: newQuantity,
-//              subtotal: this.calculateSubtotal(existingItem.product, newQuantity),
-//           };
-//         }
-//       } else {
-//         // Si el producto no existe, añadirlo como un nuevo ítem
-//         listCart.push({
-//           product,
-//           quantity: quantity ? Number(quantity) : 1,
-//           subtotal: this.calculateSubtotal(product, quantity ? Number(quantity) : 1),
-//           // promotions:
-//         });
-
-//       }
-//       return listCart;
-//     });
-//   }
 addToCart(product: ProductModel, quantity?: number, customizations?: any): void {
   this.cart.update((currentCart) => {
     const listCart = [...currentCart];
 
-    // Si quieres que cada set de opciones se trate como ítem único,
-    // cambia la comparación para incluir customizations.
+   
     const existingItemIndex = listCart.findIndex(
       (item) =>
         item.product?.id === product.id &&
