@@ -106,6 +106,8 @@ const main = async () => {
         category: { connect: { id: 2 } },
         images: {
           create: [
+            { url: "productoEdredon1.jpg" },
+            { url: "productoEdredon2.jpg" },
             { url: "edredon-1.jpg" },
             { url: "edredon-2.jpg" },
             { url: "edredon-3.jpg" },
@@ -218,7 +220,7 @@ const main = async () => {
         description:
           "Lámpara de pie con luz regulable. Hecho de metal en tono plateado y mármol blanco con pantallas de vidrio escarchado. bombillos tipo B (no se incluye); 40 vatios máximo; Listado bajo norma UL",
         price: 16700,
-        stock: 10,
+        stock: 1,
         category: { connect: { id: 4 } },
         images: {
           create: [{ url: "lampara-1.jpg" }, { url: "lampara-2.jpg" }],
@@ -323,7 +325,7 @@ const main = async () => {
         type: PromoType.PERCENTAGE,
         amount: 10,
         productId: 2,
-        startDate: new Date("2025-09-12T00:00:00Z"),
+        startDate: new Date("2025-08-12T00:00:00Z"),
         endDate: new Date("2025-09-16T00:00:00Z"),
       },
     });

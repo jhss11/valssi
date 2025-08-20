@@ -2,23 +2,21 @@
   <!-- Hero principal -->
   <section class="hero">
     <div class="hero-content">
-      <h1 class="hero-title">Bienvenido a Valssi</h1>
-      <p class="hero-subtitle">
-        Tu sitio de confianza para explorar y comprar productos con calidad garantizada.
-      </p>
+      <h1 class="hero-title">{{ 'home.title' | translate }}</h1>
+      <p class="hero-subtitle">{{ 'home.subtitle' | translate }}</p>
       <a
         mat-flat-button
         class="btn-hero"
         [routerLink]="['/product']"
         routerLinkActive="active-link"
       >
-        Explorar productos
+        {{ 'home.btnExplore' | translate }}
       </a>
     </div>
     <div class="hero-img-wrapper">
       <img
         src="https://muebleslospacos.es/wp-content/uploads/2024/12/sillon-con-mecanismo-relax-hero-acomodel-copia.jpg"
-        alt="Imagen principal"
+        alt="Imagen inicio"
         class="hero-img"
       />
     </div>
@@ -27,21 +25,21 @@
   <!-- Sección de valores o beneficios -->
   <section class="valores">
     <div class="valor">
-      <h3>Calidad garantizada</h3>
-      <p>Seleccionamos productos con altos estándares de calidad.</p>
+      <h3>{{ 'home.qualityTitle' | translate }}</h3>
+      <p>{{ 'home.qualityDesc' | translate }}</p>
     </div>
     <div class="valor">
-      <h3>Estilo y comodidad</h3>
-      <p>Diseños modernos que combinan funcionalidad y elegancia.</p>
+      <h3>{{ 'home.styleTitle' | translate }}</h3>
+      <p>{{ 'home.styleDesc' | translate }}</p>
     </div>
     <div class="valor">
-      <h3>Compra segura</h3>
-      <p>Plataforma confiable con múltiples opciones de pago.</p>
+      <h3>{{ 'home.secureTitle' | translate }}</h3>
+      <p>{{ 'home.secureDesc' | translate }}</p>
     </div>
   </section>
 
   <!-- Productos destacados -->
-  <section class="destacados">
+  <!-- <section class="destacados">
   <h2 class="seccion-titulo">Productos destacados</h2>
 
   <div class="tarjetas-grid">
@@ -60,7 +58,7 @@
       </div>
     }
   </div>
-</section>
+</section> -->
 </div>
 
 

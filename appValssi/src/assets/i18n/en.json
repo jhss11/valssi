@@ -97,6 +97,7 @@
   "order-cart": {
     "volver": "Back",
     "titulo": "Shopping Cart",
+    "estadoCarrito": "Cart",
     "estadoPedido": "Order status",
     "cliente": "Client:",
     "nombre": "Name:",
@@ -280,6 +281,20 @@
     "terms": "Terms",
     "followUs": "Follow Us",
     "rights": "© 2025 Valssi. All rights reserved."
+  },
+
+  "home": {
+    "title": "Welcome to Valssi",
+    "subtitle": "Your trusted site to explore and buy products with guaranteed quality.",
+    "btnExplore": "Explore Products",
+    "qualityTitle": "Guaranteed Quality",
+    "qualityDesc": "We select products with high quality standards.",
+    "styleTitle": "Style and Comfort",
+    "styleDesc": "Modern designs that combine functionality and elegance.",
+    "secureTitle": "Safe Purchase",
+    "secureDesc": "Reliable platform with multiple payment options."
   }
+
+
 
 }

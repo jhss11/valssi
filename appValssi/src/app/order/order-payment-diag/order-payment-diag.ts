@@ -44,6 +44,8 @@ export class OrderPaymentDiag implements OnInit, OnDestroy {
     this.applyValidators(this.paymentMethodSignal());
   }
 
+  
+
   private initForm(): void {
     this.paymentForm = this.fb.group({
       paymentMethod: [this.paymentMethodSignal(), Validators.required],
@@ -76,7 +78,6 @@ export class OrderPaymentDiag implements OnInit, OnDestroy {
           Validators.required,
           Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/),
           expiryDateValidator(),
-
         ]);
       this.paymentForm
         .get('cvv')
@@ -102,8 +103,6 @@ export class OrderPaymentDiag implements OnInit, OnDestroy {
       this.paymentForm.get(key)?.updateValueAndValidity({ emitEvent: false });
     });
   }
-
-  
 
   private onCashChanges(): void {
     this.paymentForm

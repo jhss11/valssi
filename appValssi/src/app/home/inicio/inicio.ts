@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-inicio',
@@ -8,6 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Inicio implements OnInit {
   productos: any[] = [];
+
+ constructor(
+    public translate: TranslateService,
+  ) {}
 
   ngOnInit(): void {
     this.productos = [

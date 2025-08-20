@@ -160,11 +160,10 @@ export class orderController {
           userId: infoOrden.userId,
           address: infoOrden.address,
           status: infoOrden.status,
-          // paymentMethod: infoOrden.paymentMethod
           subtotal: infoOrden.subtotal,
           total: infoOrden.total,
           items: {
-            create: [], // los crearemos después manualmente para diferenciar
+            create: [], // se crean después manualmente para diferenciar los normales con personalizados
           },
           statusLogs: {
             create: [
@@ -177,7 +176,7 @@ export class orderController {
         },
       });
 
-      // Procesamos cada item
+      // Se procesa cada item para saber si tiene opciones de personalizado
       for (const item of infoOrden.items) {
         if (
           item.customizations &&
