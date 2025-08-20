@@ -6,6 +6,7 @@ import { Inicio } from './inicio/inicio';
 import { AboutUs } from './about-us/about-us';
 
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule,
     MatButtonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    TranslateModule
   ]
 })
 export class HomeModule { }

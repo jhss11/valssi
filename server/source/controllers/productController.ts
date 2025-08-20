@@ -166,6 +166,28 @@ export class ProductController {
     }
   };
 
+// getProductStock = async (
+//    request: Request,
+//     response: Response,
+//     next: NextFunction
+//   ) => {
+//     try {
+//       let idProduct = parseInt(request.params.id);
+//       const now = new Date();
+//       const product = await this.prisma.product.findUnique({
+//         where: { id: idProduct },
+//         select: {
+//           id: true,
+//           stock: true,
+//         },
+//       });
+
+//       response.json(product);
+//     } catch (error: any) {
+//       next(error);
+//     }
+//   };
+
   create = async (request: Request, response: Response, next: NextFunction) => {
     try {
       //Obtener los datos json

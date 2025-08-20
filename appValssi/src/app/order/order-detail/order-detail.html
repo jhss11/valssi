@@ -162,6 +162,6 @@
   <!-- Método de Pago -->
   <div class="payment-method invoice-style">
     <h3>{{ 'order-detail.metodoPago' | translate}}</h3>
-      <p>{{ 'order-detail.pagoUtilizado' | translate: { method: pedido.paymentMethod } }}</p>
+      <p>{{ 'order-detail.pagoUtilizado' | translate: { method: pedido.paymentMethod == 'CARD'? 'Tarjeta': 'Efectivo' } }} </p>
   </div>
 </div>

@@ -128,7 +128,7 @@ export class OrderCart implements OnInit, OnDestroy {
     const categoryPromos = baseProduct?.category?.promotions || [];
     const productPromos = baseProduct?.promotions || [];
 
-    // Se recorren todas las promociones combinadas para sabe si son aplicables en la fecha
+    // Se recorren todas las promociones combinadas para saber si son aplicables en la fecha
     [...categoryPromos, ...productPromos].forEach((p: any) => {
       const startDate = new Date(p.startDate);
       const endDate = new Date(p.endDate);
@@ -224,11 +224,11 @@ export class OrderCart implements OnInit, OnDestroy {
     this.orderService.create(orden).subscribe((respuesta) => {
       this.cartService.deleteCart();
 
-      // Mensaje traducido dinámicamente
+      // Mensaje traducido por partes
       const titulo = this.translate.instant('order-cart.crearOrden');
       const mensaje = this.translate.instant('order-cart.ordenCreada', { id: respuesta.id });
 
-      this.noti.success(titulo, mensaje, 3000, '/order');
+      this.noti.success(titulo, mensaje, 3000, '/orders/pending');
     });
   } else {
     const titulo = this.translate.instant('order-cart.crearOrden');
@@ -237,7 +237,7 @@ export class OrderCart implements OnInit, OnDestroy {
   }
 }
   goBack(): void {
-    this.router.navigate(['/order/']);
+    this.router.navigate(['/product']);
   }
    ngOnDestroy(): void {
     this.destroy$.next(true);

@@ -14,6 +14,9 @@ export class ProductRoutes {
     //localhost:3000/products/2
     router.get("/:id", controller.getById);
 
+    // router.get("/:id/stock", controller.getProductStock);
+
+
     //localhost:3000/products/promotions/active/
     router.get("/promotions/active", controller.getWithPromotion);
 
