@@ -324,7 +324,7 @@ const main = async () => {
         name: "Descuento pocas unidades",
         type: PromoType.PERCENTAGE,
         amount: 10,
-        productId: 2,
+        productId: 10,
         startDate: new Date("2025-08-12T00:00:00Z"),
         endDate: new Date("2025-09-16T00:00:00Z"),
       },

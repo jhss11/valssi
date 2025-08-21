@@ -11,7 +11,9 @@ export function expiryDateValidator(): ValidatorFn {
     const year = parseInt(yearStr, 10);
 
     const now = new Date();
+    //suma 1 porque getMonth() va de 0-11
     const currentMonth = now.getMonth() + 1;
+    //toma los últimos 2 dígitos del año 
     const currentYear = now.getFullYear() % 100;
 
     return year < currentYear || (year === currentYear && month < currentMonth)
