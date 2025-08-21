@@ -206,7 +206,6 @@ export class OrderCart implements OnInit, OnDestroy {
       customizations: x.customizations || null,
     }));
 
-    const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
 
     const orden: OrderModel = {
       id: 0,
@@ -216,7 +215,7 @@ export class OrderCart implements OnInit, OnDestroy {
       status: 'PENDING_PAYMENT' as OrderStatusModel,
       items,
       address: direccion,
-      subtotal,
+      subtotal: this.cartService.total(),
       total: this.cartService.total() * 1.13,
       statusLogs: [],
     };
