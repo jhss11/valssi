@@ -15,6 +15,7 @@ export class ProductController {
           name: true,
           price: true,
           averageRating: true,
+          isDeleted: true,
           images: {
             select: { url: true },
             take: 1,
@@ -107,6 +108,8 @@ export class ProductController {
     try {
       const now = new Date();
       const products = await this.prisma.product.findMany({
+        where:
+        {isDeleted:false},
         orderBy: {
           createdAt: "desc",
         },
@@ -115,6 +118,8 @@ export class ProductController {
           name: true,
           price: true,
           averageRating: true,
+          tags: true,
+          categoryId: true,
           images: {
             select: { url: true },
             take: 1,
@@ -283,6 +288,24 @@ export class ProductController {
         category: { connect: { id: body.categoryId } },
         tags: { disconnect: disconnectTags, connect: connectTags },
         images: { create: createImages },
+      },
+    });
+
+    response.json(productoActualizado);
+  } catch (error) {
+    next(error);
+  }
+};
+
+ updateEstado = async (request: Request, response: Response, next: NextFunction) => {
+  try {
+    const body = request.body;
+    // const idProducto = parseInt(request.params.id);
+
+    const productoActualizado = await this.prisma.product.update({
+      where: { id: parseInt(body.id) },
+      data: {
+       isDeleted:body.isDeleted,
       },
     });
 

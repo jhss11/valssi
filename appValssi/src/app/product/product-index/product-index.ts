@@ -48,5 +48,22 @@ export class ProductIndex {
     });
   }
 
+
+  cambiarEstado(item: ProductModel) {
+  const nuevoEstado = !item.isDeleted; // invertir estado actual
+
+  this.vjService.updateEstado({ id: item.id, isDeleted: nuevoEstado }).subscribe({
+    next: (updated) => {
+      item.isDeleted = updated.isDeleted; // reflejar cambio en UI
+      const msg = item.isDeleted 
+        ? this.noti.success('Producto desactivado', 'El producto fue desactivado', 2000)
+        : this.noti.success('Producto reactivado', 'El producto fue reactivado', 2000);
+    },
+    error: () => {
+      this.noti.error('Error', 'No se pudo actualizar el estado del producto', 2000);
+    }
+  });
+}
+
   
 }

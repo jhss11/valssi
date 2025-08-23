@@ -32,3 +32,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-mdc-snack-bar-container.warning .mat-mdc-button-base {
   color: black !important;
 }
+
+.no-theme-select {
+  .mdc-line-ripple {
+    display: none !important;
+  }
+
+  .mat-mdc-select-panel {
+    background: #fff !important;
+  }
+
+  .mat-mdc-option {
+    color: #000 !important;
+    font-weight: 500;
+  }
+
+  .mat-mdc-option:hover {
+    background: #f5f5f5 !important;
+    
+  }
+
+  .mat-mdc-option.mdc-list-item--selected {
+    background: #e6e6e6 !important;
+    font-weight: 500;
+  }
+}
+
