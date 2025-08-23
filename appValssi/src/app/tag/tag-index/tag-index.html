@@ -1,0 +1,36 @@
+<h2 class="titulo">Listado de Etiquetas</h2>
+<h3 class="subtitulo">Aquí puedes administrar las etiquetas disponibles</h3>
+
+<div class="btn-crear-container">
+  <button mat-flat-button color="primary" class="crear-btn" (click)="create()">
+    {{ 'product-index.agregar' | translate }}
+  </button>
+</div>
+
+<div class="container">
+  @if (tags?.length > 0) {
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (tag of tags; track tag.id) {
+          <tr>
+            <td>{{ tag.name }}</td>
+            <td>
+              <button mat-icon-button  (click)="editar(tag)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p>No hay etiquetas registradas.</p>
+  }
+</div>

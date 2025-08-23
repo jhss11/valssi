@@ -33,6 +33,7 @@ import { registerLocaleData } from '@angular/common';
 
 import localeEs from '@angular/common/locales/es';
 import localeEn from '@angular/common/locales/en';
+import { TagModule } from './tag/tag-module';
 
 registerLocaleData(localeEs);
 registerLocaleData(localeEn);
@@ -55,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrderModule,
     PromotionModule,
     CustomProductModule,
+    TagModule,
 
     // Módulo de traducción configurado
     TranslateModule.forRoot({

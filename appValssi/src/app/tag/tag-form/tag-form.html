@@ -1,0 +1,20 @@
+<form [formGroup]="tagForm" (ngSubmit)="submit()" novalidate>
+  <h2>{{ titleForm }} Etiqueta</h2>
+
+  <input type="hidden" formControlName="id" />
+
+  <!-- Nombre -->
+  <div class="field">
+    <mat-form-field floatLabel="auto" hideRequiredMarker="true">
+      <mat-label>{{ 'product-form.nombre' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        placeholder="Nombre"
+        style="font-weight: 400"
+      />
+      @if(errorHandling('name')){
+      <mat-error class="text-danger"> {{ errorHandling('name') }} </mat-error>
+      }
+    </mat-form-field>
+  </div>
