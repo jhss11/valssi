@@ -8,6 +8,10 @@ export class TagRoutes {
 
     //localhost:3000/promotion/
     router.get("/", controller.get);
+    //Crear
+    router.post("/", controller.create);
+    //Actualizar
+    router.put('/:id',controller.update)
  
     return router;
   }

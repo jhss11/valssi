@@ -1,0 +1,95 @@
+.titulo {
+  color: #355753;
+  text-align: center;
+  font-size: 2.3rem;
+  font-weight: 400;
+  margin-top: 3rem;
+  margin-bottom: -0.1rem;
+}
+
+
+.subtitulo {
+  text-align: center;
+  color: #555;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 1000px
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem auto;
+}
+
+.tabla th,
+.tabla td {
+  padding: 1.3rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.tabla tr:hover {
+  background-color: #f9f9f9;
+}
+button[mat-flat-button] {
+  background-color: #355753;
+  color: white;
+  font-weight: 500;
+  border-radius: 8px;
+  font-size: 1rem;
+
+}
+
+.btn-contenedor {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+ margin-top: 1rem;
+
+}
+
+button:hover {
+  background-color: #8ba7a4;
+  color: #355753;
+}
+.btn-crear-container {
+  padding-left: 5.5rem; 
+  margin-bottom: 1rem;
+}
+
+.crear-btn {
+  background-color: #355753;
+  color: white;
+  font-weight: 500;
+  padding: 6px 20px;
+  border-radius: 8px;
+  height: 36px;
+  min-width: 90px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.crear-btn:hover {
+  background-color: #8ba7a4;
+  color: #355753;
+}
+
+/* Estilos para iconos de acciones */
+/* button[mat-icon-button] {
+  margin-right: 0.5rem;
+}
+
+button[mat-icon-button]:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  /* border-radius: 50%; 
+} */
