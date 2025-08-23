@@ -31,6 +31,25 @@
         <span class="rating">({{ item.averageRating.toFixed(1) }})</span>
 
         <div class="btn-contenedor">
+          @if (!item.isDeleted) {
+          <button
+            mat-icon-button
+            class="btn-desactivar"
+            (click)="cambiarEstado(item)"
+          >
+            <mat-icon>block</mat-icon>
+            <!-- desactivar -->
+          </button>
+          } @else {
+          <button
+            mat-icon-button
+            class="btn-activar"
+            (click)="cambiarEstado(item)"
+          >
+            <mat-icon>check_circle</mat-icon>
+            <!-- reactivar -->
+          </button>
+          }
           <button mat-flat-button color="primary" (click)="update(item.id)">
             {{ 'product-index.editar' | translate }}
           </button>

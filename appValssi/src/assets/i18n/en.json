@@ -10,7 +10,12 @@
   "product-list": {
     "titulo": "Products with Promotions",
     "subtitulo": "Promotion History",
-    "detalle": "Details"
+    "detalle": "Details",
+    "filtroCategoria": "Category",
+    "filtroEtiqueta": "Tags",
+    "todasCategorias": "All"
+
+
   },
 
   "product-detail": {

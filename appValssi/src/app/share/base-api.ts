@@ -25,6 +25,10 @@ updatePaymentMethod(body: { id: number; paymentMethod: 'CARD' | 'CASH' }): Obser
   return this.http.put(`${this.urlAPI}/${this.endpoint}/`, body);
 }
 
+updateEstado(body: { id: number; isDeleted:boolean }): Observable<any> {
+  return this.http.put(`${this.urlAPI}/${this.endpoint}/`, body);
+}
+
   getMethod(
     action: string,
     options: { [param: string]: unknown } = {}

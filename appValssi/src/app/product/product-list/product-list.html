@@ -1,54 +1,92 @@
 <h2 class="titulo">{{ 'product-list.titulo' | translate }}</h2>
 <h3 class="subtitulo">{{ 'product-list.subtitulo' | translate }}</h3>
+
+<!-- Filtros -->
+<div class="filtros-container">
+  <h4 style="font-weight: 500;">Filtrar productos:</h4>
+  <!-- Filtro por categoría -->
+<mat-form-field appearance="fill" class="no-theme-select filtro-custom">
+  <mat-select style="color: #355753; font-weight: 400;"
+    placeholder="{{ 'product-list.filtroCategoria' | translate }}" 
+    [value]="categoriaSeleccionada()" 
+    (selectionChange)="onCategoriaSelectChange($event.value)">
+    
+    <!-- Opción para resetear -->
+    <mat-option style="font-weight: 500;" [value]="null">{{ 'product-list.todasCategorias' | translate }}</mat-option>
+
+    @for (categoria of lCategorias(); track categoria.id) {
+      <mat-option style="font-weight: 500;" [value]="categoria.id">{{ categoria.name }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+<!-- Filtro por etiquetas -->
+<mat-form-field appearance="fill" class="no-theme-select filtro-custom">
+  <mat-select style="color: #355753; font-weight: 400;"
+    multiple 
+    placeholder="{{ 'product-list.filtroEtiqueta' | translate }}" 
+    [value]="etiquetasSeleccionadas()" 
+    (selectionChange)="onEtiquetasSelectChange($event.value)">
+    
+    @for (etiqueta of lEtiquetas(); track etiqueta.id) {
+      <mat-option style="font-weight: 500;" [value]="etiqueta.id">{{ etiqueta.name }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+</div>
+
+<!-- Lista de productos -->
 <div class="productos-container">
-  @if (datos) { @for (item of datos; track item.id) {
-  <div class="producto-card">
-    <mat-card>
-      <img
-        mat-card-image
-        [src]="'http://localhost:3000/images/' + (item.images?.[0]?.url || 'image-not-found')"
-        [alt]="item.name"
-      />
+  @if (filterDatos().length > 0) {
+    @for (item of filterDatos(); track item.id) {
+      <div class="producto-card">
+        <mat-card>
+          <img
+            mat-card-image
+            [src]="'http://localhost:3000/images/' + (item.images[0].url || 'image-not-found')"
+            [alt]="item.name"
+          />
 
-      <div class="producto-info">
-        <h3 class="nombre">
-          {{ item.name }}
-          <!-- @if (getPromotion(item)) {
-                <mat-chip color="warn" class="promo-chip" selected>
-                  {{ getPromotion(item)?.name }}
-                </mat-chip>
-              } -->
-        </h3>
+          <div class="producto-info">
+            <h3 class="nombre">
+              {{ item.name }}
+            </h3>
 
-        @if (getPromotion(item)) {
-        <div class="precio promo-aplicado">
-          <span class="precio-original">₡{{ item.price | number }}</span>
-          <span class="precio-descuento">
-            ₡{{ getDiscountedPrice(item) | number }}
-          </span>
-        </div>
-        } @else {
-        <div class="precio">₡{{ item.price | number }}</div>
-        }
+            @if (getPromotion(item)) {
+              <div class="precio promo-aplicado">
+                <span class="precio-original">₡{{ item.price | number }}</span>
+                <span class="precio-descuento">
+                  ₡{{ getDiscountedPrice(item) | number }}
+                </span>
+              </div>
+            } @else {
+              <div class="precio">₡{{ item.price | number }}</div>
+            }
 
-        <span class="estrellas">
-          @for (i of [].constructor(5); track $index) {
-          <mat-icon color="warn">
-            {{ item.averageRating >= $index + 1 ? 'star' : item.averageRating >=
-            $index + 0.5 ? 'star_half' : 'star_border' }}
-          </mat-icon>
-          }
-        </span>
+            <span class="estrellas">
+              @for (i of [].constructor(5); track $index) {
+                <mat-icon color="warn">
+                  {{ item.averageRating >= $index + 1 ? 'star' : item.averageRating >=
+                  $index + 0.5 ? 'star_half' : 'star_border' }}
+                </mat-icon>
+              }
+            </span>
 
-        <span class="rating">({{ item.averageRating.toFixed(1) }})</span>
+            <span class="rating">({{ item.averageRating.toFixed(1) }})</span>
 
-        <div class="btn-contenedor">
-          <button mat-flat-button color="primary" (click)="verDetalle(item.id)">
-            {{ 'product-list.detalle' | translate }}
-          </button>
-        </div>
+            <div class="btn-contenedor">
+              <button mat-flat-button color="primary" (click)="verDetalle(item.id)">
+                {{ 'product-list.detalle' | translate }}
+              </button>
+            </div>
+          </div>
+        </mat-card>
       </div>
-    </mat-card>
+    }
+  }@else {
+  <div>
+    <p>No se encontraron productos con los filtros aplicados.</p>
   </div>
-  } }
+  }
 </div>

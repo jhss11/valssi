@@ -75,10 +75,21 @@ mat-card img {
 }
 
 .btn-contenedor {
- margin-top: 1rem;
   display: flex;
-  justify-content: end;
-  gap: 0.72rem;
+  align-items: center;
+  gap: 6px;
+ margin-top: 1rem;
+
+}
+ .btn-desactivar {
+  /* box-shadow: 0 0 6px rgba(255, 0, 0, 0.6); */
+  color: red;
+}
+
+.btn-activar {
+  /* border: 1px solid green; */
+  /* box-shadow: 0 0 6px rgba(0, 128, 0, 0.6); */
+  color: green;
 }
 
 button[mat-flat-button] {
