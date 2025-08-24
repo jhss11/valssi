@@ -10,7 +10,7 @@
             <mat-label>Nombre de usuario</mat-label>
             <input matInput formControlName="username" placeholder="Ingrese su nombre de usuario" style="font-weight: 400" />
             @if(errorHandling('username')){
-            <mat-error class="text-danger">{{ errorHandling('username') }}</mat-error>
+            <mat-error style="color: firebrick;">{{ errorHandling('username') }}</mat-error>
             }
           </mat-form-field>
         </div>
@@ -21,7 +21,7 @@
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" placeholder="usuario@correo.com" style="font-weight: 400" />
             @if(errorHandling('email')){
-            <mat-error class="text-danger">{{ errorHandling('email') }}</mat-error>
+            <mat-error style="color: firebrick;">{{ errorHandling('email') }}</mat-error>
             }
           </mat-form-field>
         </div>
@@ -35,7 +35,7 @@
               <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
             @if(errorHandling('password')){
-            <mat-error class="text-danger">{{ errorHandling('password') }}</mat-error>
+            <mat-error style="color: firebrick;">{{ errorHandling('password') }}</mat-error>
             }
           </mat-form-field>
         </div>
@@ -46,12 +46,13 @@
             <mat-label>Confirmar Contraseña</mat-label>
             <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmpassword" style="font-weight: 400" />
             @if(errorHandling('confirmpassword')){
-            <mat-error class="text-danger">{{ errorHandling('confirmpassword') }}</mat-error>
+            <mat-error style="color: firebrick;">{{ errorHandling('confirmpassword') }}</mat-error>
             }
           </mat-form-field>
         </div>
 
         <!-- Rol -->
+         @if (currentUser()?.role?.toString() === 'ADMIN' ) {
         <div class="field">
           <mat-form-field  floatLabel="auto" hideRequiredMarker="true" class="full-width">
             <mat-label>Rol</mat-label>
@@ -64,7 +65,7 @@
             <mat-error class="text-danger">{{ errorHandling('rol') }}</mat-error>
             }
           </mat-form-field>
-        </div>
+        </div>}
 
         <!-- Botones -->
         <div class="actions">

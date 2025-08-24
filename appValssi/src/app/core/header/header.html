@@ -1,107 +1,125 @@
-
 <mat-toolbar color="primary" class="header">
-  <!-- <button matIconButton class="example-header-image" matTooltip="AppVideojuegos"></button> -->
-  <button [matMenuTriggerFor]="menu1" matIconButton class="example-icon" matTooltip="Menu">
-    <mat-icon>menu</mat-icon>
-  </button>
-   
-  
-  <img class="logo" src="public/images/logoUltimaVersion.png" alt="Logo Valssi" />
+  @if (currentUser()?.role?.toString() === 'ADMIN' || currentUser()?.role?.toString() === 'USER') {
+    <button
+      [matMenuTriggerFor]="menu1"
+      matIconButton
+      class="example-icon"
+      matTooltip="Menu"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
+
+  <img
+    class="logo"
+    src="public/images/logoUltimaVersion.png"
+    alt="Logo Valssi"
+  />
 
   <span class="example-spacer2"></span>
 
   <!-- MANTENIMIENTO -->
-<span class="menu-text" [matMenuTriggerFor]="menu2" matTooltip="Mantenimientos">{{ 'header.mantenimientos' | translate }}</span>
-<mat-menu #menu2="matMenu">
-    <button mat-menu-item [routerLink]="['/product']" routerLinkActive="active-link">{{ 'header.productos' | translate }}</button>
-  <button mat-menu-item [routerLink]="['/promotion']" routerLinkActive="active-link">{{ 'header.promociones' | translate }}</button>
+  @if (currentUser()?.role?.toString() === 'ADMIN') {
+    <span class="menu-text" [matMenuTriggerFor]="menu2" matTooltip="Mantenimientos">
+      {{ 'header.mantenimientos' | translate }}
+    </span>
+    <mat-menu #menu2="matMenu">
+      <button mat-menu-item [routerLink]="['/product']" routerLinkActive="active-link">
+        {{ 'header.productos' | translate }}
+      </button>
+      <button mat-menu-item [routerLink]="['/promotion']" routerLinkActive="active-link">
+        {{ 'header.promociones' | translate }}
+      </button>
+      <button mat-menu-item [routerLink]="['/user']" routerLinkActive="active-link">
+        {{ 'header.usuarios' | translate }}
+      </button>
+    </mat-menu>
+  }
 
-</mat-menu>
-
-<!-- REPORTES -->
-  <span class="menu-text" [matMenuTriggerFor]="menu4" matTooltip="Reportes">{{ 'header.reportes' | translate }}</span>
-<mat-menu #menu4="matMenu">
-  <button mat-menu-item [routerLink]="['/promotion']" routerLinkActive="active-link">Opción de reporte 1</button>
-  <button mat-menu-item>Opción de reporte 2</button>
-</mat-menu>
-
-<span class="menu-text" [matMenuTriggerFor]="menu5" matTooltip="Listados">{{ 'header.listados' | translate }}</span>
-<mat-menu #menu5="matMenu">
-  <button mat-menu-item [routerLink]="['/review']" routerLinkActive="active-link">{{ 'header.reseñas' | translate }}</button>
-    
-    <button mat-menu-item [routerLink]="['/order']" routerLinkActive="active-link">{{ 'header.pedidos' | translate }}</button>
-</mat-menu>
+  @if (currentUser()?.role?.toString() === 'ADMIN') {
+    <span class="menu-text" [matMenuTriggerFor]="menu5" matTooltip="Listados">
+      {{ 'header.listados' | translate }}
+    </span>
+    <mat-menu #menu5="matMenu">
+      <button mat-menu-item [routerLink]="['/review']" routerLinkActive="active-link">
+        {{ 'header.reseñas' | translate }}
+      </button>
+      <button mat-menu-item [routerLink]="['/order']" routerLinkActive="active-link">
+        {{ 'header.pedidos' | translate }}
+      </button>
+    </mat-menu>
+  }
 
   <div class="example-spacer2"></div>
 
-
   <mat-menu #menu1="matMenu">
-    <button mat-menu-item [routerLink]="['/inicio']" routerLinkActive="active-link">{{ 'header.inicio' | translate }}</button>
-    <button mat-menu-item [routerLink]="['/aboutus']" routerLinkActive="active-link">{{ 'header.acercaDe' | translate }}</button>
-    <button mat-menu-item [routerLink]="['/product/list']" routerLinkActive="active-link">{{ 'header.productos' | translate }}</button>
-  <button mat-menu-item [routerLink]="['/orders/pending']" routerLinkActive="active-link">{{ 'header.pedidosPendientes' | translate }}</button>
-
-    
+    <button mat-menu-item [routerLink]="['/inicio']" routerLinkActive="active-link">
+      {{ 'header.inicio' | translate }}
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="profileOptions">
+      {{ 'header.perfil' | translate }}
+    </button>
+    <button mat-menu-item [routerLink]="['/product/list']" routerLinkActive="active-link">
+      {{ 'header.productos' | translate }}
+    </button>
+    @if (currentUser()?.role?.toString() === 'USER') {
+      <button mat-menu-item [routerLink]="['/orders/pending']" routerLinkActive="active-link">
+        {{ 'header.pedidosPendientes' | translate }}
+      </button>
+    }
   </mat-menu>
 
+  <!-- Submenú de Perfil -->
+  <mat-menu #profileOptions="matMenu">
+    <button mat-menu-item (click)="update()">
+      <mat-icon>edit</mat-icon>
+      <span>Editar información</span>
+    </button>
+    <button mat-menu-item (click)="openChangePasswordDialog()">
+      <mat-icon>lock</mat-icon>
+      <span>Cambiar contraseña</span>
+    </button>
+  </mat-menu>
 
-<span class="menu-text" [matMenuTriggerFor]="menu6"  >{{ 'header.idioma' | translate }}</span>
+  <span class="menu-text" [matMenuTriggerFor]="menu6">
+    {{ 'header.idioma' | translate }}
+  </span>
   <mat-menu #menu6="matMenu">
     <button mat-menu-item (click)="cambiarIdioma('es')">Español</button>
     <button mat-menu-item (click)="cambiarIdioma('en')">English</button>
-    
   </mat-menu>
-    <button matIconButton matBadgeColor="accent"  class="small-text number-cart" [matBadge]="qtyItems().toString()"
-   [routerLink]="'/orderCart'"  
-   [routerLinkActive]="'active-link'">
-      <mat-icon >shopping_cart</mat-icon>
+
+  @if (currentUser()?.role?.toString() === 'USER') {
+    <button
+      matIconButton
+      matBadgeColor="accent"
+      class="small-text number-cart"
+      [matBadge]="qtyItems().toString()"
+      [routerLink]="'/orderCart'"
+      [routerLinkActive]="'active-link'"
+    >
+      <mat-icon>shopping_cart</mat-icon>
     </button>
-   
-    <!-- Menu de Usuario-->
-    <!-- <span class="small-text">{{ currentUser?.email}}</span> -->
-    <button matIconButton [matMenuTriggerFor]="menu3">
-      <mat-icon [ngStyle]="{'color':isAutenticated ? '#ffffff':'#9ab0aa'}">person</mat-icon>
-    </button>
-    <mat-menu #menu3="matMenu">
-      @if(!isAutenticated){
-        <button mat-menu-item>
-          <mat-icon>person_add</mat-icon>
-          <span>Login</span>
-        </button>
-      }@else {
-        <button mat-menu-item>
-          <mat-icon>person_remove</mat-icon>
-          <span>Logout</span>
-        </button>
-      }
-    </mat-menu>
+  }
+
+  @if (currentUser()) {
+    <span>Hola {{ currentUser()?.username }}</span>
+  }
+
+  <button mat-icon-button [matMenuTriggerFor]="menu7">
+    <mat-icon>person</mat-icon>
+  </button>
+  <mat-menu #menu7="matMenu">
+    @if(!isAuntenticated()){
+      <button mat-menu-item (click)="login()">
+        <mat-icon>person_add</mat-icon>
+        <span>Login</span>
+      </button>
+    }@else {
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>person_remove</mat-icon>
+        <span>Logout</span>
+      </button>
+    }
+  </mat-menu>
 </mat-toolbar>
-
-
-<!-- AQUÍ VA LO DEL USUARIO Y CARRITO -->
-
-
-  <!-- <div class="example-spacer"></div>
-  <div class="example-spacer">
-    <button matIconButton matBadgeColor="accent" [matBadge]="qtyItems.toString()" class="small-text">
-      <mat-icon [ngClass]="isAutenticated ? 'cart': ''">shopping_cart</mat-icon>
-    </button> -->
-    <!-- Menu de Usuario-->
-    <!-- <span class="small-text">{{ currentUser?.email}}</span> -->
-    <!-- <button matIconButton [matMenuTriggerFor]="menu3">
-      <mat-icon [ngStyle]="{'color':isAutenticated ? '#79f4ff':'#5bbc9d'}">person</mat-icon>
-    </button> -->
-    <!-- <mat-menu #menu3="matMenu">
-      @if(!isAutenticated){
-        <button mat-menu-item>
-          <mat-icon>person_add</mat-icon>
-          <span>Login</span>
-        </button>
-      }@else {
-        <button mat-menu-item>
-          <mat-icon>person_remove</mat-icon>
-          <span>Logout</span>
-        </button>
-      }
-    </mat-menu> -->
-  <!-- </div> -->

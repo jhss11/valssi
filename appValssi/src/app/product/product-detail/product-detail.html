@@ -103,7 +103,7 @@
       <h4>{{ 'product-detail.agregarReseña' | translate }}</h4>
       <div class="usuario-valoracion" style="grid-column: span 2">
         <div class="usuario-box">
-          {{ 'product-detail.usuario' | translate }}: {{ username }}
+          {{ 'product-detail.usuario' | translate }}: {{ currentUser()?.username?.toString() }}
         </div>
 
         <div class="field">

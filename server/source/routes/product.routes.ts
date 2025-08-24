@@ -1,12 +1,19 @@
 import { Router } from "express";
 import { ProductController } from "../controllers/productController";
+import { authenticateJWT, authorizeRoles } from '../middleware/authMiddleware'
+import { Role } from '../../generated/prisma' 
 export class ProductRoutes {
   static get routes(): Router {
     const router = Router();
     const controller = new ProductController();
 
     //localhost:3000/products/
-    router.get("/", controller.get);
+    router.get( 
+      '/', 
+      authenticateJWT,          
+      authorizeRoles(Role.ADMIN, Role.USER), 
+      controller.get 
+    ); 
 
     //localhost:3000/products/summary
     router.get("/summary", controller.getProducts);

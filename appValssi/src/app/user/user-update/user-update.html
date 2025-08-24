@@ -1,0 +1,63 @@
+<div class="form-container">
+  <h2 class="titulo">
+    {{ 'Actualizar Usuario' }}
+  </h2>
+  <p class="subtitulo">
+    {{ 'Modifique los datos del usuario' }}
+  </p>
+
+  <form [formGroup]="userForm" (ngSubmit)="submitUser()">
+    <!-- Username -->
+    <div class="form-group">
+      <label for="username">Nombre de usuario</label>
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        placeholder="Ingrese el nombre de usuario"
+      />
+      <div class="error" *ngIf="errorHandling('username')">
+        {{ errorHandling('username') }}
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Correo electrónico</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="Ingrese el correo"
+      />
+      <div class="error" *ngIf="errorHandling('email')">
+        {{ errorHandling('email') }}
+      </div>
+    </div>
+
+    <!-- Rol -->
+    <div class="field">
+          <mat-form-field  floatLabel="auto" hideRequiredMarker="true" class="full-width">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="role">
+              @for (t of roles; track t.id) {
+                <mat-option [value]="t.id">{{ t.nombre }}</mat-option>
+              }
+            </mat-select>
+            @if(errorHandling('rol')){
+            <mat-error class="text-danger">{{ errorHandling('rol') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+    <!-- Botones -->
+    <div class="btn-contenedor">
+      <button type="submit" class="crear-btn">
+        {{'Actualizar' }}
+      </button>
+      <button type="button" class="cancelar-btn" (click)="onBack()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

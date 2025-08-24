@@ -19,6 +19,7 @@ import { minWordsValidator } from '../../share/validators/min-words-validator';
 import { CartService } from '../../share/cart.service';
 import { ProductModule } from '../product-module';
 import { ProductModel } from '../../share/models/ProductModel';
+import { AuthenticationService } from '../../share/authentication.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -32,8 +33,13 @@ export class ProductDetail implements OnInit, OnDestroy {
   imagenSeleccionada = '';
 
   reviewForm!: FormGroup;
-  userId = 5;
-  username = '';
+ //se pega esto en el ts y ya teniendo curretUser se usa . para
+   //ingresar a lo que trae el token (id, email, rol, username)
+   authService = inject(AuthenticationService);
+   isAuntenticated = this.authService.isAuthenticatedSignal;
+   
+   currentUser = this.authService.currentUserSignal;
+   user = this.currentUser();
 
   destroy$ = new Subject<void>();
   private cartService = inject(CartService);
@@ -51,7 +57,7 @@ export class ProductDetail implements OnInit, OnDestroy {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (!isNaN(id)) this.getProduct(id);
-    if (!isNaN(id)) this.getUser(this.userId);
+   // if (!isNaN(id)) this.getUser(this.user?.id ? this.user.id : 1);
 
     this.reviewForm = this.fb.group({
       comment: [null, [Validators.required, minWordsValidator(1)]],
@@ -109,7 +115,7 @@ export class ProductDetail implements OnInit, OnDestroy {
     }
 
     const payload = {
-      userId: this.userId,
+      userId: this.user?.id ? this.user.id : 1,
       productId: this.datos.id,
       description: this.reviewForm.value.comment,
       rating: this.reviewForm.value.rating,
@@ -178,14 +184,14 @@ export class ProductDetail implements OnInit, OnDestroy {
     return item.price;
   }
 
-  private getUser(id: number): void {
-    this.userService
-      .getById(id)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
-        this.username = data.username;
-      });
-  }
+  // private getUser(id: number): void {
+  //   this.userService
+  //     .getById(id)
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe((data) => {
+  //       this.username = data.username;
+  //     });
+  // }
 
   personalizar(product: ProductModel) {
      if(product.stock==0){

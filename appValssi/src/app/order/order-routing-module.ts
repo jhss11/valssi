@@ -4,20 +4,24 @@ import { OrderIndex } from './order-index/order-index';
 import { OrderDetail } from './order-detail/order-detail';
 import { OrderCart } from './order-cart/order-cart';
 import { OrderPendingPayment } from './order-pending-payment/order-pending-payment';
+import { authGuard } from '../share/auth.guard';
 
 const routes: Routes = [
-  {path:'order',component: OrderIndex},
-{ path: 'orders/pending', component: OrderPendingPayment },
-
-    {path:'orders/:id',component: OrderDetail},
-    {path:'orderCart',component: OrderCart},
-
-    
   
+  { 
+path: 'order', 
+component: OrderIndex, 
+canActivate: [authGuard], 
+data: { roles: ['ADMIN'] }, 
+},
+  { path: 'orders/pending', component: OrderPendingPayment },
+
+  { path: 'orders/:id', component: OrderDetail },
+  { path: 'orderCart', component: OrderCart },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class OrderRoutingModule { }
+export class OrderRoutingModule {}

@@ -22,6 +22,7 @@ export const authGuard: CanActivateFn = (
 
   // 1. Verificar si el usuario está autenticado
   const isAuthenticated = authService.isAuthenticatedSignal();
+  
 
   if (!isAuthenticated) {
     // Si no está autenticado, redirigir y notificar
@@ -32,6 +33,7 @@ export const authGuard: CanActivateFn = (
 
   // 2. Si está autenticado, verificar roles si la ruta lo requiere
   const currentUser = authService.currentUserSignal(); // Obtenemos el usuario actual del signal
+console.log('Usuario actual authg:', currentUser);
 
   if (!currentUser) {
     const message =
@@ -39,8 +41,10 @@ export const authGuard: CanActivateFn = (
   }
 
   const userRole = currentUser?.role;
-  const rolesAllowed = route.data['roles'] || []; // Obtener roles permitidos de la data de la ruta
+console.log('Rol del usuario actual:', userRole);
 
+  const rolesAllowed = route.data['roles'] || []; // Obtener roles permitidos de la data de la ruta
+console.log('Roles permitidos para la ruta:', rolesAllowed);
   // 3. Verificar roles si están definidos en la ruta
   if (rolesAllowed.length > 0 && !rolesAllowed.includes(userRole)) {
     // Si hay roles definidos para la ruta y el usuario no tiene uno de ellos

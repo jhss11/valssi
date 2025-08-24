@@ -1,0 +1,138 @@
+.titulo {
+  color: #355753;
+  text-align: center;
+  font-size: 2.3rem;
+  font-weight: 400;
+  margin-top: 3rem;
+  margin-bottom: -0.1rem;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #555;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.tabla-usuarios-container {
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 1200px;
+}
+
+.tabla-pedidos {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem auto;
+}
+
+.tabla-pedidos th,
+.tabla-pedidos td {
+  padding: 1.3rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+.tabla-pedidos th {
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: 500;
+}
+
+.tabla-pedidos tr:hover {
+  background-color: #f9f9f9;
+}
+
+.col-acciones {
+  min-width: 140px;
+}
+
+/* Links de acciones */
+.link-accion {
+  display: inline-block;
+  font-weight: 500;
+  text-decoration: none;
+  margin-bottom: 0.4rem;
+  position: relative;
+  padding-bottom: 2px; 
+  transition: color 0.3s ease;
+}
+
+/* Ver detalle */
+.link-accion:not(.link-editar) {
+  color: #0f685e;
+}
+
+.link-accion:not(.link-editar)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0; 
+  width: 0;
+  height: 2px;
+  background-color: #355753;
+  transition: width 0.3s ease;
+}
+
+.link-accion:not(.link-editar):hover {
+  color: #355753;
+}
+
+.link-accion:not(.link-editar):hover::after {
+  width: 100%;
+}
+
+/* Editar */
+.link-editar {
+  color: #5fbbb1;
+  padding-bottom: 2px;
+}
+
+.link-editar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #71d5ca;
+  transition: width 0.3s ease;
+}
+
+.link-editar:hover {
+  color: #71d5ca;
+}
+
+.link-editar:hover::after {
+  width: 100%;
+}
+
+/* Botón crear */
+.btn-crear-container {
+  padding-left: 5.5rem; 
+  margin-bottom: 1rem;
+}
+
+.crear-btn {
+  background-color: #355753 !important;
+  color: white !important;
+  font-weight: 550;
+  padding: 6px 20px;
+  border-radius: 8px;
+  height: 36px;
+  min-width: 90px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.crear-btn:hover {
+  background-color: #8ba7a4;
+  color: #355753;
+}
+
+/* Texto cuando no hay datos */
+.no-promos {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #777;
+}

@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserIndex } from './user-index/user-index';
 import { UserCreate } from './user-create/user-create';
 import { UserLogin } from './user-login/user-login';
+import { UserListado } from './user-listado/user-listado';
+import { UserUpdate } from './user-update/user-update';
 
 const routes: Routes = [
    {
@@ -13,6 +15,8 @@ const routes: Routes = [
       { path: 'login', component: UserLogin },
     ],
   },
+  { path:'user',component: UserListado}, 
+   { path: 'user/update/:id', component: UserUpdate },
 ];
 
 @NgModule({

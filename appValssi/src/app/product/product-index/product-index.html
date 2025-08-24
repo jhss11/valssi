@@ -1,9 +1,10 @@
 <h2 class="titulo">{{ 'product-index.titulo' | translate }}</h2>
 <h3 class="subtitulo">{{ 'product-index.subtitulo' | translate }}</h3>
 <div class="btn-crear-container">
+  @if (currentUser()?.role?.toString() === 'ADMIN' ){
   <button mat-flat-button color="primary" class="crear-btn" (click)="create()">
     {{ 'product-index.agregar' | translate }}
-  </button>
+  </button>}
 </div>
 <div class="productos-container">
   @if (datos) { @for (item of datos; track item.id) {
@@ -31,6 +32,7 @@
         <span class="rating">({{ item.averageRating.toFixed(1) }})</span>
 
         <div class="btn-contenedor">
+          @if (currentUser()?.role?.toString() === 'ADMIN' ){
           @if (!item.isDeleted) {
           <button
             mat-icon-button
@@ -50,9 +52,11 @@
             <!-- reactivar -->
           </button>
           }
+        
           <button mat-flat-button color="primary" (click)="update(item.id)">
             {{ 'product-index.editar' | translate }}
           </button>
+        }
           <button mat-flat-button color="primary" (click)="verDetalle(item.id)">
             {{ 'product-index.detalle' | translate }}
           </button>

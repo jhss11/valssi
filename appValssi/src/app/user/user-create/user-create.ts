@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { NotificationService } from '../../share/notification-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,6 +22,14 @@ export class UserCreate implements OnDestroy {
   formCreate!: FormGroup;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
+  //se pega esto en el ts y ya teniendo curretUser se usa . para
+  //ingresar a lo que trae el token (id, email, rol, username)
+  authService = inject(AuthenticationService);
+  isAuntenticated = this.authService.isAuthenticatedSignal;
+  
+  currentUser = this.authService.currentUserSignal;
+  user = this.currentUser();
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -36,11 +44,20 @@ export class UserCreate implements OnDestroy {
   reactiveForm() {
     this.formCreate = this.fb.group(
       {
-        username: ['', [Validators.required]], // 👈 coincide con Prisma
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmpassword: ['', [Validators.required]],
-        role: ['', [Validators.required]],
+        username: [null, [Validators.required]], // 👈 coincide con Prisma
+        email: [null, [Validators.required, Validators.email]],
+      password: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!_@#$%^&*(),.?":{}|<>]).+$/
+          ),
+        ],
+      ],
+        confirmpassword: [null, [Validators.required]],
+        role: [null],
       },
       { validators: passwordsMatchValidator }
     );
@@ -68,7 +85,7 @@ export class UserCreate implements OnDestroy {
           this.notificacion.success(
             'Éxito',
             'Usuario creado correctamente',
-            3000
+            1000
           );
           this.router.navigate(['/usuario/login']);
         },

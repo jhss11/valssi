@@ -20,10 +20,13 @@ export class UserRoutes {
     router.post("/register", controller.register);
     router.get("/profile", authenticateJWT, controller.userAuth);
     router.get("/:id", controller.getById);
+    
+
     //Crear
     //  router.post("/", controller.create);
     //Actualizar
-    // router.put('/:id',controller.update)
+    router.put('/:id',controller.update)
+    router.put("/password", authenticateJWT,controller.updatePassword);
 
     return router;
   }
