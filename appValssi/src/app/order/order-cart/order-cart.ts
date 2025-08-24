@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
+import { AuthenticationService } from '../../share/authentication.service';
 
 @Component({
   selector: 'app-order-cart',
@@ -29,6 +30,14 @@ export class OrderCart implements OnInit, OnDestroy {
   form!: FormGroup;
   fechaFormateada = '';
   private destroy$ = new Subject<boolean>();
+
+   //se pega esto en el ts y ya teniendo curretUser se usa para
+    //ingresar a lo que trae el token (id, email, rol, username)
+    authService = inject(AuthenticationService);
+    isAuntenticated = this.authService.isAuthenticatedSignal;
+    
+    currentUser = this.authService.currentUserSignal;
+    user = this.currentUser();
 
 
   private cartService = inject(CartService);

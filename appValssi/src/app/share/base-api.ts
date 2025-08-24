@@ -29,15 +29,20 @@ updateEstado(body: { id: number; isDeleted:boolean }): Observable<any> {
   return this.http.put(`${this.urlAPI}/${this.endpoint}/`, body);
 }
 
- /**
+/**
    * Actualiza la contraseña del usuario logueado
    */
-  updatePassword(currentPassword: string, newPassword: string) {
-    const token = localStorage.getItem('token'); // tu JWT
-    const headers = { Authorization: `Bearer ${token}` };
-    // Asumimos que la ruta es PUT /users/password (sin :id)
-    return this.http.put(`${this.urlAPI}/password`, { currentPassword, newPassword }, { headers });
-  }
+updatePassword(currentPassword: string, password: string, id: number) {
+  const token = localStorage.getItem('token'); // tu JWT
+  const headers = { Authorization: `Bearer ${token}` };
+
+  return this.http.put(
+    `${this.urlAPI}/${environment.endPointUser}/password`, 
+   
+    { currentPassword, password, id }, 
+    { headers }
+  );
+}
 
   getMethod(
     action: string,

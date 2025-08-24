@@ -18,11 +18,12 @@ import { AuthenticationService } from '../../share/authentication.service';
 })
 export class UserCreate implements OnDestroy {
   hide = true;
+  hide2 = true;
   roles: RoleModel[] = [];
   formCreate!: FormGroup;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  //se pega esto en el ts y ya teniendo curretUser se usa . para
+  //se pega esto en el ts y ya teniendo curretUser se usa para
   //ingresar a lo que trae el token (id, email, rol, username)
   authService = inject(AuthenticationService);
   isAuntenticated = this.authService.isAuthenticatedSignal;
@@ -44,7 +45,7 @@ export class UserCreate implements OnDestroy {
   reactiveForm() {
     this.formCreate = this.fb.group(
       {
-        username: [null, [Validators.required]], // 👈 coincide con Prisma
+        username: [null, [Validators.required]], 
         email: [null, [Validators.required, Validators.email]],
       password: [
         null,
@@ -65,7 +66,9 @@ export class UserCreate implements OnDestroy {
     console.log('roles ', this.roles);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   submitForm() {
     this.formCreate.markAllAsTouched();
@@ -126,3 +129,4 @@ export class UserCreate implements OnDestroy {
     this.destroy$.complete();
   }
 }
+

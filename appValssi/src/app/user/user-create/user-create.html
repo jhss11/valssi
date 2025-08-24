@@ -44,7 +44,11 @@
         <div class="field">
           <mat-form-field floatLabel="auto" hideRequiredMarker="true" class="full-width">
             <mat-label>Confirmar Contraseña</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmpassword" style="font-weight: 400" />
+            <input matInput [type]="hide2 ? 'password' : 'text'" formControlName="confirmpassword" style="font-weight: 400" />
+            <button mat-icon-button matSuffix type="button" (click)="hide2 = !hide2">
+              <mat-icon>{{ hide2 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+           
             @if(errorHandling('confirmpassword')){
             <mat-error style="color: firebrick;">{{ errorHandling('confirmpassword') }}</mat-error>
             }
