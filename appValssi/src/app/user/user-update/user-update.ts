@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -13,6 +13,7 @@ import { getFormValidationErrorMessage } from '../../share/form-validation';
 import { TranslateService } from '@ngx-translate/core';
 import { RoleModel } from '../../share/models/RoleModel';
 import { RolService } from '../../share/services/rol.service';
+import { AuthenticationService } from '../../share/authentication.service';
 
 @Component({
   selector: 'app-user-update',
@@ -26,6 +27,15 @@ export class UserUpdate implements OnInit, OnDestroy {
   idUser!: number; // siempre será obligatorio
   roles: RoleModel[] = [];
   userForm!: FormGroup;
+
+  //se pega esto en el ts y ya teniendo curretUser se usa para
+  //ingresar a lo que trae el token (id, email, rol, username)
+  authService = inject(AuthenticationService);
+  isAuntenticated = this.authService.isAuthenticatedSignal;
+  
+  currentUser = this.authService.currentUserSignal;
+  user = this.currentUser();
+
 
   constructor(
     private fb: FormBuilder,

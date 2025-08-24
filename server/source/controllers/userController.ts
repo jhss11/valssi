@@ -119,6 +119,7 @@ export class UserController {
 
   update = async (request: Request, response: Response, next: NextFunction) => {
     try {
+      console.log('que diantres ')
       const idUser = parseInt(request.params.id);
       const body = request.body;
 
@@ -151,43 +152,54 @@ export class UserController {
   };
 
   updatePassword = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      console.log("Params:", req.params);
-console.log("Body:", req.body);
-
-      const userId = (req.user as any).id;
-      const { currentPassword, newPassword } = req.body;
-
-      const user = await this.prisma.user.findUnique({
-        where: { id: Number(userId) },
-      });
-
-      if (!user) {
-        res.status(404).json({ message: "Usuario no encontrado" });
-        return;
-      }
-
-      const validPassword = await bcrypt.compare(
-        currentPassword,
-        user.password
-      );
-      if (!validPassword) {
-        res.status(400).json({ message: "Contraseña actual incorrecta" });
-        return;
-      }
-
-      const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(newPassword, salt);
-
-      await this.prisma.user.update({
-        where: { id: Number(userId) },
-        data: { password: hash },
-      });
-
-      res.json({ success: true, message: "Contraseña actualizada" });
-    } catch (error) {
-      console.error("Error en updatePassword:", error);
-      next(error);
+  try {
+    console.log("req.user:", req.user);
+    if (!req.user) {
+       res.status(401).json({ message: "Usuario no autenticado" });
     }
-  };
+
+    console.log("req.body:", req.body);
+    
+    const { currentPassword, password, id } = req.body;
+    
+    // Validar que el ID esté presente
+    if (!id) {
+       res.status(400).json({ message: "ID de usuario requerido" });
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (!user) {
+       res.status(404).json({ message: "Usuario no encontrado" });
+       return
+    }
+
+    // Verificar que el usuario autenticado coincida con el ID proporcionado
+    // (opcional pero recomendado para seguridad)
+    
+
+    const validPassword = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
+    if (!validPassword) {
+       res.status(400).json({ message: "Contraseña actual incorrecta" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    await this.prisma.user.update({
+      where: { id: Number(id) },
+      data: { password: hash },
+    });
+
+    res.json({ success: true, message: "Contraseña actualizada" });
+  } catch (error) {
+    console.error("Error en updatePassword:", error);
+    next(error);
+  }
+};
 }

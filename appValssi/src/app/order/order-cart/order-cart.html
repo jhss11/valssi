@@ -15,8 +15,8 @@
   {{ fechaFormateada }}
 </p>
       <h3>{{ 'order-cart.cliente' | translate}}</h3>
-      <p><strong> {{ 'order-cart.nombre' | translate}}</strong> {{username}}</p>
-      <p><strong> {{ 'order-cart.email' | translate}}</strong> {{email}}</p>
+      <p><strong> {{ 'order-cart.nombre' | translate}}</strong> {{currentUser()?.username}}</p>
+      <p><strong> {{ 'order-cart.email' | translate}}</strong> {{currentUser()?.email}}</p>
       <h3 style="margin-top: 30px;">{{ 'order-cart.detalles' | translate}}</h3>
 
       <p>
