@@ -1,0 +1,54 @@
+<h2 class="titulo">Listado de Usuarios</h2>
+<h3 class="subtitulo">Usuarios registrados en el sistema</h3>
+
+<div class="btn-crear-container">
+  <button
+    mat-flat-button
+    color="primary"
+    class="crear-btn"
+    (click)="createUser()"
+  >
+    Registrar Usuario
+  </button>
+</div>
+
+<div class="tabla-usuarios-container">
+  @if (datos?.length > 0) {
+  <table class="tabla-pedidos">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Último login</th>
+        <th class="col-acciones">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of datos; track user.id) {
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role === 'ADMIN' ? 'Administrador' : 'Usuario' }}</td>
+        <td>{{ user.lastLogin | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td class="col-acciones">
+        
+          <div>
+            <a
+              [routerLink]="['/user/update', user.id]"
+              class="link-accion link-editar"
+            >
+              Editar
+            </a>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  } @else {
+  <p class="no-promos">No hay usuarios disponibles actualmente.</p>
+  }
+</div>

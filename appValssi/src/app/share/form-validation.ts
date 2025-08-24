@@ -182,6 +182,55 @@ export const FormErrorMessage: FormValidatorMessage[] = [
     text: 'El monto recibido debe ser un número válido',
   },
 
+  // EMAIL
+{
+  forControl: 'email',
+  forValidator: 'required',
+  text: 'El correo electrónico es requerido',
+},
+{
+  forControl: 'email',
+  forValidator: 'email',
+  text: 'El correo electrónico no tiene un formato válido',
+},
+
+// PASSWORD
+{
+  forControl: 'password',
+  forValidator: 'required',
+  text: 'La contraseña es requerida',
+},
+{
+  forControl: 'password',
+  forValidator: 'minlength',
+  text: 'La contraseña debe tener al menos 8 caracteres',
+},
+{
+  forControl: 'password',
+  forValidator: 'pattern',
+  text: 'La contraseña debe incluir mayúsculas, minúsculas, un número y un caracter especial',
+},
+{
+  forControl: 'username',
+  forValidator: 'required',
+  text: 'El nombre de usuario es requerido',
+},
+{
+  forControl: 'confirmpassword',
+  forValidator: 'required',
+  text: 'La confirmación es requerida',
+},
+{
+  forControl: 'emaillogin',
+  forValidator: 'required',
+  text: 'El correo electrónico es requerido',
+},
+{
+  forControl: 'passwordlogin',
+  forValidator: 'required',
+  text: 'La contraseña es requerida',
+},
+
 ];
 
 /**

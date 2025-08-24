@@ -15,4 +15,5 @@ export class UserService extends BaseAPI<UserModel>{
       environment.endPointUser
       )
   }
+
 }

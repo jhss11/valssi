@@ -29,6 +29,16 @@ updateEstado(body: { id: number; isDeleted:boolean }): Observable<any> {
   return this.http.put(`${this.urlAPI}/${this.endpoint}/`, body);
 }
 
+ /**
+   * Actualiza la contraseña del usuario logueado
+   */
+  updatePassword(currentPassword: string, newPassword: string) {
+    const token = localStorage.getItem('token'); // tu JWT
+    const headers = { Authorization: `Bearer ${token}` };
+    // Asumimos que la ruta es PUT /users/password (sin :id)
+    return this.http.put(`${this.urlAPI}/password`, { currentPassword, newPassword }, { headers });
+  }
+
   getMethod(
     action: string,
     options: { [param: string]: unknown } = {}

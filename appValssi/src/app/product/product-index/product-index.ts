@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProductService } from '../../share/services/product.service';
 import { NotificationService } from '../../share/notification-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductModel } from '../../share/models/ProductModel';
+import { AuthenticationService } from '../../share/authentication.service';
 
 @Component({
   selector: 'app-product-index',
@@ -13,6 +14,14 @@ import { ProductModel } from '../../share/models/ProductModel';
 export class ProductIndex {
   //Respuesta del API
   datos: any;
+
+  //se pega esto en el ts y ya teniendo curretUser se usa . para
+  //ingresar a lo que trae el token (id, email, rol, username)
+  authService = inject(AuthenticationService);
+  isAuntenticated = this.authService.isAuthenticatedSignal;
+  
+  currentUser = this.authService.currentUserSignal;
+  user = this.currentUser();
 
   constructor(
     private vjService: ProductService,

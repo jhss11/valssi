@@ -8,19 +8,26 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import { UserRoutingModule } from './user-routing-module';
 import { UserCreate } from './user-create/user-create';
 import { UserLogin } from './user-login/user-login';
 import { UserIndex } from './user-index/user-index';
+import { UserListado } from './user-listado/user-listado';
+import { UserUpdate } from './user-update/user-update';
+import { UpdatePassword } from './update-password/update-password';
 
 
 @NgModule({
   declarations: [
     UserCreate,
     UserLogin,
-    UserIndex
+    UserIndex,
+    UserListado,
+    UserUpdate,
+    UpdatePassword
   ],
   imports: [
     CommonModule,
@@ -29,6 +36,7 @@ import { UserIndex } from './user-index/user-index';
   MatInputModule,
   MatTabsModule,
   MatSelectModule,
+  TranslateModule,
   MatButtonModule,
   MatIconModule,
   MatCardModule,
