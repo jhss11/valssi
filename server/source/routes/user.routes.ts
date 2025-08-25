@@ -26,6 +26,8 @@ router.put("/password", authenticateJWT,controller.updatePassword);
     //  router.post("/", controller.create);
     //Actualizar
     router.put('/:id',controller.update)
+
+    router.post("/check-email", controller.checkEmail);
     
 
     return router;

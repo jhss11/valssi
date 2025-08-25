@@ -97,29 +97,57 @@ export class UserUpdate implements OnInit, OnDestroy {
   }
 
   submitUser(): void {
-    this.userForm.markAllAsTouched();
-    if (this.userForm.invalid) {
-      this.noti.error('Formulario inválido', 'Revise los campos requeridos.');
-      return;
-    }
+  this.userForm.markAllAsTouched();
+  if (this.userForm.invalid) {
+    this.noti.error('Formulario inválido', 'Revise los campos requeridos.');
+    return;
+  }
 
-    const payload = this.userForm.value;
+  const payload = this.userForm.value;
 
-    this.userService.update(payload).subscribe({
-      next: (data) =>
-        this.noti.success(
-          'Usuario actualizado',
-          `Nombre: ${data.username}`,
-          2500,
-          '/user'
-        ),
-      error: (err) =>
+  // 🔹 Validar si el email ya existe en otro usuario
+  this.userService.checkEmail(payload.email)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (correoEnUso: boolean) => {
+        if (correoEnUso && payload.email !== this.currentUser()?.email) {
+          // Si el correo está en uso y no es el mismo del usuario que estamos editando
+          this.noti.error(
+            'Error',
+            'El correo ya está en uso por otro usuario',
+            3000
+          );
+          return; // Detener actualización
+        }
+
+       
+        this.userService.update(payload)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe({
+            next: (data) =>
+              this.noti.success(
+                'Usuario actualizado',
+                `Nombre: ${data.username}`,
+                2500,
+                '/user'
+              ),
+            error: (err) =>
+              this.noti.error(
+                'Error',
+                err.message ?? 'No se pudo actualizar el usuario'
+              ),
+          });
+      },
+      error: (err) => {
+        console.error(err);
         this.noti.error(
           'Error',
-          err.message ?? 'No se pudo actualizar el usuario'
-        ),
+          'No se pudo validar el correo',
+          3000
+        );
+      }
     });
-  }
+}
 
   errorHandling(controlPath: string) {
     return getFormValidationErrorMessage(this.userForm, controlPath);

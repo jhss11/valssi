@@ -44,31 +44,28 @@ export class UserCreate implements OnDestroy {
 
   reactiveForm() {
     this.formCreate = this.fb.group(
-      {
-        username: [null, [Validators.required]], 
-        email: [null, [Validators.required, Validators.email]],
-      password: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!_@#$%^&*(),.?":{}|<>]).+$/
-          ),
-        ],
+  {
+    username: ['', [Validators.required]], 
+    email: ['', [Validators.required, Validators.email]],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!_@#$%^&*(),.?":{}|<>]).+$/)
       ],
-        confirmpassword: [null, [Validators.required]],
-        role: [null],
-      },
-      { validators: passwordsMatchValidator }
-    );
+    ],
+    confirmpassword: ['', [Validators.required]],
+    role: [''],
+  },
+  { validators: passwordsMatchValidator } 
+);
+
     this.getRoles();
     console.log('roles ', this.roles);
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   submitForm() {
     this.formCreate.markAllAsTouched();
@@ -76,30 +73,55 @@ export class UserCreate implements OnDestroy {
     if (this.formCreate.invalid) {
       return;
     }
-    console.log(this.formCreate.value);
-    // Construimos payload sin confirmpassword
+
     const { username, email, password, role } = this.formCreate.value;
 
-    this.authenticationS
-      .createUser({ username, email, password, role })
+    
+    this.userService.checkEmail(email)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (res) => {
-          this.notificacion.success(
-            'Éxito',
-            'Usuario creado correctamente',
-            1000
-          );
-          this.router.navigate(['/usuario/login']);
+        next: (correoEnUso: boolean) => {
+          console.log('true or false ',correoEnUso)
+          if (correoEnUso) {
+            this.notificacion.error(
+              'Error',
+              'El correo ya está en uso',
+              3000
+            );
+            return; 
+          }
+
+          
+          this.authenticationS
+            .createUser({ username, email, password, role })
+            .pipe(takeUntil(this.destroy$))
+            .subscribe({
+              next: () => {
+                this.notificacion.success(
+                  'Éxito',
+                  'Usuario creado correctamente',
+                  1000
+                );
+                this.router.navigate(['/usuario/login']);
+              },
+              error: (err) => {
+                console.error(err);
+                this.notificacion.error(
+                  'Error',
+                  err.error?.message || 'No se pudo crear el usuario',
+                  3000
+                );
+              },
+            });
         },
         error: (err) => {
           console.error(err);
           this.notificacion.error(
             'Error',
-            'No se pudo crear el usuariooo',
+            'No se pudo validar el correo',
             3000
           );
-        },
+        }
       });
   }
 
@@ -129,4 +151,3 @@ export class UserCreate implements OnDestroy {
     this.destroy$.complete();
   }
 }
-
