@@ -202,4 +202,26 @@ export class UserController {
     next(error);
   }
 };
+
+checkEmail = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+       res.status(400).json({ message: "El email es requerido" });
+       
+    }
+
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    // true = ya existe, false = disponible
+     res.json(!!existingUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 }

@@ -44,6 +44,11 @@ updatePassword(currentPassword: string, password: string, id: number) {
   );
 }
 
+checkEmail(email: string) {
+  return this.http.post<boolean>(`${environment.apiURL}/users/check-email`, { email });
+}
+
+
   getMethod(
     action: string,
     options: { [param: string]: unknown } = {}

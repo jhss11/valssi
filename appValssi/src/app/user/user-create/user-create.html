@@ -54,6 +54,11 @@
             }
           </mat-form-field>
         </div>
+        @if(formCreate.hasError('passwordsMismatch') && formCreate.touched){
+            <mat-error style="color: firebrick;">
+              Las contraseñas no coinciden.
+            </mat-error >
+            }
 
         <!-- Rol -->
          @if (currentUser()?.role?.toString() === 'ADMIN' ) {

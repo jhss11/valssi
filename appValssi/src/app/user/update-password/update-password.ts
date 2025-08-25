@@ -6,6 +6,7 @@ import { UserService } from '../../share/services/user.service';
 import { NotificationService } from '../../share/notification-service';
 import { getFormValidationErrorMessage } from '../../share/form-validation';
 import { AuthenticationService } from '../../share/authentication.service';
+import { passwordsMatchValidator } from '../../share/validators/password-match-validator';
 
 @Component({
   selector: 'app-update-password',
@@ -54,16 +55,10 @@ export class UpdatePassword implements OnInit, OnDestroy {
             ),
           ],
         ],
-        confirmPassword: ['', Validators.required],
+        confirmpassword: ['', Validators.required],
       },
-      { validators: this.matchPasswords }
+      { validators: passwordsMatchValidator  }
     );
-  }
-
-  private matchPasswords(group: AbstractControl): ValidationErrors | null {
-    const pass = group.get('password')?.value;
-    const confirm = group.get('confirmPassword')?.value;
-    return pass && confirm && pass !== confirm ? { passwordsMismatch: true } : null;
   }
 
   submit(): void {
