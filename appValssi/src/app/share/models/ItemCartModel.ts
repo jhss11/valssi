@@ -9,7 +9,7 @@ export interface ItemCartModel {
     total: number;
     customizations?: {
     totalPrice: number;
-    selectedOptions: { optionValueId: number; name?: string }[];
+    selectedOptions: { optionValueId: number; name?: string, price?: number }[];
   };
     // price: number;
   }

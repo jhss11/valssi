@@ -150,6 +150,191 @@ export class orderController {
     }
   };
 
+  getCartByUser = async (
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const userId = Number(request.query.userId);
+
+      if (!userId) {
+        response.status(400).json({ message: "El userId es requerido" });
+        return;
+      }
+
+      const cart = await this.prisma.order.findFirst({
+        where: {
+          userId: userId,
+          status: "CART",
+        },
+        select: {
+          id: true,
+          status: true,
+          // total: true,
+          // subtotal: true,
+          // createdAt: true,
+          items: {
+            select: {
+              id: true,
+              quantity: true,
+              price: true,
+              product: {
+                select: {
+                  id: true,
+                  name: true,
+                  price: true,
+                  promotions: {},
+                  category: {
+                    select: {
+                      promotions: {},
+                    },
+                  },
+                },
+              },
+              customProduct: {
+                select: {
+                  id: true,
+                  totalPrice: true,
+                  baseProduct: {
+                    select: {
+                      id: true,
+                      name: true,
+                      price: true,
+                      promotions: {},
+                      category: {
+                        select: {
+                          promotions: {},
+                        },
+                      },
+                    },
+                  },
+                  customProducts: {
+                    select: {
+                      optionValue: {
+                        select: {
+                          id: true,
+                          value: true,
+                          price: true,
+                          option: { select: { name: true } },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          // statusLogs: {
+          //   where: { status: "CART" },
+          //   select: { changedAt: true },
+          //   orderBy: { changedAt: "asc" },
+          //   take: 1,
+          // },
+        },
+      });
+
+      if (!cart) {
+        response.json(null);
+        return;
+      }
+
+      response.json(cart);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  update = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const orderId = parseInt(request.params.id);
+      const infoOrden = request.body;
+
+      // Actualizamos encabezado de la orden
+      const ordenActualizada = await this.prisma.order.update({
+        where: { id: orderId },
+        data: {
+          address: infoOrden.address,
+          status: infoOrden.status,
+          subtotal: infoOrden.subtotal,
+          total: infoOrden.total,
+          statusLogs: {
+            create: [
+              {
+                status: infoOrden.status,
+                changedAt: new Date(),
+              },
+            ],
+          },
+        },
+      });
+
+      await this.prisma.orderItem.deleteMany({
+        where: { orderId },
+      });
+
+      // Recorremos los nuevos items
+      for (const item of infoOrden.items) {
+        if (
+          item.customizations &&
+          item.customizations.selectedOptions?.length > 0
+        ) {
+          // Producto customizado
+          const customProduct = await this.prisma.customProduct.create({
+            data: {
+              baseProductId: item.productId,
+              totalPrice: item.customizations.totalPrice,
+              customProducts: {
+                create: item.customizations.selectedOptions.map((opt: any) => ({
+                  optionValue: { connect: { id: opt.optionValueId } },
+                })),
+              },
+            },
+          });
+
+          await this.prisma.orderItem.create({
+            data: {
+              orderId,
+              customProductId: customProduct.id,
+              price: item.price,
+              quantity: item.quantity,
+            },
+          });
+
+          // Descontar stock solo si no es carrito
+          if (infoOrden.status !== "CART") {
+            await this.prisma.product.update({
+              where: { id: item.productId },
+              data: { stock: { decrement: item.quantity } },
+            });
+          }
+        } else {
+          // Producto normal
+          await this.prisma.orderItem.create({
+            data: {
+              orderId,
+              productId: item.productId,
+              price: item.price,
+              quantity: item.quantity,
+            },
+          });
+
+          // Descontar stock solo si no es carrito
+          if (infoOrden.status !== "CART") {
+            await this.prisma.product.update({
+              where: { id: item.productId },
+              data: { stock: { decrement: item.quantity } },
+            });
+          }
+        }
+      }
+
+      response.status(200).json(ordenActualizada);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   create = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const infoOrden = request.body;
@@ -203,14 +388,17 @@ export class orderController {
               quantity: item.quantity,
             },
           });
-          await this.prisma.product.update({
-            where: { id: item.productId },
-            data: {
-              stock: {
-                decrement: item.quantity,
+
+          if (infoOrden.status !== "CART") {
+            await this.prisma.product.update({
+              where: { id: item.productId },
+              data: {
+                stock: {
+                  decrement: item.quantity,
+                },
               },
-            },
-          });
+            });
+          }
         } else {
           // Producto normal
           await this.prisma.orderItem.create({
@@ -222,15 +410,17 @@ export class orderController {
             },
           });
 
-          // Descontar stock
-          await this.prisma.product.update({
-            where: { id: item.productId },
-            data: {
-              stock: {
-                decrement: item.quantity,
+          if (infoOrden.status !== "CART") {
+            // Descontar stock
+            await this.prisma.product.update({
+              where: { id: item.productId },
+              data: {
+                stock: {
+                  decrement: item.quantity,
+                },
               },
-            },
-          });
+            });
+          }
         }
       }
 

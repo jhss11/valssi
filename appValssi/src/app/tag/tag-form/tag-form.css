@@ -1,0 +1,86 @@
+form {
+  /* width: 700px; */
+  margin: 2rem auto;
+  padding: 3rem;
+  background-color: #fff;
+  font-family: "Segoe UI", sans-serif;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+}
+
+
+h2 {
+  white-space: nowrap;
+  text-align: start;
+  color: #2f5d58;
+  margin-bottom: 2.5rem;
+  font-size: 1.8rem;
+}
+
+form > .field,
+form > fieldset,
+form > .actions,
+form > small.text-danger {
+  grid-column: span 2;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+mat-label,
+input {
+  margin-bottom: 0.4rem;
+  font-weight: 550;
+  color: #333;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.close-button {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+}
+
+.close-icon {
+  font-size: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.actions button {
+  padding: 0.6rem 1.4rem;
+  background-color: #2f5d58;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.actions button:hover {
+  background-color: #234843;
+}
+
+.actions button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.text-danger {
+  color: #b30000;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  margin-left: -8px;
+}

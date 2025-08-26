@@ -1,3 +1,6 @@
+<button mat-icon-button class="close-button" (click)="close()"> 
+  <mat-icon class="close-icon">close</mat-icon>
+</button>
 <form [formGroup]="tagForm" (ngSubmit)="submit()" novalidate>
   <h2>{{ titleForm }} Etiqueta</h2>
 
@@ -18,3 +21,7 @@
       }
     </mat-form-field>
   </div>
+  <div class="actions">
+    <button type="submit" [disabled]="tagForm.invalid">{{ 'product-form.guardar' | translate }}</button>
+  </div>
+</form>

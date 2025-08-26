@@ -8,6 +8,7 @@ export class OptionsValueRoutes {
 
     //localhost:3000/promotion/
     router.get("/", controller.get);
+    router.put('/update',controller.update)
  
     return router;
   }

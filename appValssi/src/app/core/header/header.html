@@ -33,6 +33,9 @@
       <button mat-menu-item [routerLink]="['/user']" routerLinkActive="active-link">
         {{ 'header.usuarios' | translate }}
       </button>
+      <button mat-menu-item [routerLink]="['/tag']" routerLinkActive="active-link">
+        {{ 'header.etiquetas' | translate }}
+      </button>
     </mat-menu>
   }
 
@@ -103,7 +106,7 @@
   }
 
   @if (currentUser()) {
-    <span>Hola {{ currentUser()?.username }}</span>
+    <span>Hola, {{ currentUser()?.username }}</span>
   }
 
   <button mat-icon-button [matMenuTriggerFor]="menu7">

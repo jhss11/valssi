@@ -166,6 +166,9 @@ export class CartService {
     );
   }
 
+
+
+
   /**
    * Borra todo el carrito, dejándolo vacío.
    */

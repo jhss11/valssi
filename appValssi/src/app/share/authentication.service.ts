@@ -83,6 +83,8 @@ export class AuthenticationService {
   // Logout
   logout(): void {
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem("orderId");
+
     this.tokenUser.set(null);
     this.usuario.set(null);
     this.cartService.deleteCart();

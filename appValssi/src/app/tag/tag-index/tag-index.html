@@ -13,7 +13,7 @@
       <thead>
         <tr>
           <th>Nombre</th>
-          <th>Acciones</th>
+          <th>Editar</th>
         </tr>
       </thead>
       <tbody>
@@ -21,7 +21,7 @@
           <tr>
             <td>{{ tag.name }}</td>
             <td>
-              <button mat-icon-button  (click)="editar(tag)">
+              <button mat-icon-button  (click)="editar(tag.id)">
                 <mat-icon>edit</mat-icon>
               </button>
               

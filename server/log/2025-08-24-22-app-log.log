@@ -1,0 +1,145 @@
+2025-08-24 22:25:19.424 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.create()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:158:53
+
+  155 const infoOrden = request.body;
+  156 
+  157 // Primero creamos la orden
+→ 158 const nuevoProducto = await this.prisma.order.create({
+        data: {
+          userId: 2,
+          status: "CART",
+          subtotal: 15030,
+          total: 16983.899999999998,
+          items: {
+            create: []
+          },
+          statusLogs: {
+            create: [
+              {
+                status: "CART",
+                changedAt: new Date("2025-08-25T04:25:19.381Z")
+              }
+            ]
+          },
+      +   address: String
+        }
+      })
+
+Argument `address` is missing.
+2025-08-24 22:25:34.005 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.create()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:158:53
+
+  155 const infoOrden = request.body;
+  156 
+  157 // Primero creamos la orden
+→ 158 const nuevoProducto = await this.prisma.order.create({
+        data: {
+          userId: 2,
+          status: "CART",
+          subtotal: 31730,
+          total: 35854.899999999994,
+          items: {
+            create: []
+          },
+          statusLogs: {
+            create: [
+              {
+                status: "CART",
+                changedAt: new Date("2025-08-25T04:25:33.999Z")
+              }
+            ]
+          },
+      +   address: String
+        }
+      })
+
+Argument `address` is missing.
+2025-08-24 22:27:26.958 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.create()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:158:53
+
+  155 const infoOrden = request.body;
+  156 
+  157 // Primero creamos la orden
+→ 158 const nuevoProducto = await this.prisma.order.create({
+        data: {
+          userId: 2,
+          status: "CART",
+          subtotal: 15030,
+          total: 16983.899999999998,
+          items: {
+            create: []
+          },
+          statusLogs: {
+            create: [
+              {
+                status: "CART",
+                changedAt: new Date("2025-08-25T04:27:26.951Z")
+              }
+            ]
+          },
+      +   address: String
+        }
+      })
+
+Argument `address` is missing.
+2025-08-24 22:27:56.085 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.create()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:158:53
+
+  155 const infoOrden = request.body;
+  156 
+  157 // Primero creamos la orden
+→ 158 const nuevoProducto = await this.prisma.order.create({
+        data: {
+          userId: 2,
+          status: "CART",
+          subtotal: 19000,
+          total: 21469.999999999996,
+          items: {
+            create: []
+          },
+          statusLogs: {
+            create: [
+              {
+                status: "CART",
+                changedAt: new Date("2025-08-25T04:27:56.081Z")
+              }
+            ]
+          },
+      +   address: String
+        }
+      })
+
+Argument `address` is missing.
+2025-08-24 22:28:24.471 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.create()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:158:53
+
+  155 const infoOrden = request.body;
+  156 
+  157 // Primero creamos la orden
+→ 158 const nuevoProducto = await this.prisma.order.create({
+        data: {
+          userId: 4,
+          status: "CART",
+          subtotal: 15030,
+          total: 16983.899999999998,
+          items: {
+            create: []
+          },
+          statusLogs: {
+            create: [
+              {
+                status: "CART",
+                changedAt: new Date("2025-08-25T04:28:24.464Z")
+              }
+            ]
+          },
+      +   address: String
+        }
+      })
+
+Argument `address` is missing.

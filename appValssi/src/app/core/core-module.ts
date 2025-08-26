@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [Header, Footer],
@@ -20,7 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatToolbarModule,
     MatMenuModule,
     MatBadgeModule,
-    TranslateModule
+    TranslateModule,
     
   ],
   exports: [Header, Footer],

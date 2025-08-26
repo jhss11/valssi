@@ -9,6 +9,9 @@ import { Subject, takeUntil } from 'rxjs';
 import { ProductModel } from '../../share/models/ProductModel';
 import { CartService } from '../../share/cart.service';
 import { environment } from '../../../environments/environment.development';
+import { UpdatePriceDiag } from '../update-price-diag/update-price-diag';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AuthenticationService } from '../../share/authentication.service';
 
 @Component({
   selector: 'app-custom-product-form',
@@ -23,6 +26,14 @@ export class CustomProductForm implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
   imagenSeleccionada = '';
 
+  //se pega esto en el ts y ya teniendo curretUser se usa . para
+  //ingresar a lo que trae el token (id, email, rol, username)
+  authService = inject(AuthenticationService);
+  isAuntenticated = this.authService.isAuthenticatedSignal;
+
+  currentUser = this.authService.currentUserSignal;
+  user = this.currentUser();
+
   private cartService = inject(CartService);
 
   imageMap: { [key: string]: string } = {
@@ -36,6 +47,7 @@ export class CustomProductForm implements OnInit, OnDestroy {
 
   constructor(
     private optionsService: OptionValueService,
+    private dialog: MatDialog,
     private noti: NotificationService,
     private router: Router,
     private prodService: ProductService,
@@ -145,10 +157,10 @@ export class CustomProductForm implements OnInit, OnDestroy {
     // Si pasa la validación, construir el arreglo de opciones
     const selectedOptionsArray = Object.entries(this.selectedOptions).map(
       ([category, opt]: [string, any]) => ({
-        optionName: category,
+        name: category,
         optionValueId: opt.id,
-        optionValueName: opt.value,
-        optionPrice: opt.price,
+        value: opt.value,
+        price: opt.price,
       })
     );
 
@@ -165,6 +177,26 @@ export class CustomProductForm implements OnInit, OnDestroy {
       selectedOptions: selectedOptionsArray,
     });
   }
+
+abrirDialogoActualizarCostos(): void {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.width = '600px';
+  dialogConfig.height = '600px';
+  dialogConfig.disableClose = false;
+  dialogConfig.data = { options: this.groupedOptions }; // opcional, si quieres pasar datos
+
+  const dialogRef = this.dialog.open(UpdatePriceDiag, dialogConfig);
+
+  dialogRef.afterClosed().subscribe((updated: boolean) => {
+    if (updated) {
+      // Recargar opciones después de actualizar
+      this.getOptionsValues();
+    }
+  });
+}
+
+
+
 
   ngOnDestroy(): void {
     this.destroy$.next();

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "../../generated/prisma";
+import { AppError } from "../errors/custom.error";
 
 export class TagController {
   prisma = new PrismaClient();
@@ -22,7 +23,34 @@ export class TagController {
     }
   };
 
-//Crear
+  getById = async (
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) => {
+    try {
+      let id = parseInt(request.params.id);
+      if (isNaN(id)) {
+        next(AppError.badRequest("El ID no es válido"));
+      }
+      const obj = await this.prisma.tag.findFirst({
+        where: { id: id },
+        select: {
+          id: true, // 👈 incluir id aquí
+          name: true,
+        },
+      });
+      if (obj) {
+        response.status(200).json(obj);
+      } else {
+        next(AppError.notFound("No existe la etiqueta"));
+      }
+    } catch (error: any) {
+      next(error);
+    }
+  };
+
+  //Crear
   create = async (request: Request, response: Response, next: NextFunction) => {
     try {
       //Obtener los datos json
@@ -41,24 +69,19 @@ export class TagController {
 
   //Actualizar
   update = async (request: Request, response: Response, next: NextFunction) => {
-  try {
-    const body = request.body;
-    const id = parseInt(request.params.id);
-    const updatedTag = await this.prisma.tag.update({
-      where: { id: id },
-      data: {
-        name: body.name,
-      },
-    });
+    try {
+      const body = request.body;
+      const id = parseInt(request.params.id);
+      const updatedTag = await this.prisma.tag.update({
+        where: { id: id },
+        data: {
+          name: body.name,
+        },
+      });
 
-    response.json(updatedTag);
-  } catch (error) {
-    next(error);
-  }
-};
-
-
+      response.json(updatedTag);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
-
-
-

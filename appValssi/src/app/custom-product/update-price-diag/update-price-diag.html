@@ -1,0 +1,30 @@
+<div *ngIf="isLoading">Cargando opciones...</div>
+<button mat-icon-button class="close-button" (click)="close()"> 
+  <mat-icon class="close-icon">close</mat-icon>
+</button>
+
+@if (!isLoading) {
+  <div class="update-container">
+    <h2>Actualizar precios de opciones</h2>
+
+    @for (group of groupedOptions | keyvalue; track group.key) {
+      <div class="option-group">
+        <h3>{{ optionLabels[group.key] || group.key }}</h3>
+
+        @for (opt of group.value; track opt.id) {
+          <div class="option-item">
+            <span class="option-name">{{ opt.value }}</span>
+            <input
+              type="number"
+              [(ngModel)]="opt.price"
+              class="price-input"
+              placeholder="Precio"
+            />
+          </div>
+        }
+      </div>
+    }
+
+    <button class="btn-save-all" (click)="updateAll()">Actualizar todos</button>
+  </div>
+}

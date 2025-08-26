@@ -16,6 +16,14 @@
   border-radius: 10%;
 }
 
+::ng-deep .custom-snackbar {
+  background-color: #e9971c !important;
+  color: white !important;
+  
+} 
+
+
+
 .example-spacer {
   flex: 1 1 auto;
 }

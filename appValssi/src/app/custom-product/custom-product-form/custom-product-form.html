@@ -60,11 +60,19 @@
           <span class="total-amount">₡{{ getTotal() | number}}</span>
         </div>
       </div>
+      @if (currentUser()?.role?.toString() === 'USER') {
       <div class="boton">
         <button class="comprar mat-flat-button" (click)="comprar()">
           {{ 'product-detail.agregarCarrito' | translate }}
         </button>
       </div>
+    }
+      @if (currentUser()?.role?.toString() === 'ADMIN') {
+       <div class="boton">
+        <button class="comprar mat-flat-button" style="color: darkgreen;" (click)="abrirDialogoActualizarCostos()">
+          Actualizar costos
+        </button>
+      </div>}
     </div>
   </div>
 

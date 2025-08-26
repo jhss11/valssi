@@ -22,14 +22,14 @@
 }
 
 .tabla {
-  width: 100%;
+  width: 70%;
   border-collapse: collapse;
   margin: 2rem auto;
 }
 
 .tabla th,
 .tabla td {
-  padding: 1.3rem;
+  padding: 1rem;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
@@ -59,12 +59,9 @@ button[mat-flat-button] {
 
 }
 
-button:hover {
-  background-color: #8ba7a4;
-  color: #355753;
-}
+
 .btn-crear-container {
-  padding-left: 5.5rem; 
+  margin-left: 0rem; 
   margin-bottom: 1rem;
 }
 
@@ -84,12 +81,15 @@ button:hover {
   color: #355753;
 }
 
-/* Estilos para iconos de acciones */
-/* button[mat-icon-button] {
-  margin-right: 0.5rem;
+button[mat-icon-button] {
+  color: #355753; 
+  transition: all 0.2s ease-in-out;
 }
 
 button[mat-icon-button]:hover {
-  background-color: rgba(0, 0, 0, 0.04);
-  /* border-radius: 50%; 
-} */
+  background-color: rgba(53, 87, 83, 0.1); 
+  color: #1c3a36;
+  border-radius: 50%; 
+}
+
+

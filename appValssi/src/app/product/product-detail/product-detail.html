@@ -84,9 +84,10 @@
 
       <p class="descripcion">{{ datos.description }}</p>
     </div>
+      @if (currentUser()?.role?.toString() === 'USER') {
     <button class="comprar mat-flat-button" (click)="comprar(datos)">
       {{ 'product-detail.agregarCarrito' | translate }}
-    </button>
+    </button>}
 
     @if(datos.name == 'Edredón personalizable'){
       <button mat-flat-button (click)="personalizar(datos)" class="personalizar">
@@ -95,6 +96,7 @@
       }
 
     <!-- Formulario-->
+       @if (currentUser()?.role?.toString() === 'USER') {
     <form
       class="review-form"
       [formGroup]="reviewForm"
@@ -147,6 +149,8 @@
         </button>
       </div>
     </form>
+  }
   </div>
   }
+
 </div>
