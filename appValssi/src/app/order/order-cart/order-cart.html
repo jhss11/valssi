@@ -151,11 +151,16 @@
           <!-- Iterar cada criterio -->
           @for (opt of item.customizations.selectedOptions; track $index){
           <div style="margin-bottom: 3%; margin-top: 2%">
-            <strong
-              >{{ opt.optionName == 'Tamano' ? 'Tamaño' : opt.optionName ==
-              'Diseno'? 'Diseño' : opt.optionName}}</strong
-            >
-            - {{ opt.optionValueName }} : ₡{{ opt.optionPrice | number }}
+             <strong>
+      {{
+        opt.name === 'Tamano' || opt.name === 'Tamaño'
+          ? 'Tamaño'
+          : opt.name === 'Diseno' || opt.name === 'Diseño'
+            ? 'Diseño'
+            : opt.name
+      }}
+    </strong>
+            - {{ opt.value }} : ₡{{ opt.price | number }}
           </div>
           }
         </td>

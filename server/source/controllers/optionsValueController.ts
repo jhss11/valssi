@@ -15,4 +15,29 @@ export class optionsValueController {
       next(error);
     }
   };
+
+    update = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const data = request.body;
+
+      // si viene un solo objeto se debe convetir en array
+      const updates = Array.isArray(data) ? data : [data];
+
+      const results = await Promise.all(
+        updates.map(async (item) => {
+          return this.prisma.customOptionValue.update({
+            where: { id: item.id },
+            data: { price: item.price },
+          });
+        })
+      );
+
+      response.json({
+        message: "Opciones actualizadas correctamente",
+        results,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

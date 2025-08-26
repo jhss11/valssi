@@ -1,0 +1,18 @@
+2025-08-25 18:06:59.911 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.customProduct.create()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:261:63
+
+  258 for (const item of infoOrden.items) {
+  259   if (item.customizations && item.customizations.selectedOptions?.length > 0) {
+  260     // Producto customizado
+→ 261     const customProduct = await this.prisma.customProduct.create(
+An operation failed because it depends on one or more records that were required but not found. No 'CustomOptionValue' record (needed to inline the relation on 'CustomProductSelection' record(s)) was found for a nested connect on one-to-many relation 'CustomOptionValueToCustomProductSelection'.
+2025-08-25 18:54:31.355 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.user.findFirst()` invocation in
+C:\Angular\valssi\server\source\controllers\userController.ts:33:42
+
+  30 if (isNaN(idUser)) {
+  31   next(AppError.badRequest("El ID no es válido"));
+  32 }
+→ 33 const obj = await this.prisma.user.findFirst(
+Database `valssi` does not exist

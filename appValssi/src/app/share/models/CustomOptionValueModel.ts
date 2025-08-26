@@ -2,13 +2,13 @@ import { CustomOptionModel } from "./CustomOptionModel";
 import { CustomProductSelectionModel } from "./CustomProductSelectionModel";
 
 export interface CustomOptionValueModel {
-  id: number;
+  id?: number;
 
-  value: string;
+  value?: string;
 
-  option: CustomOptionModel;
-  optionId: number;
+  option?: CustomOptionModel;
+  optionId?: number;
   
-  price: number;
-  selections: CustomProductSelectionModel[];
+  price?: number;
+  selections?: CustomProductSelectionModel[];
 }

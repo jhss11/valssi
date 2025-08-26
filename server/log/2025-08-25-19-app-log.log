@@ -1,0 +1,492 @@
+2025-08-25 19:34:16.911 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.
+2025-08-25 19:34:17.814 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.
+2025-08-25 19:34:24.331 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.
+2025-08-25 19:34:26.648 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.
+2025-08-25 19:34:28.783 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.
+2025-08-25 19:35:23.989 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.
+2025-08-25 19:35:25.830 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.
+2025-08-25 19:35:31.488 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.
+2025-08-25 19:35:46.838 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.
+2025-08-25 19:35:50.891 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.
+2025-08-25 19:37:20.566 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.
+2025-08-25 19:38:17.288 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.findMany()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:127:46
+
+  124 try {
+  125   const userId = Number(request.query.userId);
+  126   //Obtener lista de pedidos
+→ 127   const orders = await this.prisma.order.findMany({
+          where: {
+            status: "PENDING_PAYMENT",
+        +   userId: {
+        +     equals: Int | IntFieldRefInput,
+        +     in: Int[],
+        +     notIn: Int[],
+        +     lt: Int | IntFieldRefInput,
+        +     lte: Int | IntFieldRefInput,
+        +     gt: Int | IntFieldRefInput,
+        +     gte: Int | IntFieldRefInput,
+        +     not: Int | NestedIntFilter
+        +   }
+          },
+          select: {
+            id: true,
+            status: true,
+            total: true,
+            statusLogs: {
+              where: {
+                status: "PENDING_PAYMENT"
+              },
+              select: {
+                changedAt: true
+              },
+              orderBy: {
+                changedAt: "asc"
+              },
+              take: 1
+            }
+          }
+        })
+
+Argument `userId` is missing.

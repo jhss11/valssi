@@ -1,0 +1,166 @@
+2025-08-25 17:39:38.969 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.update()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:423:56
+
+  420 // const idOrder = parseInt(request.params.id);
+  421 
+  422 // Actualizar producto
+→ 423 const orderActualizado = await this.prisma.order.update({
+        where: {
+          id: NaN
+        },
+        data: {
+          paymentMethod: undefined,
+          status: "pendiente",
+                  ~~~~~~~~~~~
+          statusLogs: {
+            create: [
+              {
+                status: "pendiente",
+                changedAt: new Date("2025-08-25T23:39:38.925Z")
+              }
+            ]
+          }
+        }
+      })
+
+Invalid value for argument `status`. Expected OrderStatus.
+2025-08-25 17:40:10.864 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.update()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:423:56
+
+  420 // const idOrder = parseInt(request.params.id);
+  421 
+  422 // Actualizar producto
+→ 423 const orderActualizado = await this.prisma.order.update({
+        where: {
+      +   id: Int
+        },
+        data: {
+          paymentMethod: undefined,
+          status: "PENDING_PAYMENT",
+          statusLogs: {
+            create: [
+              {
+                status: "PENDING_PAYMENT",
+                changedAt: new Date("2025-08-25T23:40:10.857Z")
+              }
+            ]
+          }
+        }
+      })
+
+Argument `id` is missing.
+2025-08-25 17:44:03.204 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.update()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:423:56
+
+  420 // const idOrder = parseInt(request.params.id);
+  421 
+  422 // Actualizar producto
+→ 423 const orderActualizado = await this.prisma.order.update({
+        where: {
+          id: NaN
+        },
+        data: {
+          paymentMethod: undefined,
+          status: undefined,
+          statusLogs: {
+            create: [
+              {
+                status: undefined,
+                changedAt: new Date("2025-08-25T23:44:03.159Z")
+              }
+            ]
+          }
+        }
+      })
+
+Argument `status` is missing.
+2025-08-25 17:46:29.242 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.update()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:423:56
+
+  420 // const idOrder = parseInt(request.params.id);
+  421 
+  422 // Actualizar producto
+→ 423 const orderActualizado = await this.prisma.order.update({
+        where: {
+          id: NaN
+        },
+        data: {
+          paymentMethod: undefined,
+          status: undefined,
+          statusLogs: {
+            create: [
+              {
+                status: undefined,
+                changedAt: new Date("2025-08-25T23:46:29.208Z")
+              }
+            ]
+          }
+        }
+      })
+
+Argument `status` is missing.
+2025-08-25 17:52:41.614 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.update()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:423:56
+
+  420 // const idOrder = parseInt(request.params.id);
+  421 
+  422 // Actualizar producto
+→ 423 const orderActualizado = await this.prisma.order.update({
+        where: {
+          id: NaN
+        },
+        data: {
+          paymentMethod: undefined,
+          status: undefined,
+          statusLogs: {
+            create: [
+              {
+                status: undefined,
+                changedAt: new Date("2025-08-25T23:52:41.577Z")
+              }
+            ]
+          }
+        }
+      })
+
+Argument `status` is missing.
+2025-08-25 17:53:29.876 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.order.update()` invocation in
+C:\Angular\valssi\server\source\controllers\orderController.ts:423:56
+
+  420 // const idOrder = parseInt(request.params.id);
+  421 
+  422 // Actualizar producto
+→ 423 const orderActualizado = await this.prisma.order.update({
+        where: {
+      +   id: Int
+        },
+        data: {
+          paymentMethod: undefined,
+          status: "PENDING_PAYMENT",
+          statusLogs: {
+            create: [
+              {
+                status: "PENDING_PAYMENT",
+                changedAt: new Date("2025-08-25T23:53:29.830Z")
+              }
+            ]
+          }
+        }
+      })
+
+Argument `id` is missing.
+2025-08-25 17:54:42.675 error: 	valer--Se produjo un error interno del servidor 
+Invalid `this.prisma.user.create()` invocation in
+C:\Angular\valssi\server\source\controllers\userController.ts:54:43
+
+  51 const salt = await bcrypt.genSalt(10);
+  52 const hash = await bcrypt.hash(password, salt);
+  53 
+→ 54 const user = await this.prisma.user.create(
+Unique constraint failed on the constraint: `User_username_key`

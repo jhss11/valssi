@@ -71,6 +71,10 @@ checkEmail(email: string) {
     return this.http.put<T>(`${this.urlAPI}/${this.endpoint}/${item.id}`, item);
   }
 
+  updatePrice(item: T): Observable<T> {
+    return this.http.put<T>(`${this.urlAPI}/${this.endpoint}/update`, item);
+  }
+
   delete(item: T) {
     return this.http.delete<T>(`${this.urlAPI}/${this.endpoint}/${item.id}`);
   }

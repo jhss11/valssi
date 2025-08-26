@@ -9,38 +9,33 @@ import { TagForm } from '../tag-form/tag-form';
   selector: 'app-tag-index',
   standalone: false,
   templateUrl: './tag-index.html',
-  styleUrl: './tag-index.css'
+  styleUrl: './tag-index.css',
 })
 export class TagIndex {
- tags: any;
+  tags: any;
 
   readonly dialog = inject(MatDialog);
 
-  constructor(private tagService: TagService,
+  constructor(
+    private tagService: TagService,
     private translate: TranslateService
   ) {
-     this.listTags();
+    this.listTags();
   }
 
-
-   listTags() {
-
-    this.tagService.get()
-      .subscribe((respuesta: TagModel[]) => {
-          console.log(respuesta);
+  listTags() {
+    this.tagService.get().subscribe((respuesta: TagModel[]) => {
+      console.log(respuesta);
       this.tags = respuesta;
-        });
-      
-    }
+    });
+  }
 
-
-    editar(id: number) {
+  editar(id: number) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '50%';
     dialogConfig.disableClose = false;
-    dialogConfig.data = {
-      id: id,
-    };
+    dialogConfig.data = { id };
+
     const dialogRef = this.dialog.open(TagForm, dialogConfig);
 
     dialogRef.afterClosed().subscribe((updated: boolean) => {
@@ -49,13 +44,11 @@ export class TagIndex {
       }
     });
   }
+
   create() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '50%';
     dialogConfig.disableClose = false;
-    // dialogConfig.data = {
-    //   id: id,
-    // };
     const dialogRef = this.dialog.open(TagForm, dialogConfig);
 
     dialogRef.afterClosed().subscribe((updated: boolean) => {
@@ -64,6 +57,4 @@ export class TagIndex {
       }
     });
   }
-
-
 }

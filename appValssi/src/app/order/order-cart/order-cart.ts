@@ -215,11 +215,13 @@ export class OrderCart implements OnInit, OnDestroy {
       customizations: x.customizations || null,
     }));
 
+     const orderId = localStorage.getItem('orderId');
+
 
     const orden: OrderModel = {
-      id: 0,
+      id:  orderId ? +orderId : 0,
       user: {} as UserModel,
-      userId: this.userId,
+      userId: this.currentUser()?.id,
       createdAt: new Date(),
       status: 'PENDING_PAYMENT' as OrderStatusModel,
       items,
@@ -229,15 +231,29 @@ export class OrderCart implements OnInit, OnDestroy {
       statusLogs: [],
     };
 
-    this.orderService.create(orden).subscribe((respuesta) => {
-      this.cartService.deleteCart();
 
-      // Mensaje traducido por partes
-      const titulo = this.translate.instant('order-cart.crearOrden');
-      const mensaje = this.translate.instant('order-cart.ordenCreada', { id: respuesta.id });
+    if (orderId) {
+      // Si existe, hacer update
+      this.orderService.update( orden).subscribe((respuesta) => {
 
-      this.noti.success(titulo, mensaje, 3000, '/orders/pending');
-    });
+        this.cartService.deleteCart();
+        const titulo = this.translate.instant('order-cart.crearOrden');
+        const mensaje = this.translate.instant('order-cart.crearOrden', { id: respuesta.id });
+
+        this.noti.success(titulo, mensaje, 3000, '/orders/pending');
+      });
+    } else {
+      //Si no existe, crear nueva
+      this.orderService.create(orden).subscribe((respuesta) => {
+
+        this.cartService.deleteCart();
+
+        const titulo = this.translate.instant('order-cart.crearOrden');
+        const mensaje = this.translate.instant('order-cart.ordenCreada', { id: respuesta.id });
+
+        this.noti.success(titulo, mensaje, 3000, '/orders/pending');
+      });
+    }
   } else {
     const titulo = this.translate.instant('order-cart.crearOrden');
     const mensaje = this.translate.instant('order-cart.agregarProductos');
