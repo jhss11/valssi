@@ -105,7 +105,7 @@ export class UserUpdate implements OnInit, OnDestroy {
 
   const payload = this.userForm.value;
 
-  // 🔹 Validar si el email ya existe en otro usuario
+  //  Validar si el email ya existe en otro usuario
   this.userService.checkEmail(payload.email)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
@@ -129,7 +129,7 @@ export class UserUpdate implements OnInit, OnDestroy {
                 'Usuario actualizado',
                 `Nombre: ${data.username}`,
                 2500,
-                '/user'
+                
               ),
             error: (err) =>
               this.noti.error(
@@ -158,7 +158,7 @@ export class UserUpdate implements OnInit, OnDestroy {
   }
 
   onBack(): void {
-    this.router.navigate(['/user']);
+    this.router.navigate(['/inicio']);
   }
 
   getRoles() {
@@ -166,7 +166,7 @@ export class UserUpdate implements OnInit, OnDestroy {
       .get()
       .pipe(takeUntil(this.destroy$))
       .subscribe((respuesta: RoleModel[]) => {
-        console.log('NO SIRVE ', respuesta);
+     
         this.roles = respuesta;
       });
   }

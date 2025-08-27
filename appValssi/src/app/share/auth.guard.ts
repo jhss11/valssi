@@ -7,52 +7,45 @@ import {
 import { inject } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import { NotificationService } from './notification-service';
+import { catchError, map, of } from 'rxjs';
 
 // No necesitamos la clase UserGuard como tal para una CanActivateFn
 // sino que la lógica se integra directamente en la función.
 
-export const authGuard: CanActivateFn = (
-  route: ActivatedRouteSnapshot
-): boolean | UrlTree => {
-  // CanActivateFn puede retornar boolean o UrlTree
-
+export const authGuard: CanActivateFn = (route) => {
   const authService = inject(AuthenticationService);
   const router = inject(Router);
   const noti = inject(NotificationService);
 
-  // 1. Verificar si el usuario está autenticado
-  const isAuthenticated = authService.isAuthenticatedSignal();
-  
-
-  if (!isAuthenticated) {
-    // Si no está autenticado, redirigir y notificar
-    const message = 'Usuario No autenticado';
+  if (!authService.isAuthenticatedSignal()) {
     noti.warning('Autorización', 'Acceso Denegado', 3000);
-    return router.createUrlTree(['/usuario/login']); // Redirige explícitamente
-  }
-
-  // 2. Si está autenticado, verificar roles si la ruta lo requiere
-  const currentUser = authService.currentUserSignal(); // Obtenemos el usuario actual del signal
-console.log('Usuario actual authg:', currentUser);
-
-  if (!currentUser) {
-    const message =
-      'Datos de usuario no disponibles. Reautenticación necesaria.';
-  }
-
-  const userRole = currentUser?.role;
-console.log('Rol del usuario actual:', userRole);
-
-  const rolesAllowed = route.data['roles'] || []; // Obtener roles permitidos de la data de la ruta
-console.log('Roles permitidos para la ruta:', rolesAllowed);
-  // 3. Verificar roles si están definidos en la ruta
-  if (rolesAllowed.length > 0 && !rolesAllowed.includes(userRole)) {
-    // Si hay roles definidos para la ruta y el usuario no tiene uno de ellos
-    const message = 'Usuario Sin permisos para acceder a esta sección.';
-    noti.warning('Acceso Restringido', message, 3000);
     return router.createUrlTree(['/usuario/login']);
   }
 
-  // 4. Si pasa todas las comprobaciones, permitir el acceso
+  const currentUser = authService.currentUserSignal();
+
+  if (!currentUser) {
+    return authService.getUserProfile().pipe(
+      map((user) => {
+        if (!user) return router.createUrlTree(['/usuario/login']);
+
+        const rolesAllowed = route.data['roles'] || [];
+        if (rolesAllowed.length > 0 && !rolesAllowed.includes(user.role)) {
+          noti.warning('Acceso Restringido', 'Usuario sin permisos', 3000);
+          return router.createUrlTree(['/usuario/login']);
+        }
+
+        return true;
+      }),
+      catchError(() => of(router.createUrlTree(['/usuario/login'])))
+    );
+  }
+
+  const rolesAllowed = route.data['roles'] || [];
+  if (rolesAllowed.length > 0 && !rolesAllowed.includes(currentUser.role)) {
+    noti.warning('Acceso Restringido', 'Usuario sin permisos', 3000);
+    return router.createUrlTree(['/usuario/login']);
+  }
+
   return true;
 };

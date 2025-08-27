@@ -1,1 +1,10 @@
+/* Cambiar el color de TODOS los tab-links inactivos */
+.mat-mdc-tab-link {
+  color: black !important;   /* aquí el color que quieras */
+}
 
+/* Cambiar el color SOLO del activo (cuando routerLinkActive aplica la clase) */
+.active-link {
+  color: white !important;
+  font-weight: bold;
+}
