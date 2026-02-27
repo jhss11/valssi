@@ -36,6 +36,9 @@ export class UserLogin {
 
   ngOnInit(): void {}
 
+  email= "demo@gmail.com";
+  password="12345678";
+
   // Definir el formulario con sus reglas de validación
   reactiveForm() {
     this.formulario = this.fb.group({
@@ -152,4 +155,15 @@ export class UserLogin {
   public errorHandling(controlPath: string): string | false {
     return getFormValidationErrorMessage(this.formulario, controlPath);
   }
+
+  login() {
+    let message = "";
+  if (this.email === 'prueba@gmail.com' && this.password === '12345678') {
+    localStorage.setItem('token', 'mock-token');
+    this.router.navigate(['/inicio']);
+     this.notificacion.error('Bienvenido', message);
+  } else {
+    this.notificacion.error('Error de autenticación', message);
+  }
+}
 }

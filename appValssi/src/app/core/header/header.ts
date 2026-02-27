@@ -175,4 +175,9 @@ if (orderId) {
       }
     });
   }
+
+  logoutf() {
+  localStorage.removeItem('token');
+  this.router.navigate(['/login']);
+}
 }

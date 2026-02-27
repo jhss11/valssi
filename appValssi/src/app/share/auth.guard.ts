@@ -12,6 +12,7 @@ import { catchError, map, of } from 'rxjs';
 // No necesitamos la clase UserGuard como tal para una CanActivateFn
 // sino que la lógica se integra directamente en la función.
 
+
 export const authGuard: CanActivateFn = (route) => {
   const authService = inject(AuthenticationService);
   const router = inject(Router);
